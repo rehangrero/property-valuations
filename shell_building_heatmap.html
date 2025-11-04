@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shell Building - Land vs Building Rate Heatmap</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            color: #1e3c72;
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        .info-box {
+            background: #f0f4f8;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border-left: 5px solid #1e3c72;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .info-item {
+            text-align: center;
+        }
+
+        .info-label {
+            color: #999;
+            font-size: 0.85em;
+            text-transform: uppercase;
+        }
+
+        .info-value {
+            color: #1e3c72;
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+
+        .chart-section {
+            margin-bottom: 40px;
+        }
+
+        .chart-title {
+            color: #333;
+            font-size: 1.5em;
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .chart-title::before {
+            content: '';
+            width: 4px;
+            height: 30px;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            border-radius: 2px;
+        }
+
+        .heatmap-container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+
+        canvas {
+            max-width: 100%;
+        }
+
+        .legend {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 30px;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 10px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .legend-color {
+            width: 40px;
+            height: 30px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        .legend-text {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .table-section {
+            margin-top: 40px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th {
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 12px 15px;
+            text-align: center;
+            border: 1px solid #eee;
+        }
+
+        tr:hover {
+            background-color: #f9f9f9;
+        }
+
+        .notes {
+            background: linear-gradient(135deg, #fef3c7, #fcd34d);
+            border-left: 5px solid #f59e0b;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 30px;
+        }
+
+        .notes h3 {
+            color: #92400e;
+            margin-bottom: 10px;
+        }
+
+        .notes ul {
+            color: #78350f;
+            margin-left: 20px;
+            line-height: 1.8;
+        }
+
+        .notes li {
+            margin-bottom: 8px;
+        }
+
+        @media (max-width: 768px) {
+            .info-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🏗️ Shell Building Property Valuation</h1>
+            <p class="subtitle">Land vs Building Rate Comparison Heatmap</p>
+        </header>
+
+        <div class="info-box">
+            <div class="info-grid">
+                <div class="info-item">
+                    <div class="info-label">Building Size</div>
+                    <div class="info-value">20,000 sq.ft</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Land Size</div>
+                    <div class="info-value">20 Perches</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Condition</div>
+                    <div class="info-value">Shell</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Age</div>
+                    <div class="info-value">20 Years</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="chart-section">
+            <div class="chart-title">💰 Property Value Comparison (Land vs Building Rate)</div>
+            <div class="heatmap-container">
+                <canvas id="heatmapChart"></canvas>
+            </div>
+            
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #fffacd;"></div>
+                    <div class="legend-text">Min: LKR 510M</div>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #98d8c8;"></div>
+                    <div class="legend-text">Mid: LKR 550-610M</div>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #0e5f6a;"></div>
+                    <div class="legend-text">Max: LKR 690M</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="table-section">
+            <div class="chart-title">📊 Detailed Value Matrix</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th colspan="1" style="background: white; border: none;"></th>
+                        <th style="background: linear-gradient(135deg, #1e3c72, #2a5298);">20M/Perch</th>
+                        <th style="background: linear-gradient(135deg, #1e3c72, #2a5298);">23M/Perch</th>
+                        <th style="background: linear-gradient(135deg, #1e3c72, #2a5298);">25M/Perch</th>
+                        <th style="background: linear-gradient(135deg, #1e3c72, #2a5298);">27M/Perch</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="background: #fff9e6;">
+                        <td style="text-align: left; font-weight: 600; background: #f0f4f8;">5.5K/sq.ft</td>
+                        <td style="background: #fffacd; font-weight: 600;">LKR 510M</td>
+                        <td style="background: #fffacd; font-weight: 600;">LKR 570M</td>
+                        <td style="background: #e6f7f5; font-weight: 600;">LKR 610M</td>
+                        <td style="background: #d1f2eb; font-weight: 600;">LKR 650M</td>
+                    </tr>
+                    <tr style="background: #f5f5f5;">
+                        <td style="text-align: left; font-weight: 600; background: #f0f4f8;">7.5K/sq.ft</td>
+                        <td style="background: #e6f7f5; font-weight: 600;">LKR 550M</td>
+                        <td style="background: #d1f2eb; font-weight: 600;">LKR 610M</td>
+                        <td style="background: #a8d5ba; font-weight: 600;">LKR 650M</td>
+                        <td style="background: #0e5f6a; color: white; font-weight: 600;">LKR 690M</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="notes">
+            <h3>📌 Key Observations</h3>
+            <ul>
+                <li><strong>Lowest Valuation (20M/5.5K):</strong> LKR 510 Million - Most conservative scenario</li>
+                <li><strong>Base Valuation (23M/7.5K):</strong> LKR 610 Million - Recommended base case</li>
+                <li><strong>Highest Valuation (27M/7.5K):</strong> LKR 690 Million - Most optimistic scenario</li>
+                <li><strong>Total Range:</strong> LKR 180 Million difference between lowest and highest valuations</li>
+                <li><strong>Land Rate Impact:</strong> Changing land rate from 20M to 27M (+35%) adds LKR 90-140M in value</li>
+                <li><strong>Building Rate Impact:</strong> Changing building rate from 5.5K to 7.5K (+36%) adds LKR 40M in value</li>
+                <li><strong>Equal Value Scenarios:</strong> 20M/7.5K and 23M/5.5K both value property at LKR 550-570M</li>
+                <li><strong>Shell Condition:</strong> 20-year-old shell may require cost consideration for renovation/finishing</li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/2.26.0/plotly.min.js"></script>
+    <script>
+        // Data for the heatmap
+        const landRates = ['20M', '23M', '25M', '27M'];
+        const buildingRates = ['5.5K', '7.5K'];
+        
+        // Values in millions LKR
+        const values = [
+            [510, 570, 610, 650],  // 5.5K
+            [550, 610, 650, 690]   // 7.5K
+        ];
+
+        // Plotly heatmap
+        const trace = {
+            z: values,
+            x: landRates,
+            y: buildingRates,
+            type: 'heatmap',
+            colorscale: [
+                [0, '#fffacd'],      // Light yellow
+                [0.25, '#a8d5ba'],   // Light teal
+                [0.5, '#54c6b1'],    // Medium teal
+                [0.75, '#2d9e97'],   // Dark teal
+                [1, '#0e5f6a']       // Very dark teal
+            ],
+            text: values.map(row => row.map(val => 'LKR ' + val + 'M')),
+            texttemplate: '%{text}',
+            textfont: {
+                size: 18,
+                color: ['white', 'white', 'white', 'white', 'white', 'white', 'white', 'white']
+            },
+            hoverongaps: false,
+            colorbar: {
+                title: 'Total Value<br>(LKR Millions)',
+                titleside: 'right',
+                tickmode: 'linear',
+                tick0: 500,
+                dtick: 50
+            }
+        };
+
+        const layout = {
+            title: {
+                text: 'Property Value Comparison (Land vs Building Rate)',
+                font: {
+                    size: 20,
+                    color: '#1e3c72',
+                    family: 'Segoe UI'
+                }
+            },
+            xaxis: {
+                title: 'Land Rate (LKR per perch)',
+                titlefont: {
+                    size: 14,
+                    color: '#1e3c72'
+                },
+                tickfont: {
+                    size: 12
+                }
+            },
+            yaxis: {
+                title: 'Building Rate (LKR per sq.ft)',
+                titlefont: {
+                    size: 14,
+                    color: '#1e3c72'
+                },
+                tickfont: {
+                    size: 12
+                }
+            },
+            width: null,
+            height: 500,
+            margin: {
+                l: 150,
+                r: 100,
+                t: 100,
+                b: 100
+            },
+            paper_bgcolor: 'white',
+            plot_bgcolor: 'white'
+        };
+
+        const config = {
+            responsive: true,
+            displayModeBar: true,
+            displaylogo: false,
+            modeBarButtonsToRemove: ['lasso2d', 'select2d']
+        };
+
+        Plotly.newPlot('heatmapChart', [trace], layout, config);
+    </script>
+</body>
+</html>

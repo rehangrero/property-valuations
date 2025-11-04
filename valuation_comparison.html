@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Property Valuation Comparison - Multiple Scenarios</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .property-info {
+            text-align: center;
+            color: #666;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+        th {
+            background-color: #2c3e50;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: bold;
+            border: 1px solid #34495e;
+        }
+        td {
+            padding: 10px 12px;
+            border: 1px solid #ddd;
+            text-align: right;
+        }
+        td:first-child, th:first-child {
+            text-align: left;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f0f0f0;
+        }
+        .scenario-header {
+            background-color: #3498db;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+        }
+        .land-value {
+            background-color: #e8f4f8;
+        }
+        .building-value {
+            background-color: #f0e8f8;
+        }
+        .total-value {
+            background-color: #e8f8e8;
+            font-weight: bold;
+        }
+        .summary-table {
+            margin-top: 30px;
+            background-color: #ecf0f1;
+        }
+        .note {
+            font-size: 12px;
+            color: #666;
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Property Valuation Comparison Analysis</h1>
+        <div class="property-info">
+            <p><strong>Property:</strong> Havelock Road, Colombo 06 (Twin Buildings)</p>
+            <p><strong>Land:</strong> 24.75 Perches | <strong>Building:</strong> 8864 sq.ft.</p>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th colspan="13" class="scenario-header">COMPREHENSIVE VALUATION SCENARIOS</th>
+                </tr>
+                <tr>
+                    <th>Scenario</th>
+                    <th colspan="3">Land Valuation (24.75 Perches)</th>
+                    <th colspan="3">Building Valuation (8864 sq.ft.)</th>
+                    <th colspan="3">Total Market Value</th>
+                    <th>Variation from Base</th>
+                </tr>
+                <tr>
+                    <th>Rate per Perch / Rate per Sq.Ft.</th>
+                    <th>Rate</th>
+                    <th>Total Land</th>
+                    <th>%</th>
+                    <th>Rate</th>
+                    <th>Total Building</th>
+                    <th>%</th>
+                    <th>Total Value</th>
+                    <th>Rs. Million</th>
+                    <th>%</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- 9 Million per Perch Scenarios -->
+                <tr>
+                    <td colspan="13" style="background-color: #34495e; color: white; font-weight: bold;">LAND RATE: Rs. 9 Million per Perch</td>
+                </tr>
+                <tr class="land-value">
+                    <td>9M/7.5K</td>
+                    <td>Rs. 9,000,000</td>
+                    <td>Rs. 222,750,000</td>
+                    <td>-10%</td>
+                    <td>Rs. 7,500</td>
+                    <td>Rs. 66,480,000</td>
+                    <td>-62.5%</td>
+                    <td class="total-value">Rs. 289,230,000</td>
+                    <td class="total-value">289.23</td>
+                    <td>-32%</td>
+                </tr>
+                <tr class="land-value">
+                    <td>9M/10K</td>
+                    <td>Rs. 9,000,000</td>
+                    <td>Rs. 222,750,000</td>
+                    <td>-10%</td>
+                    <td>Rs. 10,000</td>
+                    <td>Rs. 88,640,000</td>
+                    <td>-50%</td>
+                    <td class="total-value">Rs. 311,390,000</td>
+                    <td class="total-value">311.39</td>
+                    <td>-27%</td>
+                </tr>
+                <tr class="land-value">
+                    <td>9M/12K</td>
+                    <td>Rs. 9,000,000</td>
+                    <td>Rs. 222,750,000</td>
+                    <td>-10%</td>
+                    <td>Rs. 12,000</td>
+                    <td>Rs. 106,368,000</td>
+                    <td>-40%</td>
+                    <td class="total-value">Rs. 329,118,000</td>
+                    <td class="total-value">329.12</td>
+                    <td>-23%</td>
+                </tr>
+
+                <!-- 10 Million per Perch Scenarios -->
+                <tr>
+                    <td colspan="13" style="background-color: #34495e; color: white; font-weight: bold;">LAND RATE: Rs. 10 Million per Perch</td>
+                </tr>
+                <tr class="land-value">
+                    <td>10M/7.5K</td>
+                    <td>Rs. 10,000,000</td>
+                    <td>Rs. 247,500,000</td>
+                    <td>0%</td>
+                    <td>Rs. 7,500</td>
+                    <td>Rs. 66,480,000</td>
+                    <td>-62.5%</td>
+                    <td class="total-value">Rs. 313,980,000</td>
+                    <td class="total-value">313.98</td>
+                    <td>-26%</td>
+                </tr>
+                <tr class="land-value">
+                    <td>10M/10K</td>
+                    <td>Rs. 10,000,000</td>
+                    <td>Rs. 247,500,000</td>
+                    <td>0%</td>
+                    <td>Rs. 10,000</td>
+                    <td>Rs. 88,640,000</td>
+                    <td>-50%</td>
+                    <td class="total-value">Rs. 336,140,000</td>
+                    <td class="total-value">336.14</td>
+                    <td>-21%</td>
+                </tr>
+                <tr class="land-value">
+                    <td>10M/12K</td>
+                    <td>Rs. 10,000,000</td>
+                    <td>Rs. 247,500,000</td>
+                    <td>0%</td>
+                    <td>Rs. 12,000</td>
+                    <td>Rs. 106,368,000</td>
+                    <td>-40%</td>
+                    <td class="total-value">Rs. 353,868,000</td>
+                    <td class="total-value">353.87</td>
+                    <td>-17%</td>
+                </tr>
+
+                <!-- 12 Million per Perch Scenarios -->
+                <tr>
+                    <td colspan="13" style="background-color: #34495e; color: white; font-weight: bold;">LAND RATE: Rs. 12 Million per Perch</td>
+                </tr>
+                <tr class="land-value">
+                    <td>12M/7.5K</td>
+                    <td>Rs. 12,000,000</td>
+                    <td>Rs. 297,000,000</td>
+                    <td>+20%</td>
+                    <td>Rs. 7,500</td>
+                    <td>Rs. 66,480,000</td>
+                    <td>-62.5%</td>
+                    <td class="total-value">Rs. 363,480,000</td>
+                    <td class="total-value">363.48</td>
+                    <td>-14%</td>
+                </tr>
+                <tr class="land-value">
+                    <td>12M/10K</td>
+                    <td>Rs. 12,000,000</td>
+                    <td>Rs. 297,000,000</td>
+                    <td>+20%</td>
+                    <td>Rs. 10,000</td>
+                    <td>Rs. 88,640,000</td>
+                    <td>-50%</td>
+                    <td class="total-value">Rs. 385,640,000</td>
+                    <td class="total-value">385.64</td>
+                    <td>-9%</td>
+                </tr>
+                <tr class="land-value">
+                    <td>12M/12K</td>
+                    <td>Rs. 12,000,000</td>
+                    <td>Rs. 297,000,000</td>
+                    <td>+20%</td>
+                    <td>Rs. 12,000</td>
+                    <td>Rs. 106,368,000</td>
+                    <td>-40%</td>
+                    <td class="total-value">Rs. 403,368,000</td>
+                    <td class="total-value">403.37</td>
+                    <td>-5%</td>
+                </tr>
+
+                <!-- 14 Million per Perch Scenarios -->
+                <tr>
+                    <td colspan="13" style="background-color: #34495e; color: white; font-weight: bold;">LAND RATE: Rs. 14 Million per Perch</td>
+                </tr>
+                <tr class="land-value">
+                    <td>14M/7.5K</td>
+                    <td>Rs. 14,000,000</td>
+                    <td>Rs. 346,500,000</td>
+                    <td>+40%</td>
+                    <td>Rs. 7,500</td>
+                    <td>Rs. 66,480,000</td>
+                    <td>-62.5%</td>
+                    <td class="total-value">Rs. 412,980,000</td>
+                    <td class="total-value">412.98</td>
+                    <td>-3%</td>
+                </tr>
+                <tr class="land-value">
+                    <td>14M/10K</td>
+                    <td>Rs. 14,000,000</td>
+                    <td>Rs. 346,500,000</td>
+                    <td>+40%</td>
+                    <td>Rs. 10,000</td>
+                    <td>Rs. 88,640,000</td>
+                    <td>-50%</td>
+                    <td class="total-value">Rs. 435,140,000</td>
+                    <td class="total-value">435.14</td>
+                    <td>+2%</td>
+                </tr>
+                <tr class="land-value">
+                    <td>14M/12K</td>
+                    <td>Rs. 14,000,000</td>
+                    <td>Rs. 346,500,000</td>
+                    <td>+40%</td>
+                    <td>Rs. 12,000</td>
+                    <td>Rs. 106,368,000</td>
+                    <td>-40%</td>
+                    <td class="total-value">Rs. 452,868,000</td>
+                    <td class="total-value">452.87</td>
+                    <td>+7%</td>
+                </tr>
+
+                <!-- Base Case (Report Value) -->
+                <tr>
+                    <td colspan="13" style="background-color: #27ae60; color: white; font-weight: bold;">BASE CASE (FROM REPORT)</td>
+                </tr>
+                <tr class="total-value">
+                    <td>10M/20K</td>
+                    <td>Rs. 10,000,000</td>
+                    <td>Rs. 247,500,000</td>
+                    <td>0%</td>
+                    <td>Rs. 20,000</td>
+                    <td>Rs. 177,280,000</td>
+                    <td>+100%</td>
+                    <td class="total-value">Rs. 424,780,000</td>
+                    <td class="total-value">424.78</td>
+                    <td>0% (Base)</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="note">
+            <strong>📌 Notes:</strong>
+            <ul>
+                <li>Land: 24.75 Perches | Building: 8,864 sq.ft.</li>
+                <li>Base Case from Report: Land @ Rs. 10M/perch + Building @ Rs. 20K/sq.ft. = <strong>Rs. 424.78 Million</strong></li>
+                <li>Variations range from Rs. 289.23 Million (lowest) to Rs. 452.87 Million (highest)</li>
+                <li>The report suggests 10-15% bargain for quick settlement</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

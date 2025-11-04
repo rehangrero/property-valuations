@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Property Valuation Dashboard</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        header h1 {
+            color: #667eea;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            border-left: 5px solid #667eea;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .stat-card.green {
+            border-left-color: #10b981;
+        }
+
+        .stat-card.orange {
+            border-left-color: #f59e0b;
+        }
+
+        .stat-card.red {
+            border-left-color: #ef4444;
+        }
+
+        .stat-label {
+            color: #999;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .stat-value {
+            color: #333;
+            font-size: 1.8em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .stat-detail {
+            color: #667eea;
+            font-size: 0.85em;
+            font-weight: 500;
+        }
+
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .chart-container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        .chart-title {
+            color: #333;
+            font-size: 1.3em;
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .chart-title::before {
+            content: '';
+            width: 4px;
+            height: 25px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 2px;
+        }
+
+        .comparison-table {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            overflow-x: auto;
+            margin-bottom: 30px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        tr:hover {
+            background-color: #f8f9ff;
+        }
+
+        .value-cell {
+            font-weight: 600;
+            color: #667eea;
+        }
+
+        .scenario-badge {
+            display: inline-block;
+            padding: 5px 12px;
+            background: #f0f0ff;
+            color: #667eea;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+
+        .scenario-badge.high {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .scenario-badge.medium {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .scenario-badge.low {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .infographic {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .range-bar {
+            height: 60px;
+            background: linear-gradient(90deg, #ef4444, #f59e0b, #10b981, #667eea);
+            border-radius: 10px;
+            position: relative;
+            margin: 20px 0;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .range-label {
+            color: white;
+            font-weight: bold;
+            font-size: 0.9em;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+
+        .range-values {
+            display: flex;
+            justify-content: space-between;
+            color: #666;
+            font-size: 0.9em;
+            margin-top: 10px;
+            font-weight: 600;
+        }
+
+        .range-value-min {
+            color: #ef4444;
+        }
+
+        .range-value-max {
+            color: #667eea;
+        }
+
+        .legend {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .legend-color {
+            width: 30px;
+            height: 30px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 0.8em;
+        }
+
+        .notes {
+            background: linear-gradient(135deg, #fef3c7, #fcd34d);
+            border-left: 5px solid #f59e0b;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 30px;
+        }
+
+        .notes h3 {
+            color: #92400e;
+            margin-bottom: 10px;
+        }
+
+        .notes ul {
+            color: #78350f;
+            margin-left: 20px;
+            line-height: 1.8;
+        }
+
+        @media (max-width: 768px) {
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+
+            header h1 {
+                font-size: 1.8em;
+            }
+
+            .stat-card {
+                padding: 15px;
+            }
+        }
+
+        .toggle-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .toggle-btn {
+            padding: 10px 20px;
+            border: 2px solid #667eea;
+            background: white;
+            color: #667eea;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-btn.active {
+            background: #667eea;
+            color: white;
+        }
+
+        .toggle-btn:hover {
+            background: #667eea;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🏠 Property Valuation Dashboard</h1>
+            <p>Havelock Road, Colombo 06 - Twin Buildings Comprehensive Analysis</p>
+        </header>
+
+        <div class="stats-grid">
+            <div class="stat-card green">
+                <div class="stat-label">Base Case Valuation</div>
+                <div class="stat-value">Rs. 424.78 M</div>
+                <div class="stat-detail">10M/perch | 20K/sq.ft</div>
+            </div>
+            <div class="stat-card red">
+                <div class="stat-label">Lowest Scenario</div>
+                <div class="stat-value">Rs. 289.23 M</div>
+                <div class="stat-detail">9M/perch | 7.5K/sq.ft</div>
+            </div>
+            <div class="stat-card orange">
+                <div class="stat-label">Highest Scenario</div>
+                <div class="stat-value">Rs. 452.87 M</div>
+                <div class="stat-detail">14M/perch | 12K/sq.ft</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Total Land Area</div>
+                <div class="stat-value">24.75 P</div>
+                <div class="stat-detail">Property Size</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Total Built Area</div>
+                <div class="stat-value">8,864 sq.ft</div>
+                <div class="stat-detail">Twin Buildings</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Valuation Range</div>
+                <div class="stat-value">Rs. 163.64 M</div>
+                <div class="stat-detail">Spread across scenarios</div>
+            </div>
+        </div>
+
+        <div class="charts-grid">
+            <div class="chart-container">
+                <div class="chart-title">💰 Total Valuation by Scenario</div>
+                <canvas id="totalValueChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <div class="chart-title">📊 Land vs Building Value Breakdown</div>
+                <canvas id="landBuildingChart"></canvas>
+            </div>
+        </div>
+
+        <div class="charts-grid">
+            <div class="chart-container">
+                <div class="chart-title">🔍 Impact of Land Rate (Millions)</div>
+                <canvas id="landRateChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <div class="chart-title">🔍 Impact of Building Rate (Millions)</div>
+                <canvas id="buildingRateChart"></canvas>
+            </div>
+        </div>
+
+        <div class="infographic">
+            <h2 style="color: #333; margin-bottom: 20px; font-size: 1.3em;">📈 Valuation Range Visualization</h2>
+            <div class="range-bar">
+                <div class="range-label">Rs. 289.23M ← VALUE RANGE → Rs. 452.87M</div>
+            </div>
+            <div class="range-values">
+                <span class="range-value-min">🔴 Minimum (9M/7.5K)</span>
+                <span style="color: #666;">🟡 Mid-Range</span>
+                <span class="range-value-max">🔵 Maximum (14M/12K)</span>
+            </div>
+
+            <h3 style="color: #333; margin-top: 30px; margin-bottom: 15px;">Land Rate Scenarios (Rs. Millions)</h3>
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-bottom: 30px;">
+                <div style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 20px; border-radius: 10px; text-align: center;">
+                    <div style="font-size: 1.5em; font-weight: bold;">9M</div>
+                    <div style="font-size: 0.9em; opacity: 0.9;">Rs. 222.75M</div>
+                </div>
+                <div style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 20px; border-radius: 10px; text-align: center;">
+                    <div style="font-size: 1.5em; font-weight: bold;">10M</div>
+                    <div style="font-size: 0.9em; opacity: 0.9;">Rs. 247.50M</div>
+                </div>
+                <div style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 20px; border-radius: 10px; text-align: center;">
+                    <div style="font-size: 1.5em; font-weight: bold;">12M</div>
+                    <div style="font-size: 0.9em; opacity: 0.9;">Rs. 297.00M</div>
+                </div>
+                <div style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 20px; border-radius: 10px; text-align: center;">
+                    <div style="font-size: 1.5em; font-weight: bold;">14M</div>
+                    <div style="font-size: 0.9em; opacity: 0.9;">Rs. 346.50M</div>
+                </div>
+            </div>
+
+            <h3 style="color: #333; margin-bottom: 15px;">Building Rate Scenarios (Per Sq.Ft)</h3>
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px;">
+                <div style="background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 20px; border-radius: 10px; text-align: center;">
+                    <div style="font-size: 1.5em; font-weight: bold;">7,500</div>
+                    <div style="font-size: 0.9em; opacity: 0.9;">Rs. 66.48M Total</div>
+                </div>
+                <div style="background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 20px; border-radius: 10px; text-align: center;">
+                    <div style="font-size: 1.5em; font-weight: bold;">10,000</div>
+                    <div style="font-size: 0.9em; opacity: 0.9;">Rs. 88.64M Total</div>
+                </div>
+                <div style="background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 20px; border-radius: 10px; text-align: center;">
+                    <div style="font-size: 1.5em; font-weight: bold;">12,000</div>
+                    <div style="font-size: 0.9em; opacity: 0.9;">Rs. 106.37M Total</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="comparison-table">
+            <h2 style="color: #333; margin-bottom: 20px; font-size: 1.3em;">📋 Detailed Comparison Table</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Scenario</th>
+                        <th>Land Rate</th>
+                        <th>Land Value</th>
+                        <th>Building Rate</th>
+                        <th>Building Value</th>
+                        <th>Total Value</th>
+                        <th>Variation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="scenario-badge low">9M/7.5K</span></td>
+                        <td>Rs. 9M/P</td>
+                        <td class="value-cell">Rs. 222.75M</td>
+                        <td>Rs. 7.5K/sq.ft</td>
+                        <td class="value-cell">Rs. 66.48M</td>
+                        <td class="value-cell">Rs. 289.23M</td>
+                        <td style="color: #ef4444; font-weight: 600;">-32%</td>
+                    </tr>
+                    <tr>
+                        <td><span class="scenario-badge low">9M/10K</span></td>
+                        <td>Rs. 9M/P</td>
+                        <td class="value-cell">Rs. 222.75M</td>
+                        <td>Rs. 10K/sq.ft</td>
+                        <td class="value-cell">Rs. 88.64M</td>
+                        <td class="value-cell">Rs. 311.39M</td>
+                        <td style="color: #ef4444; font-weight: 600;">-27%</td>
+                    </tr>
+                    <tr>
+                        <td><span class="scenario-badge low">9M/12K</span></td>
+                        <td>Rs. 9M/P</td>
+                        <td class="value-cell">Rs. 222.75M</td>
+                        <td>Rs. 12K/sq.ft</td>
+                        <td class="value-cell">Rs. 106.37M</td>
+                        <td class="value-cell">Rs. 329.12M</td>
+                        <td style="color: #ef4444; font-weight: 600;">-23%</td>
+                    </tr>
+                    <tr>
+                        <td><span class="scenario-badge medium">10M/7.5K</span></td>
+                        <td>Rs. 10M/P</td>
+                        <td class="value-cell">Rs. 247.50M</td>
+                        <td>Rs. 7.5K/sq.ft</td>
+                        <td class="value-cell">Rs. 66.48M</td>
+                        <td class="value-cell">Rs. 313.98M</td>
+                        <td style="color: #f59e0b; font-weight: 600;">-26%</td>
+                    </tr>
+                    <tr>
+                        <td><span class="scenario-badge medium">10M/10K</span></td>
+                        <td>Rs. 10M/P</td>
+                        <td class="value-cell">Rs. 247.50M</td>
+                        <td>Rs. 10K/sq.ft</td>
+                        <td class="value-cell">Rs. 88.64M</td>
+                        <td class="value-cell">Rs. 336.14M</td>
+                        <td style="color: #f59e0b; font-weight: 600;">-21%</td>
+                    </tr>
+                    <tr>
+                        <td><span class="scenario-badge medium">10M/12K</span></td>
+                        <td>Rs. 10M/P</td>
+                        <td class="value-cell">Rs. 247.50M</td>
+                        <td>Rs. 12K/sq.ft</td>
+                        <td class="value-cell">Rs. 106.37M</td>
+                        <td class="value-cell">Rs. 353.87M</td>
+                        <td style="color: #f59e0b; font-weight: 600;">-17%</td>
+                    </tr>
+                    <tr>
+                        <td><span class="scenario-badge high">12M/7.5K</span></td>
+                        <td>Rs. 12M/P</td>
+                        <td class="value-cell">Rs. 297.00M</td>
+                        <td>Rs. 7.5K/sq.ft</td>
+                        <td class="value-cell">Rs. 66.48M</td>
+                        <td class="value-cell">Rs. 363.48M</td>
+                        <td style="color: #10b981; font-weight: 600;">-14%</td>
+                    </tr>
+                    <tr>
+                        <td><span class="scenario-badge high">12M/10K</span></td>
+                        <td>Rs. 12M/P</td>
+                        <td class="value-cell">Rs. 297.00M</td>
+                        <td>Rs. 10K/sq.ft</td>
+                        <td class="value-cell">Rs. 88.64M</td>
+                        <td class="value-cell">Rs. 385.64M</td>
+                        <td style="color: #10b981; font-weight: 600;">-9%</td>
+                    </tr>
+                    <tr>
+                        <td><span class="scenario-badge high">12M/12K</span></td>
+                        <td>Rs. 12M/P</td>
+                        <td class="value-cell">Rs. 297.00M</td>
+                        <td>Rs. 12K/sq.ft</td>
+                        <td class="value-cell">Rs. 106.37M</td>
+                        <td class="value-cell">Rs. 403.37M</td>
+                        <td style="color: #10b981; font-weight: 600;">-5%</td>
+                    </tr>
+                    <tr>
+                        <td><span class="scenario-badge high">14M/7.5K</span></td>
+                        <td>Rs. 14M/P</td>
+                        <td class="value-cell">Rs. 346.50M</td>
+                        <td>Rs. 7.5K/sq.ft</td>
+                        <td class="value-cell">Rs. 66.48M</td>
+                        <td class="value-cell">Rs. 412.98M</td>
+                        <td style="color: #10b981; font-weight: 600;">-3%</td>
+                    </tr>
+                    <tr style="background: linear-gradient(90deg, #dbeafe, #e0e7ff);">
+                        <td><span class="scenario-badge" style="background: #e0e7ff; color: #1e40af;"><strong>14M/10K (BASE+)</strong></span></td>
+                        <td><strong>Rs. 14M/P</strong></td>
+                        <td class="value-cell"><strong>Rs. 346.50M</strong></td>
+                        <td><strong>Rs. 10K/sq.ft</strong></td>
+                        <td class="value-cell"><strong>Rs. 88.64M</strong></td>
+                        <td class="value-cell"><strong>Rs. 435.14M</strong></td>
+                        <td style="color: #1e40af; font-weight: 600;"><strong>+2%</strong></td>
+                    </tr>
+                    <tr>
+                        <td><span class="scenario-badge high">14M/12K</span></td>
+                        <td>Rs. 14M/P</td>
+                        <td class="value-cell">Rs. 346.50M</td>
+                        <td>Rs. 12K/sq.ft</td>
+                        <td class="value-cell">Rs. 106.37M</td>
+                        <td class="value-cell">Rs. 452.87M</td>
+                        <td style="color: #667eea; font-weight: 600;">+7%</td>
+                    </tr>
+                    <tr style="background: linear-gradient(90deg, #dcfce7, #d1fae5);">
+                        <td><span class="scenario-badge" style="background: #d1fae5; color: #065f46;"><strong>REPORT: 10M/20K</strong></span></td>
+                        <td><strong>Rs. 10M/P</strong></td>
+                        <td class="value-cell"><strong>Rs. 247.50M</strong></td>
+                        <td><strong>Rs. 20K/sq.ft</strong></td>
+                        <td class="value-cell"><strong>Rs. 177.28M</strong></td>
+                        <td class="value-cell"><strong>Rs. 424.78M</strong></td>
+                        <td style="color: #065f46; font-weight: 600;"><strong>BASE (0%)</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="notes">
+            <h3>📌 Key Insights & Recommendations</h3>
+            <ul>
+                <li><strong>Base Valuation (from Report):</strong> Rs. 424.78 Million (10M/perch for land, 20K/sq.ft for building)</li>
+                <li><strong>Valuation Range:</strong> Rs. 289.23M (lowest) to Rs. 452.87M (highest) = Range of Rs. 163.64M</li>
+                <li><strong>Quick Settlement Discount:</strong> 10-15% bargain may be allowed on base figures (= Rs. 361-382M range)</li>
+                <li><strong>Most Conservative Scenario:</strong> 9M/7.5K = Rs. 289.23M (-32% from base)</li>
+                <li><strong>Most Optimistic Scenario:</strong> 14M/12K = Rs. 452.87M (+7% from base)</li>
+                <li><strong>Mid-Range Realistic Scenario:</strong> 12M/10K = Rs. 385.64M (-9% from base)</li>
+                <li><strong>Land Impact:</strong> Increasing land rate from 9M to 14M (+56%) increases total value by Rs. 123.87M</li>
+                <li><strong>Building Impact:</strong> Increasing building rate from 7.5K to 12K (+60%) increases total value by Rs. 39.89M</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Color scheme
+        const colors = ['#667eea', '#764ba2', '#10b981', '#f59e0b', '#ef4444', '#3b82f6', '#ec4899', '#8b5cf6', '#06b6d4', '#14b8a6', '#f97316', '#6366f1'];
+
+        // Data
+        const scenarios = ['9M/7.5K', '9M/10K', '9M/12K', '10M/7.5K', '10M/10K', '10M/12K', '12M/7.5K', '12M/10K', '12M/12K', '14M/7.5K', '14M/10K', '14M/12K'];
+        const totalValues = [289.23, 311.39, 329.12, 313.98, 336.14, 353.87, 363.48, 385.64, 403.37, 412.98, 435.14, 452.87];
+        const landValues = [222.75, 222.75, 222.75, 247.50, 247.50, 247.50, 297.00, 297.00, 297.00, 346.50, 346.50, 346.50];
+        const buildingValues = [66.48, 88.64, 106.37, 66.48, 88.64, 106.37, 66.48, 88.64, 106.37, 66.48, 88.64, 106.37];
+
+        // Chart 1: Total Valuation
+        const ctx1 = document.getElementById('totalValueChart').getContext('2d');
+        new Chart(ctx1, {
+            type: 'bar',
+            data: {
+                labels: scenarios,
+                datasets: [{
+                    label: 'Total Valuation (Rs. Millions)',
+                    data: totalValues,
+                    backgroundColor: colors,
+                    borderRadius: 8,
+                    borderSkipped: false,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    legend: {
+                        display: true,
+                        labels: {
+                            font: { size: 12, weight: 'bold' }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return 'Rs. ' + value + 'M';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Chart 2: Land vs Building
+        const ctx2 = document.getElementById('landBuildingChart').getContext('2d');
+        new Chart(ctx2, {
+            type: 'bar',
+            data: {
+                labels: scenarios,
+                datasets: [
+                    {
+                        label: 'Land Value',
+                        data: landValues,
+                        backgroundColor: '#667eea',
+                        borderRadius: [8, 0, 0, 8]
+                    },
+                    {
+                        label: 'Building Value',
+                        data: buildingValues,
+                        backgroundColor: '#10b981',
+                        borderRadius: [0, 8, 8, 0]
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                indexAxis: 'y',
+                plugins: {
+                    legend: {
+                        labels: {
+                            font: { size: 12, weight: 'bold' }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        stacked: true,
+                        ticks: {
+                            callback: function(value) {
+                                return 'Rs. ' + value + 'M';
+                            }
+                        }
+                    },
+                    y: {
+                        stacked: true
+                    }
+                }
+            }
+        });
+
+        // Chart 3: Land Rate Impact
+        const landRates = ['9M', '10M', '12M', '14M'];
+        const landValuesPerRate = [222.75, 247.50, 297.00, 346.50];
+        
+        const ctx3 = document.getElementById('landRateChart').getContext('2d');
+        new Chart(ctx3, {
+            type: 'line',
+            data: {
+                labels: landRates,
+                datasets: [{
+                    label: 'Land Value by Rate',
+                    data: landValuesPerRate,
+                    borderColor: '#667eea',
+                    backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                    borderWidth: 3,
+                    fill: true,
+                    tension: 0.4,
+                    pointBackgroundColor: '#667eea',
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: 3,
+                    pointRadius: 6,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    legend: {
+                        labels: {
+                            font: { size: 12, weight: 'bold' }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return 'Rs. ' + value + 'M';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Chart 4: Building Rate Impact
+        const buildingRates = ['7.5K', '10K', '12K'];
+        const buildingValuesPerRate = [66.48, 88.64, 106.37];
+        
+        const ctx4 = document.getElementById('buildingRateChart').getContext('2d');
+        new Chart(ctx4, {
+            type: 'line',
+            data: {
+                labels: buildingRates,
+                datasets: [{
+                    label: 'Building Value by Rate',
+                    data: buildingValuesPerRate,
+                    borderColor: '#10b981',
+                    backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                    borderWidth: 3,
+                    fill: true,
+                    tension: 0.4,
+                    pointBackgroundColor: '#10b981',
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: 3,
+                    pointRadius: 6,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    legend: {
+                        labels: {
+                            font: { size: 12, weight: 'bold' }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return 'Rs. ' + value + 'M';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
