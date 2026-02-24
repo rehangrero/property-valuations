@@ -10,7 +10,7 @@ Interactive property valuation analysis dashboards for Sri Lanka properties.
 
 ### Shell Building Property
 - **Main Dashboard:** [View Dashboard](https://rehangrero.github.io/property-valuations/shell_building_dashboard.html)
-- **Heatmap Chart:** [View Heatmap](https://rehangrero.github.io/property-valuations/shell_building_heatmap.html)
+- **Heatmap Chart:** [View](https://rehangrero.github.io/property-valuations/torrington-pitch-deck.html)
 
 ## 🎯 Features
 
