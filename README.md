@@ -8,11 +8,13 @@ Interactive property valuation analysis dashboards for Sri Lanka properties.
 - **Main Dashboard:** [View Dashboard](https://rehangrero.github.io/property-valuations/valuation_dashboard.html)
 - **Comparison Table:** [View Table](https://rehangrero.github.io/property-valuations/valuation_comparison.html)
 
-### Shell Building Property
+### Investor Options
 - **Main Dashboard:** [View Dashboard](https://rehangrero.github.io/property-valuations/shell_building_dashboard.html)
 - **Heatmap Chart:** [View](https://rehangrero.github.io/property-valuations/torrington-pitch-deck.html)
   **Colombo2:** [View](https://rehangrero.github.io/property-valuations/colombo2.html)
   **PortCityDashBoard:** [View](https://rehangrero.github.io/property-valuations/portcity-idashboard)
+  **TinncoBB**[View](https://rehangrero.github.io/property-valuations/BlueBeachIsland_Investor.html)
+  
   
 ## 🎯 Features
 
