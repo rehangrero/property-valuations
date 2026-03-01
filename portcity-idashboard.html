@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Port City Colombo — Investor Dashboard | 500 sqft</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=DM+Serif+Display:ital@0;1&display=swap');
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --gold:#C9A84C;--gold-light:#E8CC7A;--gold-dim:#8A6E2F;
+  --dark:#0A0B0D;--dark2:#111318;--dark3:#181C24;--dark4:#1E2330;
+  --border:rgba(201,168,76,0.2);--text:#E8EAF0;--muted:#8B90A0;
+  --accent:#4A90E2;--green:#4CAF82;--red:#E25D5D;--orange:#E2883A;
+}
+html{font-size:16px;scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--dark2);color:var(--text);-webkit-font-smoothing:antialiased;min-height:100vh}
+
+/* ── TOP BAR ── */
+.top-bar{background:var(--dark);border-bottom:1px solid var(--border);padding:14px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;backdrop-filter:blur(12px)}
+.top-bar-title{font-family:'DM Serif Display',serif;font-size:18px;color:#fff}.top-bar-title span{color:var(--gold)}
+.top-bar-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(201,168,76,0.12);border:1px solid rgba(201,168,76,0.3);border-radius:100px;padding:5px 14px;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold-light);font-weight:600}
+.accent-line{height:3px;background:linear-gradient(90deg,transparent,var(--gold),var(--gold-light),var(--gold),transparent)}
+
+/* ── LAYOUT ── */
+.page{max-width:1140px;margin:0 auto;padding:28px 20px 60px}
+.section{margin-bottom:36px}
+.section-title{font-family:'DM Serif Display',serif;font-size:26px;color:#fff;margin-bottom:4px}
+.section-title span{color:var(--gold)}
+.section-sub{font-size:13px;color:var(--muted);margin-bottom:18px}
+.eyebrow{font-size:9.5px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:8px}
+.divider{height:1px;background:var(--border);margin:28px 0}
+
+/* ── NAV TABS ── */
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:28px;border-bottom:1px solid var(--border);padding-bottom:0}
+.tab{padding:10px 18px;font-size:12px;font-weight:600;letter-spacing:0.06em;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all 0.2s;border-radius:4px 4px 0 0;white-space:nowrap}
+.tab:hover{color:var(--gold)}
+.tab.active{color:var(--gold);border-bottom-color:var(--gold);background:rgba(201,168,76,0.05)}
+.tab-panel{display:none}.tab-panel.active{display:block}
+
+/* ── CARDS ── */
+.card{background:var(--dark4);border:1px solid var(--border);border-radius:8px;padding:18px 20px}
+.card-gold{background:linear-gradient(135deg,rgba(201,168,76,0.1),rgba(201,168,76,0.04));border:1px solid rgba(201,168,76,0.28);border-radius:8px;padding:18px 20px}
+.card-green{background:linear-gradient(135deg,rgba(76,175,130,0.1),rgba(76,175,130,0.04));border:1px solid rgba(76,175,130,0.32);border-radius:8px;padding:18px 20px}
+.card-red{background:linear-gradient(135deg,rgba(226,93,93,0.08),rgba(226,93,93,0.03));border:1px solid rgba(226,93,93,0.28);border-radius:8px;padding:18px 20px}
+.card-blue{background:linear-gradient(135deg,rgba(74,144,226,0.1),rgba(74,144,226,0.04));border:1px solid rgba(74,144,226,0.28);border-radius:8px;padding:18px 20px}
+
+.stat-card{background:var(--dark4);border:1px solid var(--border);border-radius:8px;padding:16px 18px;position:relative;overflow:hidden}
+.stat-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--gold)}
+.stat-card.green::before{background:var(--green)}.stat-card.blue::before{background:var(--accent)}.stat-card.red::before{background:var(--red)}.stat-card.orange::before{background:var(--orange)}
+.stat-label{font-size:9.5px;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+.stat-value{font-size:24px;font-weight:800;color:#fff;line-height:1}
+.stat-value.gold{color:var(--gold)}.stat-value.green{color:var(--green)}.stat-value.blue{color:var(--accent)}.stat-value.red{color:var(--red)}
+.stat-sub{font-size:11px;color:var(--muted);margin-top:3px}
+
+/* ── GRIDS ── */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.col{display:flex;flex-direction:column;gap:12px}
+@media(max-width:640px){.g2,.g3,.g4{grid-template-columns:1fr 1fr}.g4{grid-template-columns:1fr 1fr}}
+@media(max-width:420px){.g3,.g4{grid-template-columns:1fr}}
+
+/* ── HERO SUMMARY ── */
+.hero-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:3px;background:var(--dark3);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:24px}
+.hero-item{padding:18px 16px;background:var(--dark4);text-align:center}
+.hero-item:first-child{border-left:3px solid var(--gold)}
+.hi-label{font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.hi-value{font-family:'DM Serif Display',serif;font-size:clamp(18px,3vw,26px);color:var(--gold)}
+.hi-sub{font-size:10px;color:var(--muted);margin-top:3px}
+@media(max-width:640px){.hero-strip{grid-template-columns:1fr 1fr}}
+
+/* ── COST ROWS ── */
+.cost-row{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.05);font-size:13px}
+.cost-row:last-child{border-bottom:none}
+.cost-label{color:var(--muted);flex:1}
+.cost-val{font-weight:700;color:#fff;white-space:nowrap}
+.cost-val.gold{color:var(--gold)}.cost-val.green{color:var(--green)}.cost-val.red{color:var(--red)}
+.cost-row.total{background:rgba(201,168,76,0.07);padding:11px 14px;border-radius:5px;margin-top:6px;border:1px solid var(--border)}
+.cost-row.total .cost-label{color:var(--text);font-weight:600}
+
+/* ── PAYMENT TIMELINE ── */
+.timeline{position:relative;padding-left:32px}
+.timeline::before{content:'';position:absolute;left:10px;top:8px;bottom:8px;width:2px;background:linear-gradient(180deg,var(--gold),var(--gold-dim))}
+.tl-item{position:relative;margin-bottom:14px}
+.tl-dot{position:absolute;left:-26px;top:4px;width:12px;height:12px;border-radius:50%;background:var(--gold);border:2px solid var(--dark2)}
+.tl-dot.big{background:var(--green);width:14px;height:14px;left:-27px}
+.tl-content{background:var(--dark4);border:1px solid var(--border);border-radius:6px;padding:12px 14px}
+.tl-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
+.tl-stage{font-size:12px;font-weight:700;color:#fff}
+.tl-time{font-size:10px;color:var(--muted)}
+.tl-amounts{display:flex;gap:16px;font-size:11px}
+.tl-usd{color:var(--gold);font-weight:600}.tl-lkr{color:var(--muted)}
+.tl-pct-bar{height:4px;background:var(--dark3);border-radius:2px;margin-top:8px;overflow:hidden}
+.tl-pct-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--gold-dim),var(--gold));transition:width 1s ease}
+
+/* ── SCENARIO CARDS ── */
+.scenario-card{background:var(--dark4);border:1px solid var(--border);border-radius:8px;padding:18px 16px;cursor:pointer;transition:all 0.25s;position:relative;overflow:hidden}
+.scenario-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold-dim),var(--gold),var(--gold-dim))}
+.scenario-card:hover,.scenario-card.selected{border-color:var(--gold);background:rgba(201,168,76,0.07);transform:translateY(-2px)}
+.scenario-card.green-card{border-bottom-color:var(--green)}.scenario-card.green-card::after{background:var(--green)}
+.scenario-card.selected.green-card{border-color:var(--green);background:rgba(76,175,130,0.07)}
+.sc-label{font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.sc-value{font-family:'DM Serif Display',serif;font-size:32px;color:var(--gold);line-height:1}
+.sc-value.green{color:var(--green)}.sc-value.blue{color:var(--accent)}
+.sc-detail{font-size:11.5px;color:var(--muted);margin-top:5px;line-height:1.5}
+
+/* ── BAR CHART ── */
+.bar-chart{display:flex;flex-direction:column;gap:10px}
+.bar-row{display:flex;align-items:center;gap:10px}
+.bar-label{width:140px;font-size:12px;color:var(--muted);flex-shrink:0;text-align:right}
+.bar-track{flex:1;height:28px;background:var(--dark3);border-radius:4px;overflow:hidden;position:relative}
+.bar-fill{height:100%;border-radius:4px;display:flex;align-items:center;padding-left:10px;font-size:11.5px;font-weight:700;color:#fff;white-space:nowrap;transition:width 1.2s cubic-bezier(.4,0,.2,1)}
+.bar-fill.gold-bar{background:linear-gradient(90deg,var(--gold-dim),var(--gold))}
+.bar-fill.green-bar{background:linear-gradient(90deg,#2d7a59,var(--green))}
+.bar-fill.blue-bar{background:linear-gradient(90deg,#2a5a8a,var(--accent))}
+.bar-fill.muted-bar{background:linear-gradient(90deg,#3a3e4a,#5a6070)}
+.bar-fill.orange-bar{background:linear-gradient(90deg,#8a4a1a,var(--orange))}
+.bar-end{width:80px;font-size:11.5px;color:var(--text);font-weight:600;flex-shrink:0}
+
+/* ── COMPARISON TABLE ── */
+.comp-table{width:100%;border-collapse:collapse;font-size:13px}
+.comp-table th{padding:10px 14px;text-align:left;font-size:9.5px;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);font-weight:600;border-bottom:1px solid var(--border);background:rgba(201,168,76,0.06)}
+.comp-table td{padding:11px 14px;border-bottom:1px solid rgba(255,255,255,0.05);color:#C8CCDA;font-weight:500;vertical-align:middle}
+.comp-table tr:last-child td{border-bottom:none}
+.comp-table tr:hover td{background:rgba(255,255,255,0.02)}
+.comp-table td.bold{font-weight:800;color:#fff}
+.comp-table td.gold{color:var(--gold);font-weight:700}
+.comp-table td.green{color:var(--green);font-weight:700}
+.comp-table tr.highlight td{background:rgba(201,168,76,0.07)}
+.irr-pill{display:inline-block;padding:3px 10px;border-radius:100px;font-size:11px;font-weight:700}
+.irr-low{background:rgba(226,93,93,0.15);color:var(--red)}
+.irr-mid{background:rgba(201,168,76,0.15);color:var(--gold)}
+.irr-high{background:rgba(76,175,130,0.15);color:var(--green)}
+.irr-top{background:rgba(74,144,226,0.15);color:var(--accent)}
+
+/* ── CHEC EXPLAINER ── */
+.price-split{display:flex;align-items:stretch;gap:0;border-radius:8px;overflow:hidden;border:1px solid var(--border)}
+.ps-left{flex:1;background:var(--dark3);padding:20px 18px;border-right:1px solid var(--border)}
+.ps-right{flex:1;background:rgba(201,168,76,0.06);padding:20px 18px}
+.ps-label{font-size:9.5px;letter-spacing:0.16em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.ps-amount{font-family:'DM Serif Display',serif;font-size:clamp(28px,4vw,40px);line-height:1}
+.ps-sub{font-size:12px;color:var(--muted);margin-top:5px}
+.arrow-block{display:flex;align-items:center;justify-content:center;padding:0 8px;font-size:22px;color:var(--gold);flex-shrink:0}
+@media(max-width:560px){.price-split{flex-direction:column}.arrow-block{transform:rotate(90deg);padding:8px 0}}
+
+/* ── RISK METER ── */
+.risk-item{display:flex;align-items:flex-start;gap:14px;background:var(--dark4);border:1px solid var(--border);border-radius:7px;padding:14px 16px;margin-bottom:10px}
+.risk-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;margin-top:4px}
+.risk-dot.high{background:var(--red)}.risk-dot.med{background:var(--orange)}.risk-dot.low{background:var(--green)}
+.risk-label{font-size:13px;font-weight:700;color:#fff;margin-bottom:4px}
+.risk-text{font-size:12.5px;color:var(--muted);line-height:1.55}
+.risk-badge{display:inline-block;padding:2px 9px;border-radius:100px;font-size:10px;font-weight:700;margin-left:8px}
+.rb-high{background:rgba(226,93,93,0.18);color:var(--red)}.rb-med{background:rgba(226,136,58,0.18);color:var(--orange)}.rb-low{background:rgba(76,175,130,0.18);color:var(--green)}
+
+/* ── SEZ EXPLAINER ── */
+.sez-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+@media(max-width:640px){.sez-grid{grid-template-columns:1fr 1fr}}
+.sez-card{background:var(--dark4);border:1px solid var(--border);border-radius:8px;padding:16px 14px;text-align:center}
+.sez-icon{font-size:24px;margin-bottom:8px}
+.sez-title{font-size:12px;font-weight:700;color:#fff;margin-bottom:5px}
+.sez-text{font-size:11.5px;color:var(--muted);line-height:1.5}
+.sez-highlight{color:var(--gold);font-weight:700}
+
+/* ── RETURN CALC ── */
+.calc-result{background:var(--dark3);border:1px solid var(--border);border-radius:10px;padding:22px 20px;text-align:center}
+.cr-label{font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.cr-big{font-family:'DM Serif Display',serif;font-size:clamp(40px,7vw,60px);color:var(--gold);line-height:1}
+.cr-sub{font-size:13px;color:var(--muted);margin-top:6px}
+
+/* ── SLIDER ── */
+.slider-wrap{margin:16px 0}
+.slider-label{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:8px}
+.slider-label span{color:var(--gold);font-weight:700}
+input[type=range]{width:100%;-webkit-appearance:none;height:6px;border-radius:3px;background:var(--dark3);outline:none;cursor:pointer}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--gold);cursor:pointer;border:2px solid var(--dark2)}
+input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:var(--gold);cursor:pointer;border:2px solid var(--dark2)}
+
+/* ── FOOTNOTE ── */
+.footnote{font-size:11px;color:var(--muted);margin-top:12px;line-height:1.6;border-top:1px solid var(--border);padding-top:12px}
+
+/* ── ANIMATE ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.tab-panel.active > *{animation:fadeUp 0.4s ease forwards;opacity:0}
+.tab-panel.active > *:nth-child(1){animation-delay:0.04s}
+.tab-panel.active > *:nth-child(2){animation-delay:0.10s}
+.tab-panel.active > *:nth-child(3){animation-delay:0.16s}
+.tab-panel.active > *:nth-child(4){animation-delay:0.22s}
+.tab-panel.active > *:nth-child(5){animation-delay:0.28s}
+</style>
+</head>
+<body>
+
+<div class="accent-line"></div>
+<div class="top-bar">
+  <div class="top-bar-title">Port City <span>Investor Dashboard</span></div>
+  <div class="top-bar-badge">500 sqft · 1BR · Marina Front</div>
+</div>
+
+<div class="page">
+
+  <!-- ── HERO SUMMARY ── -->
+  <div class="hero-strip">
+    <div class="hero-item">
+      <div class="hi-label">Unit Price</div>
+      <div class="hi-value">$250,000</div>
+      <div class="hi-sub">75M LKR</div>
+    </div>
+    <div class="hero-item">
+      <div class="hi-label">Size</div>
+      <div class="hi-value">500 sqft</div>
+      <div class="hi-sub">46.5 m²  · 1BR</div>
+    </div>
+    <div class="hero-item">
+      <div class="hi-label">Keys In Hand</div>
+      <div class="hi-value">2028–29</div>
+      <div class="hi-sub">~3–4 years off-plan</div>
+    </div>
+    <div class="hero-item">
+      <div class="hi-label">Base Case IRR</div>
+      <div class="hi-value" style="color:var(--green)">12–14%</div>
+      <div class="hi-sub">p.a. in USD</div>
+    </div>
+  </div>
+
+  <!-- ── TABS ── -->
+  <div class="tabs">
+    <div class="tab active" data-tab="overview">Overview</div>
+    <div class="tab" data-tab="chec">CHEC Price</div>
+    <div class="tab" data-tab="payment">Payment Plan</div>
+    <div class="tab" data-tab="rental">Rental Returns</div>
+    <div class="tab" data-tab="appreciation">Capital Gain</div>
+    <div class="tab" data-tab="calculator">Total Return</div>
+    <div class="tab" data-tab="compare">vs. Alternatives</div>
+    <div class="tab" data-tab="sez">What is SEZ?</div>
+    <div class="tab" data-tab="risks">Risks</div>
+  </div>
+
+  <!-- ════════════════════════════════
+       TAB 1 — OVERVIEW
+  ════════════════════════════════ -->
+  <div class="tab-panel active" id="tab-overview">
+    <div class="eyebrow">The Opportunity</div>
+    <div class="section-title">What You Are <span>Buying</span></div>
+    <div class="section-sub">Port City Colombo · Plot 01-02-04 · Prime Lands · Marina Frontage</div>
+
+    <div class="g2" style="margin-bottom:20px;">
+      <div class="col">
+        <div class="card">
+          <div class="cost-row"><span class="cost-label">Developer (selling to you)</span><span class="cost-val">Prime Lands</span></div>
+          <div class="cost-row"><span class="cost-label">Land owner / master developer</span><span class="cost-val">CHEC (China)</span></div>
+          <div class="cost-row"><span class="cost-label">Plot reference</span><span class="cost-val">01-02-04</span></div>
+          <div class="cost-row"><span class="cost-label">Land tenure</span><span class="cost-val red">99-yr Leasehold ⚠</span></div>
+          <div class="cost-row"><span class="cost-label">Location</span><span class="cost-val">Marina Front, Port City</span></div>
+          <div class="cost-row"><span class="cost-label">Building height</span><span class="cost-val">Max 60m (~18 floors)</span></div>
+          <div class="cost-row"><span class="cost-label">Max FAR (planning)</span><span class="cost-val">3.5</span></div>
+          <div class="cost-row"><span class="cost-label">Regulatory zone</span><span class="cost-val gold">SEZ — Special Economic Zone</span></div>
+          <div class="cost-row"><span class="cost-label">Regulatory authority</span><span class="cost-val">Port City Economic Commission</span></div>
+        </div>
+
+        <div class="card-gold">
+          <div class="stat-label" style="margin-bottom:8px">Project IRR (from CHEC's own model)</div>
+          <div style="display:flex;gap:24px;flex-wrap:wrap">
+            <div>
+              <div style="font-family:'DM Serif Display',serif;font-size:36px;color:var(--gold)">26%</div>
+              <div style="font-size:11px;color:var(--muted)">Project IRR</div>
+            </div>
+            <div>
+              <div style="font-family:'DM Serif Display',serif;font-size:36px;color:var(--green)">34%</div>
+              <div style="font-size:11px;color:var(--muted)">Equity IRR (70% debt)</div>
+            </div>
+          </div>
+          <div style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.6">These are Prime Lands' (the developer's) returns — not yours. Your return as a buyer depends on rental income and what you sell for.</div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="g2" style="gap:10px;">
+          <div class="stat-card">
+            <div class="stat-label">You Pay</div>
+            <div class="stat-value gold" style="font-size:20px">$500/sqft</div>
+            <div class="stat-sub">$250,000 total</div>
+          </div>
+          <div class="stat-card orange">
+            <div class="stat-label">CHEC Model Said</div>
+            <div class="stat-value" style="font-size:20px;color:var(--orange)">$425/sqft</div>
+            <div class="stat-sub">$212,500 target</div>
+          </div>
+          <div class="stat-card red">
+            <div class="stat-label">Extra You Pay vs Model</div>
+            <div class="stat-value red" style="font-size:20px">$37,500</div>
+            <div class="stat-sub">11.25M LKR · 17.6% above</div>
+          </div>
+          <div class="stat-card green">
+            <div class="stat-label">Cinnamon Life (opposite)</div>
+            <div class="stat-value green" style="font-size:20px">$700–900</div>
+            <div class="stat-sub">Your price ceiling reference</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="stat-label" style="margin-bottom:12px">What Port City Is</div>
+          <div style="font-size:13px;color:#C8CCDA;line-height:1.7">
+            A <strong style="color:#fff">269-hectare reclaimed island</strong> off Colombo's coast — Sri Lanka's largest ever infrastructure project. Developed by <strong style="color:#fff">CHEC (China Harbour Engineering Co.)</strong>, backed by a <strong style="color:var(--gold)">PWC-assessed $19.2B economic impact</strong>, with its own Parliament-enacted laws, tax system, and regulatory body. <br><br>
+            Already has <strong style="color:#fff">7 land parcels sold ($240M), 140+ companies, 500,000 sqft committed offices.</strong> Infrastructure — power, water, sewage, telecoms — all connected.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footnote">All USD figures at 300 LKR/USD conversion rate. Off-plan projections are estimates based on CHEC's official feasibility model and comparable market data. Not financial advice.</div>
+  </div>
+
+
+  <!-- ════════════════════════════════
+       TAB 2 — CHEC PRICE EXPLAINER
+  ════════════════════════════════ -->
+  <div class="tab-panel" id="tab-chec">
+    <div class="eyebrow">Understanding the Numbers</div>
+    <div class="section-title">The CHEC Price — <span>What It Means to You</span></div>
+    <div class="section-sub">Three parties, three different prices. Here's who pays what and why it matters.</div>
+
+    <!-- 3-party flow -->
+    <div style="display:flex;align-items:stretch;gap:0;border-radius:10px;overflow:hidden;border:1px solid var(--border);margin-bottom:24px;flex-wrap:wrap">
+      <div style="flex:1;min-width:160px;background:var(--dark3);padding:20px 18px;border-right:1px solid var(--border)">
+        <div style="font-size:9.5px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">① CHEC Sells Land to</div>
+        <div style="font-size:13px;font-weight:700;color:#fff;margin-bottom:6px">Prime Lands (Developer)</div>
+        <div style="font-family:'DM Serif Display',serif;font-size:30px;color:var(--muted)">$326/sqft</div>
+        <div style="font-size:11.5px;color:var(--muted);margin-top:5px">$57.75M for whole plot<br>16,406 m² of land</div>
+      </div>
+      <div style="display:flex;align-items:center;padding:0 10px;font-size:22px;color:var(--gold);background:var(--dark4)">→</div>
+      <div style="flex:1;min-width:160px;background:var(--dark4);padding:20px 18px;border-right:1px solid var(--border)">
+        <div style="font-size:9.5px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">② CHEC Model Assumed</div>
+        <div style="font-size:13px;font-weight:700;color:#fff;margin-bottom:6px">Prime would sell to you at</div>
+        <div style="font-family:'DM Serif Display',serif;font-size:30px;color:var(--orange)">$425/sqft</div>
+        <div style="font-size:11.5px;color:var(--muted);margin-top:5px">$212,500 for your unit<br>CHEC's projection, not contract</div>
+      </div>
+      <div style="display:flex;align-items:center;padding:0 10px;font-size:22px;color:var(--gold);background:var(--dark4)">→</div>
+      <div style="flex:1;min-width:160px;background:rgba(201,168,76,0.07);padding:20px 18px;border-left:1px solid var(--border)">
+        <div style="font-size:9.5px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">③ Prime Actually Charges</div>
+        <div style="font-size:13px;font-weight:700;color:#fff;margin-bottom:6px">You (the buyer)</div>
+        <div style="font-family:'DM Serif Display',serif;font-size:30px;color:var(--gold)">$500/sqft</div>
+        <div style="font-size:11.5px;color:var(--muted);margin-top:5px">$250,000 for your unit<br>Pre-launch price · 75M LKR</div>
+      </div>
+    </div>
+
+    <div class="g2" style="margin-bottom:20px">
+      <div class="col">
+        <div class="section-title" style="font-size:18px;margin-bottom:12px">What the <span>$37,500 gap</span> means</div>
+        <div class="card">
+          <div class="cost-row"><span class="cost-label">CHEC's assumed price for your unit</span><span class="cost-val">$212,500</span></div>
+          <div class="cost-row"><span class="cost-label">Prime's pre-launch price to you</span><span class="cost-val gold">$250,000</span></div>
+          <div class="cost-row"><span class="cost-label">Premium above CHEC model</span><span class="cost-val red">$37,500 (+17.6%)</span></div>
+          <div class="cost-row"><span class="cost-label">In LKR</span><span class="cost-val red">11.25M LKR extra</span></div>
+          <div class="cost-row total"><span class="cost-label">Who pockets that $37,500?</span><span class="cost-val gold">Prime Lands (developer)</span></div>
+        </div>
+        <div class="card-red">
+          <div style="font-size:13px;color:#C8CCDA;line-height:1.7">
+            The $37,500 gap is <strong style="color:#fff">not your gain — it's the developer's extra margin.</strong> CHEC's model proved the deal works at $425/sqft. Prime pricing at $500 means they earn significantly more, and <strong style="color:var(--red)">you need the market to go above $500/sqft</strong> after handover to make a capital gain.
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="section-title" style="font-size:18px;margin-bottom:12px">The <span>Good News</span> for you</div>
+        <div class="card-green">
+          <div style="font-size:13px;color:#C8CCDA;line-height:1.7;margin-bottom:14px">
+            Cinnamon Life — directly opposite, same corridor — is already selling at <strong style="color:var(--green)">$700–$900/sqft</strong>. Even if Port City only reaches parity with half that premium:
+          </div>
+          <div class="cost-row" style="border-bottom-color:rgba(76,175,130,0.2)"><span class="cost-label">You buy at</span><span class="cost-val">$500/sqft</span></div>
+          <div class="cost-row" style="border-bottom-color:rgba(76,175,130,0.2)"><span class="cost-label">Market matures to (base)</span><span class="cost-val green">$700/sqft</span></div>
+          <div class="cost-row" style="border-bottom:none"><span class="cost-label">Your capital gain</span><span class="cost-val green">$100,000 · 30M LKR</span></div>
+        </div>
+
+        <div class="card">
+          <div class="stat-label" style="margin-bottom:10px">Why $500 can still be a good entry</div>
+          <div style="font-size:13px;color:#C8CCDA;line-height:1.7">
+            At <strong style="color:#fff">$500/sqft pre-launch</strong>, prices typically increase 15–25% by formal launch and again by handover in a healthy project. Early buyers historically get the best price. The refundable 5M LKR EOI means you can lock in today's price with <strong style="color:var(--gold)">no risk if you change your mind.</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Full developer P&L for context -->
+    <div class="section-title" style="font-size:18px;margin-bottom:12px">Prime's Full Developer <span>P&L</span> (CHEC Model)</div>
+    <div class="g2">
+      <div class="card">
+        <div class="stat-label" style="margin-bottom:10px">Cost Stack (entire project)</div>
+        <div class="cost-row"><span class="cost-label">Land cost (CHEC sale price)</span><span class="cost-val">$57.75M</span></div>
+        <div class="cost-row"><span class="cost-label">Construction ($2,720/m²)</span><span class="cost-val">$75.47M</span></div>
+        <div class="cost-row"><span class="cost-label">Other (soft/finance/mgmt)</span><span class="cost-val">$30.81M</span></div>
+        <div class="cost-row total"><span class="cost-label">Total Investment</span><span class="cost-val gold">$164.03M</span></div>
+      </div>
+      <div class="card">
+        <div class="stat-label" style="margin-bottom:10px">Revenue & Profit (CHEC model @ $425/sqft)</div>
+        <div class="cost-row"><span class="cost-label">Total sales revenue</span><span class="cost-val">$238M</span></div>
+        <div class="cost-row"><span class="cost-label">Total investment</span><span class="cost-val">$164M</span></div>
+        <div class="cost-row"><span class="cost-label">Gross profit (model)</span><span class="cost-val green">$74M</span></div>
+        <div class="cost-row"><span class="cost-label">At Prime's actual $500/sqft</span><span class="cost-val green">~$160M profit</span></div>
+        <div class="cost-row total"><span class="cost-label">Developer margin uplift from $500</span><span class="cost-val gold">+$86M vs model</span></div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ════════════════════════════════
+       TAB 3 — PAYMENT PLAN
+  ════════════════════════════════ -->
+  <div class="tab-panel" id="tab-payment">
+    <div class="eyebrow">Cash Flow Planning</div>
+    <div class="section-title">Payment <span>Schedule</span></div>
+    <div class="section-sub">You do not pay $250,000 today. Payments are staged over 3–4 years as construction progresses.</div>
+
+    <div class="g2">
+      <div>
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-content">
+              <div class="tl-header">
+                <div class="tl-stage">EOI — Expression of Interest</div>
+                <div class="tl-time">Now</div>
+              </div>
+              <div class="tl-amounts">
+                <span class="tl-usd">$5,000 (2%)</span>
+                <span class="tl-lkr">1.5M LKR</span>
+                <span style="font-size:10px;color:var(--green);font-weight:600">✓ Fully Refundable</span>
+              </div>
+              <div class="tl-pct-bar"><div class="tl-pct-fill" style="width:2%;background:var(--green)"></div></div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-content">
+              <div class="tl-header">
+                <div class="tl-stage">Sign Sale & Purchase Agreement</div>
+                <div class="tl-time">Month 1–2</div>
+              </div>
+              <div class="tl-amounts">
+                <span class="tl-usd">$25,000 (10%)</span>
+                <span class="tl-lkr">7.5M LKR</span>
+              </div>
+              <div class="tl-pct-bar"><div class="tl-pct-fill" style="width:10%"></div></div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-content">
+              <div class="tl-header">
+                <div class="tl-stage">Foundation Complete</div>
+                <div class="tl-time">~Year 1</div>
+              </div>
+              <div class="tl-amounts">
+                <span class="tl-usd">$25,000 (10%)</span>
+                <span class="tl-lkr">7.5M LKR</span>
+              </div>
+              <div class="tl-pct-bar"><div class="tl-pct-fill" style="width:10%"></div></div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-content">
+              <div class="tl-header">
+                <div class="tl-stage">Structure 50% Complete</div>
+                <div class="tl-time">~Year 1.5</div>
+              </div>
+              <div class="tl-amounts">
+                <span class="tl-usd">$25,000 (10%)</span>
+                <span class="tl-lkr">7.5M LKR</span>
+              </div>
+              <div class="tl-pct-bar"><div class="tl-pct-fill" style="width:10%"></div></div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-content">
+              <div class="tl-header">
+                <div class="tl-stage">Structure 100% Complete</div>
+                <div class="tl-time">~Year 2</div>
+              </div>
+              <div class="tl-amounts">
+                <span class="tl-usd">$25,000 (10%)</span>
+                <span class="tl-lkr">7.5M LKR</span>
+              </div>
+              <div class="tl-pct-bar"><div class="tl-pct-fill" style="width:10%"></div></div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-content">
+              <div class="tl-header">
+                <div class="tl-stage">Fit-Out & MEP Complete</div>
+                <div class="tl-time">~Year 2.5</div>
+              </div>
+              <div class="tl-amounts">
+                <span class="tl-usd">$25,000 (10%)</span>
+                <span class="tl-lkr">7.5M LKR</span>
+              </div>
+              <div class="tl-pct-bar"><div class="tl-pct-fill" style="width:10%"></div></div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot big"></div>
+            <div class="tl-content" style="border-color:rgba(76,175,130,0.4);background:rgba(76,175,130,0.05)">
+              <div class="tl-header">
+                <div class="tl-stage" style="color:var(--green)">🔑 Handover — Keys in Hand</div>
+                <div class="tl-time">~Year 3–4</div>
+              </div>
+              <div class="tl-amounts">
+                <span class="tl-usd" style="color:var(--green)">$120,000 (48%)</span>
+                <span class="tl-lkr">36M LKR</span>
+                <span style="font-size:10px;color:var(--green);font-weight:600">→ Can start renting!</span>
+              </div>
+              <div class="tl-pct-bar"><div class="tl-pct-fill" style="width:48%;background:var(--green)"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="card">
+          <div class="stat-label" style="margin-bottom:12px">Payment Summary</div>
+          <div class="cost-row"><span class="cost-label">Today (EOI, refundable)</span><span class="cost-val green">1.5M LKR</span></div>
+          <div class="cost-row"><span class="cost-label">During construction (Yr 1–2.5)</span><span class="cost-val">30M LKR</span></div>
+          <div class="cost-row"><span class="cost-label">At handover (Yr 3–4)</span><span class="cost-val">36M LKR</span></div>
+          <div class="cost-row total"><span class="cost-label">Total</span><span class="cost-val gold">75M LKR · $250,000</span></div>
+        </div>
+
+        <div class="card-gold">
+          <div class="stat-label" style="margin-bottom:8px">Key Advantage of Staged Payments</div>
+          <div style="font-size:13px;color:#C8CCDA;line-height:1.7">
+            You only commit <strong style="color:var(--gold)">37.5M LKR in the first 2.5 years</strong> — the remaining 36M (48%) is only due at handover. This gives you time to arrange the balance, and the early payments can often be funded from savings or a mortgage arranged closer to completion.
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="stat-label" style="margin-bottom:10px">🏦 Bank Financing Note</div>
+          <div style="font-size:13px;color:#C8CCDA;line-height:1.7">
+            Port City SEZ units can be financed in <strong style="color:#fff">foreign currency (USD)</strong>. Some international banks offer 60–70% LTV mortgages on Port City units. At 60% LTV, your equity required is only $100,000 (30M LKR) — verify with Prime and your bank.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ════════════════════════════════
+       TAB 4 — RENTAL RETURNS
+  ════════════════════════════════ -->
+  <div class="tab-panel" id="tab-rental">
+    <div class="eyebrow">Income Generation</div>
+    <div class="section-title">Rental Return <span>Scenarios</span></div>
+    <div class="section-sub">Your target tenant: SEZ professionals, expat executives, finance/tech/shipping staff. All paid in USD, tax-free inside Port City.</div>
+
+    <div class="g3" style="margin-bottom:24px">
+      <div class="scenario-card" id="r1">
+        <div class="sc-label">Conservative</div>
+        <div class="sc-value blue">$1,500<span style="font-size:16px">/mo</span></div>
+        <div class="sc-detail">
+          <div>Annual rent: <strong style="color:#fff">$18,000</strong></div>
+          <div>Gross yield: <strong style="color:#fff">7.2%</strong></div>
+          <div>Net yield: <strong style="color:var(--accent)">5.4%</strong></div>
+          <div>Net annual: <strong style="color:#fff">$13,500</strong></div>
+          <div style="margin-top:6px;padding-top:6px;border-top:1px solid rgba(255,255,255,0.08)">Payback (rent only): <strong style="color:var(--red)">18.5 yrs</strong></div>
+          <div>Monthly in LKR: <strong style="color:#fff">450k LKR</strong></div>
+        </div>
+      </div>
+      <div class="scenario-card selected" id="r2">
+        <div class="sc-label">Base Case ★</div>
+        <div class="sc-value">$2,000<span style="font-size:16px">/mo</span></div>
+        <div class="sc-detail">
+          <div>Annual rent: <strong style="color:#fff">$24,000</strong></div>
+          <div>Gross yield: <strong style="color:#fff">9.6%</strong></div>
+          <div>Net yield: <strong style="color:var(--gold)">7.2%</strong></div>
+          <div>Net annual: <strong style="color:#fff">$18,000</strong></div>
+          <div style="margin-top:6px;padding-top:6px;border-top:1px solid rgba(255,255,255,0.08)">Payback (rent only): <strong style="color:var(--orange)">13.9 yrs</strong></div>
+          <div>Monthly in LKR: <strong style="color:#fff">600k LKR</strong></div>
+        </div>
+      </div>
+      <div class="scenario-card green-card" id="r3">
+        <div class="sc-label">Optimistic</div>
+        <div class="sc-value green">$2,500<span style="font-size:16px">/mo</span></div>
+        <div class="sc-detail">
+          <div>Annual rent: <strong style="color:#fff">$30,000</strong></div>
+          <div>Gross yield: <strong style="color:#fff">12.0%</strong></div>
+          <div>Net yield: <strong style="color:var(--green)">9.0%</strong></div>
+          <div>Net annual: <strong style="color:#fff">$22,500</strong></div>
+          <div style="margin-top:6px;padding-top:6px;border-top:1px solid rgba(255,255,255,0.08)">Payback (rent only): <strong style="color:var(--green)">11.1 yrs</strong></div>
+          <div>Monthly in LKR: <strong style="color:#fff">750k LKR</strong></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:16px">
+      <div class="stat-label" style="margin-bottom:12px">Net Yield Comparison (after ~25% costs — mgmt fee, maintenance, voids)</div>
+      <div class="bar-chart">
+        <div class="bar-row">
+          <div class="bar-label">Conservative</div>
+          <div class="bar-track"><div class="bar-fill blue-bar" style="width:54%">5.4% net</div></div>
+          <div class="bar-end">$13,500/yr</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">Base Case</div>
+          <div class="bar-track"><div class="bar-fill gold-bar" style="width:72%">7.2% net</div></div>
+          <div class="bar-end">$18,000/yr</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">Optimistic</div>
+          <div class="bar-track"><div class="bar-fill green-bar" style="width:90%">9.0% net</div></div>
+          <div class="bar-end">$22,500/yr</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-gold">
+      <div class="stat-label" style="margin-bottom:8px">Why the rental market is credible</div>
+      <div style="font-size:13px;color:#C8CCDA;line-height:1.7">
+        Port City's SEZ status means <strong style="color:#fff">0% income tax for employees</strong> who live and work there. A professional earning $120,000/year saves $36,000+ in tax annually — making $24,000/year rent feel trivial. This is your tenant: high-income, stable, internationally contracted, paid in USD. Comparable expat housing in Singapore and Dubai commands $3,000–$5,000/month for equivalent units near financial districts.
+      </div>
+    </div>
+    <div class="footnote">Net yield assumes 25% total cost deduction for property management (~8%), maintenance (~5%), occasional vacancy (~8%), and miscellaneous (~4%). Rental market for Port City is still developing — projections are forward-looking based on comparable SEZ markets.</div>
+  </div>
+
+
+  <!-- ════════════════════════════════
+       TAB 5 — CAPITAL APPRECIATION
+  ════════════════════════════════ -->
+  <div class="tab-panel" id="tab-appreciation">
+    <div class="eyebrow">Price Growth</div>
+    <div class="section-title">Capital <span>Appreciation</span> Scenarios</div>
+    <div class="section-sub">What happens to your $250,000 if the price per sqft moves. Your entry: $500/sqft.</div>
+
+    <div class="g2" style="margin-bottom:20px">
+      <div class="col">
+        <div class="card">
+          <div class="stat-label" style="margin-bottom:12px">Price per sqft at exit → Your gain (500 sqft)</div>
+          <div class="bar-chart">
+            <div class="bar-row">
+              <div class="bar-label">$500 (flat)</div>
+              <div class="bar-track"><div class="bar-fill muted-bar" style="width:5%">$0</div></div>
+              <div class="bar-end" style="color:var(--muted)">0%</div>
+            </div>
+            <div class="bar-row">
+              <div class="bar-label">$600</div>
+              <div class="bar-track"><div class="bar-fill blue-bar" style="width:22%">$50k</div></div>
+              <div class="bar-end">+20%</div>
+            </div>
+            <div class="bar-row">
+              <div class="bar-label">$703 (7%/yr)</div>
+              <div class="bar-track"><div class="bar-fill gold-bar" style="width:46%">$101.5k</div></div>
+              <div class="bar-end" style="color:var(--gold)">+41%</div>
+            </div>
+            <div class="bar-row">
+              <div class="bar-label">$800 (10%/yr)</div>
+              <div class="bar-track"><div class="bar-fill orange-bar" style="width:68%">$150k</div></div>
+              <div class="bar-end">+60%</div>
+            </div>
+            <div class="bar-row">
+              <div class="bar-label">$880 (12%/yr)</div>
+              <div class="bar-track"><div class="bar-fill green-bar" style="width:86%">$190k</div></div>
+              <div class="bar-end" style="color:var(--green)">+76%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="g2" style="gap:10px">
+          <div class="stat-card">
+            <div class="stat-label">No Growth (flat)</div>
+            <div class="stat-value red" style="font-size:18px">$0 gain</div>
+            <div class="stat-sub">0% CAGR · 0M LKR</div>
+          </div>
+          <div class="stat-card blue">
+            <div class="stat-label">Moderate 7%/yr</div>
+            <div class="stat-value blue" style="font-size:18px">$101,500</div>
+            <div class="stat-sub">41% gain · 30.4M LKR</div>
+          </div>
+          <div class="stat-card orange">
+            <div class="stat-label">Cinnamon Life Parity</div>
+            <div class="stat-value" style="font-size:18px;color:var(--orange)">$150,000</div>
+            <div class="stat-sub">60% gain · 45M LKR · 10%/yr</div>
+          </div>
+          <div class="stat-card green">
+            <div class="stat-label">Strong 12%/yr</div>
+            <div class="stat-value green" style="font-size:18px">$190,500</div>
+            <div class="stat-sub">76% gain · 57.1M LKR</div>
+          </div>
+        </div>
+
+        <div class="card-gold">
+          <div class="stat-label" style="margin-bottom:8px">The Cinnamon Life Reference</div>
+          <div style="font-size:13px;color:#C8CCDA;line-height:1.7">
+            Cinnamon Life — <strong style="color:#fff">directly across from this plot</strong> on Colombo 2 soil — is currently pricing at <strong style="color:var(--gold)">$700–$900/sqft</strong>. Port City SEZ units at maturity should price at parity or a discount (leasehold vs freehold). Even at a <strong style="color:var(--gold)">30% discount to Cinnamon Life</strong>, that puts your unit at <strong style="color:var(--gold)">$490–$630/sqft</strong> — with upside from there as the SEZ ecosystem fills.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="stat-label" style="margin-bottom:12px">The freehold vs leasehold discount — what to expect</div>
+      <div class="g2">
+        <div style="font-size:13px;color:#C8CCDA;line-height:1.7">
+          Port City is <strong style="color:var(--red)">99-year leasehold</strong>. In markets like Singapore and Hong Kong, leasehold properties typically trade at a <strong style="color:#fff">15–25% discount</strong> to equivalent freehold. This discount shrinks when leases are long (99 years is substantial) and when the SEZ benefits (tax-free, USD-denominated) are factored in. Colombo 2 freehold (Cinnamon Life) at $700–$900 vs Port City leasehold at $500 already implies a ~30% discount — possibly already pricing in the leasehold factor.
+        </div>
+        <div style="font-size:13px;color:#C8CCDA;line-height:1.7">
+          Your primary exit buyers will be <strong style="color:#fff">foreign investors and corporates</strong> who prize the SEZ benefits more than the tenure form. The international tenant pool (Singapore, Dubai, Hong Kong buyers) is comfortable with leasehold — this is their norm. The risk is domestic LKR buyers who may discount leasehold more aggressively, limiting your resale pool inside Sri Lanka.
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ════════════════════════════════
+       TAB 6 — TOTAL RETURN CALCULATOR
+  ════════════════════════════════ -->
+  <div class="tab-panel" id="tab-calculator">
+    <div class="eyebrow">Interactive Projection</div>
+    <div class="section-title">Total Return <span>Calculator</span></div>
+    <div class="section-sub">Adjust the sliders to model your own scenario. All figures in USD on a $250,000 investment.</div>
+
+    <div class="g2" style="margin-bottom:20px">
+      <div class="col">
+        <div class="card">
+          <div class="slider-wrap">
+            <div class="slider-label">Monthly Rent<span id="rentLabel">$2,000/mo</span></div>
+            <input type="range" id="rentSlider" min="1000" max="3500" step="100" value="2000">
+          </div>
+          <div class="slider-wrap">
+            <div class="slider-label">Annual Price Appreciation<span id="capLabel">7% p.a.</span></div>
+            <input type="range" id="capSlider" min="0" max="20" step="1" value="7">
+          </div>
+          <div class="slider-wrap">
+            <div class="slider-label">Holding Period<span id="yearsLabel">5 years</span></div>
+            <input type="range" id="yearsSlider" min="3" max="15" step="1" value="5">
+          </div>
+          <div class="slider-wrap">
+            <div class="slider-label">Cost Deduction (mgmt/maint/voids)<span id="costLabel">25%</span></div>
+            <input type="range" id="costSlider" min="10" max="40" step="5" value="25">
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="stat-label" style="margin-bottom:12px">Return Breakdown</div>
+          <div class="cost-row"><span class="cost-label">Purchase price</span><span class="cost-val">$250,000</span></div>
+          <div class="cost-row"><span class="cost-label">Net rental income</span><span class="cost-val green" id="cRent">—</span></div>
+          <div class="cost-row"><span class="cost-label">Capital gain on sale</span><span class="cost-val green" id="cGain">—</span></div>
+          <div class="cost-row"><span class="cost-label">Exit price (per sqft)</span><span class="cost-val gold" id="cExitPsf">—</span></div>
+          <div class="cost-row total"><span class="cost-label">Total proceeds</span><span class="cost-val gold" id="cTotal">—</span></div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="calc-result">
+          <div class="cr-label">Total Return (USD)</div>
+          <div class="cr-big" id="cTotalReturn">—</div>
+          <div class="cr-sub" id="cTotalPct">—</div>
+        </div>
+        <div class="g2" style="gap:10px">
+          <div class="stat-card green">
+            <div class="stat-label">Annualised IRR</div>
+            <div class="stat-value green" id="cIRR">—</div>
+            <div class="stat-sub">per year (USD)</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">In LKR terms</div>
+            <div class="stat-value gold" id="cLKR">—</div>
+            <div class="stat-sub">total return</div>
+          </div>
+        </div>
+        <div class="card" id="cVerdict" style="font-size:13px;color:#C8CCDA;line-height:1.7"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="stat-label" style="margin-bottom:14px">Pre-set Scenarios</div>
+      <div class="g3" style="gap:10px">
+        <div class="scenario-card" onclick="setScenario(1500,0,5,25)" style="cursor:pointer">
+          <div class="sc-label">Conservative</div>
+          <div class="sc-value blue" style="font-size:22px">$1,500/mo · 0% growth</div>
+          <div class="sc-detail">Rent only, no capital gain</div>
+        </div>
+        <div class="scenario-card selected" onclick="setScenario(2000,7,5,25)" style="cursor:pointer">
+          <div class="sc-label">Base Case ★</div>
+          <div class="sc-value" style="font-size:22px">$2,000/mo · 7%/yr</div>
+          <div class="sc-detail">Default scenario</div>
+        </div>
+        <div class="scenario-card green-card" onclick="setScenario(2500,12,7,20)" style="cursor:pointer">
+          <div class="sc-label">Optimistic</div>
+          <div class="sc-value green" style="font-size:22px">$2,500/mo · 12%/yr</div>
+          <div class="sc-detail">Full SEZ premium + 7yr hold</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ════════════════════════════════
+       TAB 7 — vs ALTERNATIVES
+  ════════════════════════════════ -->
+  <div class="tab-panel" id="tab-compare">
+    <div class="eyebrow">Opportunity Cost</div>
+    <div class="section-title">How It Compares to <span>Other Investments</span></div>
+    <div class="section-sub">If you put $250,000 (75M LKR) into each of these instead — what would you have after 5 years?</div>
+
+    <div style="overflow-x:auto;border-radius:8px;border:1px solid var(--border);margin-bottom:20px">
+      <table class="comp-table">
+        <thead><tr>
+          <th>Investment</th><th>Return p.a.</th><th>Note</th><th>$250k → 5 yrs</th><th>Gain</th>
+        </tr></thead>
+        <tbody>
+          <tr>
+            <td class="bold">USD Fixed Deposit (offshore)</td>
+            <td><span class="irr-pill irr-low">4.5%</span></td>
+            <td style="font-size:11.5px;color:var(--muted)">Safe. No risk. No upside.</td>
+            <td class="bold">$311,545</td>
+            <td style="color:var(--muted)">+$61k</td>
+          </tr>
+          <tr>
+            <td class="bold">Sri Lanka Bank FD (LKR)</td>
+            <td><span class="irr-pill irr-low">~3% real</span></td>
+            <td style="font-size:11.5px;color:var(--muted)">11% nominal but LKR loses ~8%/yr value</td>
+            <td class="bold">$289,000</td>
+            <td style="color:var(--muted)">+$39k real</td>
+          </tr>
+          <tr>
+            <td class="bold">S&P 500 ETF (US stocks)</td>
+            <td><span class="irr-pill irr-mid">10.5%</span></td>
+            <td style="font-size:11.5px;color:var(--muted)">Historical average. Volatile year-to-year.</td>
+            <td class="bold">$411,862</td>
+            <td style="color:var(--gold)">+$162k</td>
+          </tr>
+          <tr>
+            <td class="bold">Gold (USD)</td>
+            <td><span class="irr-pill irr-low">6–8%</span></td>
+            <td style="font-size:11.5px;color:var(--muted)">No income. Stores wealth. 2024 strong year.</td>
+            <td class="bold">~$350,000</td>
+            <td style="color:var(--muted)">+$100k</td>
+          </tr>
+          <tr class="highlight">
+            <td class="bold">Port City 500sqft — Conservative</td>
+            <td><span class="irr-pill irr-low">8%</span></td>
+            <td style="font-size:11.5px;color:var(--muted)">Low rent, no appreciation</td>
+            <td class="bold">$367,332</td>
+            <td style="color:var(--gold)">+$117k</td>
+          </tr>
+          <tr class="highlight">
+            <td class="bold">Port City 500sqft — Base Case</td>
+            <td><span class="irr-pill irr-high">14.5%</span></td>
+            <td style="font-size:11.5px;color:var(--muted)">$2k rent + 7%/yr appreciation</td>
+            <td class="gold bold">$492,003</td>
+            <td class="green">+$242k</td>
+          </tr>
+          <tr class="highlight">
+            <td class="bold">Port City 500sqft — Optimistic</td>
+            <td><span class="irr-pill irr-high">20%</span></td>
+            <td style="font-size:11.5px;color:var(--muted)">$2.5k rent + 12%/yr appreciation</td>
+            <td class="green bold">$622,080</td>
+            <td class="green">+$372k</td>
+          </tr>
+          <tr>
+            <td class="bold">Colombo 2 Island Plot (developer)</td>
+            <td><span class="irr-pill irr-top">25%</span></td>
+            <td style="font-size:11.5px;color:var(--muted)">Our earlier analysis. Requires ~25B LKR min.</td>
+            <td class="blue bold">$762,939</td>
+            <td style="color:var(--accent)">+$513k</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card-gold">
+      <div class="stat-label" style="margin-bottom:8px">The Bottom Line Comparison</div>
+      <div style="font-size:13px;color:#C8CCDA;line-height:1.7">
+        At base case, Port City <strong style="color:var(--gold)">outperforms a USD fixed deposit by $180k</strong> over 5 years and is competitive with the US stock market — but with a <strong style="color:#fff">physical USD-denominated asset, SEZ protection, rental income, and currency hedge.</strong> The Colombo 2 land play generates higher returns but requires 10–25x the capital and active development work. Port City is the <strong style="color:var(--gold)">institutional-quality, hands-off investment</strong> at a $250,000 entry point.
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ════════════════════════════════
+       TAB 8 — WHAT IS SEZ
+  ════════════════════════════════ -->
+  <div class="tab-panel" id="tab-sez">
+    <div class="eyebrow">Understanding the Zone</div>
+    <div class="section-title">What Is <span>SEZ</span>?</div>
+    <div class="section-sub">Special Economic Zone — a legally separate economic territory with its own rules. Think of it as a country within a country, economically.</div>
+
+    <div class="sez-grid" style="margin-bottom:20px">
+      <div class="sez-card">
+        <div class="sez-icon">💰</div>
+        <div class="sez-title">0% Income Tax</div>
+        <div class="sez-text">All employees working inside Port City pay <span class="sez-highlight">zero personal income tax</span> on their salary. A $10k/month professional saves $36k+ annually. They can afford higher rents.</div>
+      </div>
+      <div class="sez-card">
+        <div class="sez-icon">🏢</div>
+        <div class="sez-title">25-Year Business Tax Holiday</div>
+        <div class="sez-text">Companies operating in the zone pay <span class="sez-highlight">zero corporate tax for 25+ years.</span> This draws multinationals — your tenants' employers.</div>
+      </div>
+      <div class="sez-card">
+        <div class="sez-icon">💵</div>
+        <div class="sez-title">USD Transactions</div>
+        <div class="sez-text">All transactions inside the SEZ are in <span class="sez-highlight">16 foreign currencies</span>. Your rent is in USD. No LKR exposure. No currency risk on income.</div>
+      </div>
+      <div class="sez-card">
+        <div class="sez-icon">⚖️</div>
+        <div class="sez-title">International Law</div>
+        <div class="sez-text">Disputes are resolved under <span class="sez-highlight">international commercial law</span>, not Sri Lankan courts. Massive for foreign investors and MNCs.</div>
+      </div>
+      <div class="sez-card">
+        <div class="sez-icon">🔓</div>
+        <div class="sez-title">Free Capital Flow</div>
+        <div class="sez-text">Money moves in and out freely with <span class="sez-highlight">no capital controls.</span> You can repatriate rental income or sale proceeds without restriction.</div>
+      </div>
+      <div class="sez-card">
+        <div class="sez-icon">🏛️</div>
+        <div class="sez-title">Parliament-Backed Law</div>
+        <div class="sez-text">The Port City Act No. 11 of 2021 was <span class="sez-highlight">passed by Parliament</span>. These benefits are law, not a promise from a developer.</div>
+      </div>
+    </div>
+
+    <div class="g2">
+      <div class="card-gold">
+        <div class="stat-label" style="margin-bottom:10px">Real-World Comparisons to Port City's SEZ</div>
+        <div class="cost-row" style="font-size:12.5px"><span class="cost-label">Dubai (DIFC)</span><span class="cost-val">0% tax · USD transactions · international law</span></div>
+        <div class="cost-row" style="font-size:12.5px"><span class="cost-label">Singapore</span><span class="cost-val">Low tax · free capital · global law</span></div>
+        <div class="cost-row" style="font-size:12.5px"><span class="cost-label">Hong Kong</span><span class="cost-val">Low tax · USD-pegged · freeport</span></div>
+        <div class="cost-row" style="font-size:12.5px;border-bottom:none"><span class="cost-label" style="color:var(--gold)">Port City Colombo</span><span class="cost-val gold">0% tax · USD · int'l law · $500/sqft entry</span></div>
+      </div>
+      <div class="card">
+        <div class="stat-label" style="margin-bottom:10px">Why SEZ Makes Your Apartment More Valuable</div>
+        <div style="font-size:13px;color:#C8CCDA;line-height:1.75">
+          When a senior banker based in Port City earns $15,000/month <strong style="color:#fff">tax-free</strong>, they have more disposable income than the same banker earning $15k and paying 30% tax elsewhere. The after-tax equivalent outside is $21,428/month gross. That person will happily pay $2,500/month rent — it's still a small fraction of their effective take-home. <strong style="color:var(--gold)">The SEZ doesn't just attract tenants — it makes your tenants richer.</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ════════════════════════════════
+       TAB 9 — RISKS
+  ════════════════════════════════ -->
+  <div class="tab-panel" id="tab-risks">
+    <div class="eyebrow">Due Diligence</div>
+    <div class="section-title">Risks You Must <span>Understand</span></div>
+    <div class="section-sub">Every investment has risks. Here are the specific ones for this project, rated honestly.</div>
+
+    <div style="margin-bottom:20px">
+      <div class="risk-item">
+        <div class="risk-dot high"></div>
+        <div>
+          <div class="risk-label">99-Year Leasehold — Not Freehold <span class="risk-badge rb-high">High Impact</span></div>
+          <div class="risk-text">You own the apartment, not the land. When 99 years expire, the land returns to CHEC/Port City Commission. In practice, 99 years is generational — but it affects resale value (domestic buyers may discount 15–25%) and mortgage eligibility at some banks. Always verify with a lawyer and your bank before committing.</div>
+        </div>
+      </div>
+      <div class="risk-item">
+        <div class="risk-dot high"></div>
+        <div>
+          <div class="risk-label">Off-Plan Construction Risk <span class="risk-badge rb-high">High Impact</span></div>
+          <div class="risk-text">The building doesn't exist yet. If Prime Lands runs into financial difficulties, the project could be delayed or stalled. Mitigant: verify that the land has been legally acquired, construction contracts are signed with a reputable contractor, and that a trustee/escrow account holds your stage payments. Ask for these documents.</div>
+        </div>
+      </div>
+      <div class="risk-item">
+        <div class="risk-dot med"></div>
+        <div>
+          <div class="risk-label">Rental Market Still Developing <span class="risk-badge rb-med">Medium Impact</span></div>
+          <div class="risk-text">Port City's SEZ ecosystem is 3–5 years from maturity. Today, the $2,000/month tenant pool is thin. By 2028–2030, if the 140+ committed companies fully move in, demand will be real. You are betting on the timeline. If occupancy is slow, you may face 6–12 month vacancy periods initially.</div>
+        </div>
+      </div>
+      <div class="risk-item">
+        <div class="risk-dot med"></div>
+        <div>
+          <div class="risk-label">You're Already 17.6% Above Developer Model <span class="risk-badge rb-med">Medium Impact</span></div>
+          <div class="risk-text">CHEC's financial model showed the project works at $425/sqft. You're paying $500. For a capital gain, the market must move above your $500 entry. In a flat market, you generate rental yield only (5–9% net) with no capital appreciation — that's still acceptable, but not the full return story.</div>
+        </div>
+      </div>
+      <div class="risk-item">
+        <div class="risk-dot med"></div>
+        <div>
+          <div class="risk-label">Currency Risk for LKR Buyers <span class="risk-badge rb-med">Medium Impact</span></div>
+          <div class="risk-text">You buy in USD but if your income is in LKR, a depreciating rupee makes each payment more expensive in LKR terms. Conversely, rental income and sale proceeds in USD are a hedge against LKR depreciation — which historically favours you long-term if you can absorb short-term pain.</div>
+        </div>
+      </div>
+      <div class="risk-item">
+        <div class="risk-dot low"></div>
+        <div>
+          <div class="risk-label">Political / Regulatory Risk <span class="risk-badge rb-low">Lower Impact</span></div>
+          <div class="risk-text">The Port City Act is law passed by Parliament and supported across political parties due to its economic importance. CHEC is a state-backed Chinese entity — making unilateral reversal politically complex. This is the most mitigated risk, but sovereign risk always exists in an emerging market.</div>
+        </div>
+      </div>
+      <div class="risk-item">
+        <div class="risk-dot low"></div>
+        <div>
+          <div class="risk-label">Limited Resale Pool <span class="risk-badge rb-low">Lower Impact</span></div>
+          <div class="risk-text">Your best exit buyers are foreign investors and SEZ-based corporates, not regular Sri Lankan families. This makes the resale market narrower than a standard Colombo 2 or 5 apartment. Plan for a 6–12 month marketing period if you want to sell.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-green">
+      <div class="stat-label" style="margin-bottom:8px">How to Mitigate the Key Risks Before Signing</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;font-size:12.5px;color:#C8CCDA;line-height:1.65">
+        <div>✓ &nbsp;Confirm land title is transferred to Prime (get a lawyer to verify)<br>✓ &nbsp;Ask for escrow/trustee arrangement for stage payments<br>✓ &nbsp;Verify the construction contractor and their track record<br>✓ &nbsp;Get a copy of the SPA (Sale & Purchase Agreement) reviewed</div>
+        <div>✓ &nbsp;Confirm the EOI is 100% refundable in writing<br>✓ &nbsp;Ask Prime for committed office tenants in the building<br>✓ &nbsp;Check bank financing eligibility for leasehold SEZ units<br>✓ &nbsp;Understand the management company for rentals post-handover</div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /page -->
+
+<script>
+// ── TABS ──
+document.querySelectorAll('.tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('tab-' + tab.dataset.tab).classList.add('active');
+  });
+});
+
+// ── CALCULATOR ──
+const purchase = 250000;
+const sqft = 500;
+const lkrRate = 300;
+
+function fmt(n){ return '$' + Math.round(n).toLocaleString(); }
+function fmtLKR(n){ return (n * lkrRate / 1e6).toFixed(1) + 'M LKR'; }
+
+function calcReturns(){
+  const rent    = +document.getElementById('rentSlider').value;
+  const cap     = +document.getElementById('capSlider').value / 100;
+  const years   = +document.getElementById('yearsSlider').value;
+  const costPct = +document.getElementById('costSlider').value / 100;
+
+  document.getElementById('rentLabel').textContent  = '$' + rent.toLocaleString() + '/mo';
+  document.getElementById('capLabel').textContent   = cap * 100 + '% p.a.';
+  document.getElementById('yearsLabel').textContent = years + ' years';
+  document.getElementById('costLabel').textContent  = (costPct * 100) + '%';
+
+  const netRentAnnual = rent * 12 * (1 - costPct);
+  const netRentTotal  = netRentAnnual * years;
+  const exitPsf       = 500 * Math.pow(1 + cap, years);
+  const exitValue     = exitPsf * sqft;
+  const capitalGain   = exitValue - purchase;
+  const totalReturn   = netRentTotal + capitalGain;
+  const totalProceeds = purchase + totalReturn;
+  const irr           = (Math.pow(totalProceeds / purchase, 1/years) - 1) * 100;
+  const returnPct     = totalReturn / purchase * 100;
+
+  document.getElementById('cRent').textContent    = fmt(netRentTotal);
+  document.getElementById('cGain').textContent    = fmt(capitalGain);
+  document.getElementById('cExitPsf').textContent = '$' + Math.round(exitPsf) + '/sqft';
+  document.getElementById('cTotal').textContent   = fmt(totalProceeds);
+  document.getElementById('cTotalReturn').textContent = fmt(totalReturn);
+  document.getElementById('cTotalPct').textContent    = returnPct.toFixed(0) + '% total return over ' + years + ' years';
+  document.getElementById('cIRR').textContent    = irr.toFixed(1) + '%';
+  document.getElementById('cLKR').textContent    = fmtLKR(totalReturn);
+
+  let verdict = '';
+  if(irr < 5)       verdict = '⚠ Below a USD fixed deposit rate. Only viable if you value the physical asset and SEZ exposure beyond pure financial return.';
+  else if(irr < 10) verdict = '✓ Competitive with a USD fixed deposit. Conservative scenario — stable income with modest upside.';
+  else if(irr < 15) verdict = '✓✓ Solid USD return. Outperforms offshore FD and is in line with global equity markets with a physical asset backing.';
+  else if(irr < 22) verdict = '✓✓✓ Strong return. This scenario represents meaningful wealth creation in USD — ahead of most passive investment alternatives.';
+  else               verdict = '🔥 Exceptional return. Optimistic scenario — requires premium rental demand and sustained price growth. Achievable if SEZ matures as planned.';
+  document.getElementById('cVerdict').textContent = verdict;
+}
+
+['rentSlider','capSlider','yearsSlider','costSlider'].forEach(id => {
+  document.getElementById(id).addEventListener('input', calcReturns);
+});
+calcReturns();
+
+function setScenario(rent, cap, years, cost){
+  document.getElementById('rentSlider').value  = rent;
+  document.getElementById('capSlider').value   = cap;
+  document.getElementById('yearsSlider').value = years;
+  document.getElementById('costSlider').value  = cost;
+  calcReturns();
+}
+</script>
+</body>
+</html>
