@@ -14,6 +14,7 @@ Interactive property valuation analysis dashboards for Sri Lanka properties.
   **Colombo2:** [View](https://rehangrero.github.io/property-valuations/colombo2.html)
   **PortCityDashBoard:** [View](https://rehangrero.github.io/property-valuations/portcity-idashboard)
   **TinncoBB**[View](https://rehangrero.github.io/property-valuations/BlueBeachIsland_Investor.html)
+  **Miseenplace**[View](https://rehangrero.github.io/property-valuations/mise-en-place.html)
   
   
 ## 🎯 Features
