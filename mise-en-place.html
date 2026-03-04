@@ -1,0 +1,1467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mise en Place | Food & Beverage Consultancy | Colombo, Sri Lanka</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green-deep: #1a3a2a;
+    --green-mid: #2d5a40;
+    --green-light: #4a8a5e;
+    --green-pale: #e8f2ec;
+    --green-accent: #6ab87f;
+    --white: #ffffff;
+    --off-white: #f8faf8;
+    --text-dark: #111c15;
+    --text-mid: #3a5040;
+    --text-light: #6a8070;
+    --gold: #c9a84c;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    color: var(--text-dark);
+    background: var(--white);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 60px;
+    background: rgba(26,58,42,0.96);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(106,184,127,0.15);
+    transition: all 0.3s ease;
+  }
+
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--white);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+
+  .nav-logo span {
+    color: var(--green-accent);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: rgba(255,255,255,0.75);
+    text-decoration: none;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 400;
+    transition: color 0.3s;
+  }
+
+  .nav-links a:hover { color: var(--green-accent); }
+
+  .nav-cta {
+    background: var(--green-accent);
+    color: var(--white) !important;
+    padding: 10px 24px;
+    border-radius: 2px;
+    font-weight: 500 !important;
+  }
+
+  .nav-cta:hover { background: #5aa96f; color: var(--white) !important; }
+
+  /* ── HERO ── */
+  #home {
+    min-height: 100vh;
+    background: var(--green-deep);
+    position: relative;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  .hero-bg-pattern {
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(circle at 20% 50%, rgba(74,138,94,0.12) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(106,184,127,0.08) 0%, transparent 40%),
+      radial-gradient(circle at 60% 80%, rgba(45,90,64,0.2) 0%, transparent 50%);
+  }
+
+  .hero-line-art {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    opacity: 0.04;
+    background-image: repeating-linear-gradient(
+      45deg,
+      var(--white),
+      var(--white) 1px,
+      transparent 1px,
+      transparent 60px
+    );
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 0 60px;
+    max-width: 800px;
+    animation: fadeInUp 1s ease forwards;
+  }
+
+  .hero-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 28px;
+  }
+
+  .hero-eyebrow-line {
+    width: 40px;
+    height: 1px;
+    background: var(--green-accent);
+  }
+
+  .hero-eyebrow span {
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--green-accent);
+    font-weight: 400;
+  }
+
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(52px, 7vw, 90px);
+    font-weight: 300;
+    color: var(--white);
+    line-height: 1.05;
+    margin-bottom: 8px;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--green-accent);
+  }
+
+  .hero-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(20px, 2.5vw, 28px);
+    font-weight: 300;
+    color: rgba(255,255,255,0.55);
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    margin-bottom: 36px;
+  }
+
+  .hero-desc {
+    font-size: 15px;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.8;
+    max-width: 540px;
+    margin-bottom: 48px;
+    font-weight: 300;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    background: var(--green-accent);
+    color: var(--white);
+    padding: 15px 36px;
+    text-decoration: none;
+    font-size: 12px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    font-weight: 500;
+    border-radius: 2px;
+    transition: all 0.3s;
+    display: inline-block;
+  }
+
+  .btn-primary:hover {
+    background: #5aa96f;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(106,184,127,0.3);
+  }
+
+  .btn-outline {
+    color: rgba(255,255,255,0.75);
+    padding: 15px 36px;
+    text-decoration: none;
+    font-size: 12px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    font-weight: 400;
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 2px;
+    transition: all 0.3s;
+    display: inline-block;
+  }
+
+  .btn-outline:hover {
+    border-color: var(--green-accent);
+    color: var(--green-accent);
+  }
+
+  .hero-stats {
+    position: absolute;
+    right: 60px;
+    bottom: 60px;
+    display: flex;
+    gap: 50px;
+    z-index: 2;
+  }
+
+  .hero-stat {
+    text-align: right;
+  }
+
+  .hero-stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 44px;
+    font-weight: 300;
+    color: var(--white);
+    line-height: 1;
+  }
+
+  .hero-stat-num span { color: var(--green-accent); }
+
+  .hero-stat-label {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    margin-top: 4px;
+  }
+
+  .scroll-indicator {
+    position: absolute;
+    bottom: 30px;
+    left: 60px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    z-index: 2;
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 50px;
+    background: linear-gradient(to bottom, transparent, var(--green-accent));
+    animation: scrollPulse 2s ease infinite;
+  }
+
+  .scroll-text {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+    writing-mode: vertical-rl;
+  }
+
+  /* ── SECTION BASE ── */
+  section { position: relative; }
+
+  .section-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 60px;
+  }
+
+  .section-tag {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 20px;
+  }
+
+  .section-tag-line {
+    width: 30px;
+    height: 1px;
+    background: var(--green-accent);
+  }
+
+  .section-tag span {
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--green-accent);
+    font-weight: 500;
+  }
+
+  .section-heading {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(38px, 4vw, 58px);
+    font-weight: 300;
+    color: var(--text-dark);
+    line-height: 1.15;
+  }
+
+  .section-heading.light { color: var(--white); }
+
+  /* ── ABOUT ── */
+  #about {
+    padding: 120px 0;
+    background: var(--off-white);
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .about-left {}
+
+  .about-body {
+    margin-top: 32px;
+    font-size: 15px;
+    line-height: 1.9;
+    color: var(--text-mid);
+    font-weight: 300;
+  }
+
+  .about-body p + p { margin-top: 18px; }
+
+  .about-highlight {
+    margin-top: 36px;
+    padding: 24px 28px;
+    border-left: 2px solid var(--green-accent);
+    background: var(--white);
+  }
+
+  .about-highlight p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-style: italic;
+    color: var(--green-mid);
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  .about-right {}
+
+  .about-credentials {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .credential-card {
+    background: var(--white);
+    padding: 24px 28px;
+    border-radius: 4px;
+    border: 1px solid rgba(74,138,94,0.12);
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .credential-card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: var(--green-accent);
+    transform: scaleY(0);
+    transition: transform 0.3s;
+    transform-origin: bottom;
+  }
+
+  .credential-card:hover::before { transform: scaleY(1); }
+  .credential-card:hover { transform: translateX(4px); box-shadow: 0 4px 20px rgba(26,58,42,0.08); }
+
+  .credential-org {
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--green-accent);
+    font-weight: 500;
+    margin-bottom: 6px;
+  }
+
+  .credential-role {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text-dark);
+  }
+
+  .credential-detail {
+    font-size: 13px;
+    color: var(--text-light);
+    margin-top: 6px;
+    line-height: 1.5;
+  }
+
+  /* ── SERVICES ── */
+  #services {
+    padding: 120px 0;
+    background: var(--green-deep);
+  }
+
+  .services-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 70px;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+
+  .services-intro {
+    max-width: 420px;
+    font-size: 15px;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.8;
+    font-weight: 300;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+
+  .service-card {
+    background: rgba(255,255,255,0.03);
+    padding: 44px 36px;
+    border: 1px solid rgba(255,255,255,0.05);
+    transition: all 0.4s;
+    cursor: default;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .service-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(106,184,127,0.06) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+
+  .service-card:hover { background: rgba(106,184,127,0.07); border-color: rgba(106,184,127,0.2); }
+  .service-card:hover::after { opacity: 1; }
+
+  .service-icon {
+    font-size: 28px;
+    margin-bottom: 24px;
+    display: block;
+  }
+
+  .service-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    color: var(--green-accent);
+    letter-spacing: 3px;
+    margin-bottom: 14px;
+    display: block;
+  }
+
+  .service-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 16px;
+    line-height: 1.2;
+  }
+
+  .service-desc {
+    font-size: 13.5px;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.8;
+    font-weight: 300;
+  }
+
+  .service-list {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .service-list li {
+    font-size: 12px;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 0.5px;
+    padding-left: 16px;
+    position: relative;
+    list-style: none;
+  }
+
+  .service-list li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--green-accent);
+    font-size: 10px;
+    top: 1px;
+  }
+
+  /* ── RECOGNITION STRIP ── */
+  .recognition-strip {
+    background: var(--green-mid);
+    padding: 50px 0;
+    overflow: hidden;
+  }
+
+  .recognition-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 60px;
+  }
+
+  .recognition-label {
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    text-align: center;
+    margin-bottom: 28px;
+  }
+
+  .recognition-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px 20px;
+  }
+
+  .recognition-item {
+    font-size: 11.5px;
+    color: rgba(255,255,255,0.6);
+    letter-spacing: 1.5px;
+    padding: 8px 18px;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+
+  /* ── GALLERY ── */
+  #gallery {
+    padding: 120px 0;
+    background: var(--white);
+  }
+
+  .gallery-header {
+    margin-bottom: 60px;
+  }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 240px 240px;
+    gap: 8px;
+  }
+
+  .gallery-item {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    background: var(--green-pale);
+  }
+
+  .gallery-item:nth-child(1) { grid-column: span 2; grid-row: span 2; }
+  .gallery-item:nth-child(4) { grid-column: span 2; }
+
+  .gallery-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--green-pale) 0%, rgba(74,138,94,0.15) 100%);
+    transition: all 0.4s;
+  }
+
+  .gallery-item:hover .gallery-placeholder {
+    background: linear-gradient(135deg, rgba(74,138,94,0.2) 0%, rgba(26,58,42,0.15) 100%);
+  }
+
+  .gallery-emoji { font-size: 36px; margin-bottom: 10px; opacity: 0.5; }
+
+  .gallery-caption {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--green-mid);
+    opacity: 0.6;
+  }
+
+  .gallery-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(26,58,42,0.7);
+    opacity: 0;
+    transition: opacity 0.4s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .gallery-item:hover .gallery-overlay { opacity: 1; }
+
+  .gallery-overlay-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    color: var(--white);
+    letter-spacing: 2px;
+    font-style: italic;
+  }
+
+  /* ── NOTABLES ── */
+  .notables {
+    background: var(--off-white);
+    padding: 80px 0;
+  }
+
+  .notables-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 60px;
+  }
+
+  .notables-label {
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--green-accent);
+    text-align: center;
+    margin-bottom: 12px;
+  }
+
+  .notables-heading {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px;
+    font-weight: 300;
+    color: var(--text-dark);
+    text-align: center;
+    margin-bottom: 48px;
+  }
+
+  .notables-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .notable-col {
+    background: var(--white);
+    padding: 28px 32px;
+    border-radius: 4px;
+  }
+
+  .notable-col-title {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--green-accent);
+    margin-bottom: 18px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--green-pale);
+  }
+
+  .notable-names {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .notable-name {
+    font-size: 13px;
+    color: var(--text-mid);
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(232,242,236,0.8);
+    font-weight: 300;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .notable-name::before {
+    content: '';
+    display: inline-block;
+    width: 4px;
+    height: 4px;
+    background: var(--green-accent);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* ── CONTACT ── */
+  #contact {
+    padding: 120px 0;
+    background: var(--green-deep);
+    position: relative;
+    overflow: hidden;
+  }
+
+  #contact::before {
+    content: '';
+    position: absolute;
+    top: -100px; right: -100px;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(106,184,127,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .contact-left {}
+
+  .contact-body {
+    font-size: 15px;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.8;
+    font-weight: 300;
+    margin-top: 24px;
+    margin-bottom: 40px;
+  }
+
+  .contact-details {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .contact-detail {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .contact-detail-icon {
+    width: 38px;
+    height: 38px;
+    background: rgba(106,184,127,0.15);
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+
+  .contact-detail-text {
+    padding-top: 6px;
+  }
+
+  .contact-detail-label {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+    margin-bottom: 4px;
+  }
+
+  .contact-detail-value {
+    font-size: 14px;
+    color: rgba(255,255,255,0.75);
+    font-weight: 300;
+  }
+
+  .contact-right {}
+
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .form-label {
+    font-size: 10px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+  }
+
+  .form-input, .form-select, .form-textarea {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: var(--white);
+    padding: 13px 18px;
+    font-size: 14px;
+    font-family: 'DM Sans', sans-serif;
+    border-radius: 2px;
+    outline: none;
+    transition: border-color 0.3s;
+    width: 100%;
+  }
+
+  .form-input::placeholder, .form-textarea::placeholder {
+    color: rgba(255,255,255,0.2);
+  }
+
+  .form-input:focus, .form-select:focus, .form-textarea:focus {
+    border-color: var(--green-accent);
+  }
+
+  .form-select option { background: var(--green-deep); }
+
+  .form-textarea { resize: vertical; min-height: 120px; }
+
+  .form-submit {
+    background: var(--green-accent);
+    color: var(--white);
+    border: none;
+    padding: 16px 40px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: all 0.3s;
+    align-self: flex-start;
+  }
+
+  .form-submit:hover {
+    background: #5aa96f;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(106,184,127,0.3);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #0f2118;
+    padding: 40px 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .footer-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--white);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+  }
+
+  .footer-logo span { color: var(--green-accent); }
+
+  .footer-copy {
+    font-size: 12px;
+    color: rgba(255,255,255,0.25);
+    letter-spacing: 1px;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 28px;
+  }
+
+  .footer-links a {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .footer-links a:hover { color: var(--green-accent); }
+
+  /* ── DIVIDER ── */
+  .section-divider {
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--green-accent), transparent);
+    opacity: 0.3;
+    margin: 0 60px;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+  }
+
+  .fade-in {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── HAMBURGER (mobile) ── */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 4px;
+  }
+
+  .hamburger span {
+    display: block;
+    width: 22px;
+    height: 1.5px;
+    background: var(--white);
+    transition: all 0.3s;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 18px 24px; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .hero-content { padding: 0 24px; }
+    .hero-stats { display: none; }
+    .scroll-indicator { left: 24px; }
+    .section-inner { padding: 0 24px; }
+    .about-grid { grid-template-columns: 1fr; gap: 40px; }
+    .services-grid { grid-template-columns: 1fr; }
+    .gallery-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+    .gallery-item:nth-child(1) { grid-column: span 2; grid-row: span 1; height: 220px; }
+    .gallery-item:nth-child(4) { grid-column: span 1; }
+    .notables-grid { grid-template-columns: 1fr; }
+    .contact-grid { grid-template-columns: 1fr; gap: 50px; }
+    .form-row { grid-template-columns: 1fr; }
+    footer { padding: 30px 24px; flex-direction: column; text-align: center; }
+    .footer-links { justify-content: center; }
+    .section-divider { margin: 0 24px; }
+    .recognition-inner { padding: 0 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#home" class="nav-logo">Mise en <span>Place</span></a>
+  <ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#contact" class="nav-cta">Engage Us</a></li>
+  </ul>
+  <div class="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="home">
+  <div class="hero-bg-pattern"></div>
+  <div class="hero-line-art"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <div class="hero-eyebrow-line"></div>
+      <span>Food & Beverage Consultancy · Colombo, Sri Lanka</span>
+    </div>
+    <h1 class="hero-title">
+      Mise en<br><em>Place.</em>
+    </h1>
+    <p class="hero-subtitle">Everything in its place</p>
+    <p class="hero-desc">
+      Precision-driven F&B consulting led by one of Sri Lanka's most experienced culinary leaders. From strategy to execution, we transform how hospitality operations perform.
+    </p>
+    <div class="hero-actions">
+      <a href="#services" class="btn-primary">Our Services</a>
+      <a href="#contact" class="btn-outline">Start a Conversation</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="hero-stat-num">19<span>+</span></div>
+      <div class="hero-stat-label">Hotel Properties</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">32<span>+</span></div>
+      <div class="hero-stat-label">F&B Outlets Led</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">20<span>+</span></div>
+      <div class="hero-stat-label">Years Experience</div>
+    </div>
+  </div>
+  <div class="scroll-indicator">
+    <div class="scroll-line"></div>
+    <span class="scroll-text">Scroll</span>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="about-left fade-in">
+        <div class="section-tag">
+          <div class="section-tag-line"></div>
+          <span>About</span>
+        </div>
+        <h2 class="section-heading">A Legacy Built<br>Across Continents</h2>
+        <div class="about-body">
+          <p>
+            Mise en Place is a premier Food & Beverage consultancy headquartered in Colombo, Sri Lanka. Our practice is led by a culinary director with over two decades of elite international experience spanning luxury resorts, five-star hotels, private royal households, and large-scale hospitality groups.
+          </p>
+          <p>
+            From directing culinary operations for Galle Face Group across 19 properties to serving as Culinary Director for H.H. The Emir of Qatar's private affairs during FIFA 2022, our founder brings a rare combination of operational mastery and strategic vision to every engagement.
+          </p>
+          <p>
+            We work with hotel groups, restaurant developers, F&B investors, and hospitality brands seeking to elevate their culinary identity, operational efficiency, and commercial performance.
+          </p>
+        </div>
+        <div class="about-highlight">
+          <p>"Great cuisine is not an accident. It is the result of precise preparation, disciplined systems, and unwavering standards — mise en place, in every sense."</p>
+        </div>
+      </div>
+      <div class="about-right fade-in">
+        <div class="about-credentials">
+          <div class="credential-card">
+            <div class="credential-org">Galle Face Group · Sri Lanka</div>
+            <div class="credential-role">Corporate Head of Culinary</div>
+            <div class="credential-detail">19 hotel properties · 779 rooms · 32 F&B outlets. Strategic menu development, cost management, and brand positioning across the group.</div>
+          </div>
+          <div class="credential-card">
+            <div class="credential-org">H.H. Sheikh Jassim Al-Thani · Qatar</div>
+            <div class="credential-role">Culinary Director & Resident Manager</div>
+            <div class="credential-detail">FIFA World Cup 2022 · Private beach palace · VVIP government hospitality for 30+ international guests across 7 villas.</div>
+          </div>
+          <div class="credential-card">
+            <div class="credential-org">Uga Escapes · Sri Lanka</div>
+            <div class="credential-role">Cluster Executive Chef</div>
+            <div class="credential-detail">5-star luxury boutique resorts. Pre-opening culinary development across Ulagalla, Jungle Beach, Uga Bay, Uga Residence, and Chena Huts.</div>
+          </div>
+          <div class="credential-card">
+            <div class="credential-org">Softlogic Group · Sri Lanka</div>
+            <div class="credential-role">Head of Culinary Operations</div>
+            <div class="credential-detail">Multi-outlet culinary strategy, SOP development, new product launches, and supply chain integration across group operations.</div>
+          </div>
+          <div class="credential-card">
+            <div class="credential-org">Asian Beach Games · Muscat, Oman</div>
+            <div class="credential-role">Chef De Cuisine</div>
+            <div class="credential-detail">Managed a team of 200. Delivered 350,000 meals in 45 days for athletes, media, and technical staff across the event.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-inner">
+    <div class="services-header">
+      <div>
+        <div class="section-tag">
+          <div class="section-tag-line"></div>
+          <span>Services</span>
+        </div>
+        <h2 class="section-heading light">What We Deliver</h2>
+      </div>
+      <p class="services-intro">
+        We provide end-to-end F&B consultancy services — from pre-opening strategy to operational restructuring — for hotels, resorts, standalone restaurants, and institutional food service operators.
+      </p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card fade-in">
+        <span class="service-icon">🍽</span>
+        <span class="service-num">01</span>
+        <div class="service-title">Culinary Strategy & Concept Development</div>
+        <p class="service-desc">Define your culinary identity. From concept to menu architecture, we build F&B propositions that resonate with market positioning and commercial objectives.</p>
+        <ul class="service-list">
+          <li>Brand and cuisine concept design</li>
+          <li>Menu engineering and development</li>
+          <li>Signature dish creation</li>
+          <li>Dietary and trend alignment</li>
+        </ul>
+      </div>
+      <div class="service-card fade-in">
+        <span class="service-icon">🏨</span>
+        <span class="service-num">02</span>
+        <div class="service-title">Hotel & Resort F&B Operations</div>
+        <p class="service-desc">Operational excellence for multi-outlet hotel F&B environments. We restructure teams, workflows, and systems to maximise consistency and profitability.</p>
+        <ul class="service-list">
+          <li>Kitchen operations review</li>
+          <li>Multi-outlet coordination</li>
+          <li>Pre-opening F&B setup</li>
+          <li>Food cost optimisation</li>
+        </ul>
+      </div>
+      <div class="service-card fade-in">
+        <span class="service-icon">📋</span>
+        <span class="service-num">03</span>
+        <div class="service-title">SOPs, Training & Quality Systems</div>
+        <p class="service-desc">Institutionalise quality. We design and implement SOPs, hygiene frameworks, staff training programmes, and quality audit systems built to international standards.</p>
+        <ul class="service-list">
+          <li>HACCP implementation</li>
+          <li>SOP and job aid development</li>
+          <li>Staff training programs</li>
+          <li>Food safety certification support</li>
+        </ul>
+      </div>
+      <div class="service-card fade-in">
+        <span class="service-icon">🎪</span>
+        <span class="service-num">04</span>
+        <div class="service-title">Events & VVIP Culinary Production</div>
+        <p class="service-desc">From intimate private dining to large-scale state events, we deliver flawless culinary experiences with precision production and full service management.</p>
+        <ul class="service-list">
+          <li>Private dining curation</li>
+          <li>Corporate event menus</li>
+          <li>Large-scale event catering</li>
+          <li>Protocol dining management</li>
+        </ul>
+      </div>
+      <div class="service-card fade-in">
+        <span class="service-icon">💰</span>
+        <span class="service-num">05</span>
+        <div class="service-title">F&B Investment & Business Advisory</div>
+        <p class="service-desc">For investors and developers entering the hospitality sector. We provide due diligence, feasibility assessment, and operational benchmarking to protect capital.</p>
+        <ul class="service-list">
+          <li>F&B feasibility studies</li>
+          <li>Investor-grade reporting</li>
+          <li>Supplier and procurement strategy</li>
+          <li>Revenue and cost benchmarking</li>
+        </ul>
+      </div>
+      <div class="service-card fade-in">
+        <span class="service-icon">🌿</span>
+        <span class="service-num">06</span>
+        <div class="service-title">New Product Development & Launch</div>
+        <p class="service-desc">From concept to commercial shelf. We lead new product development with structured feasibility testing, portion studies, shelf-life analysis, and market positioning.</p>
+        <ul class="service-list">
+          <li>Consumer and market research</li>
+          <li>Recipe and portion development</li>
+          <li>Photoshoot and launch support</li>
+          <li>Supplier development</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RECOGNITION STRIP -->
+<div class="recognition-strip">
+  <div class="recognition-inner">
+    <p class="recognition-label">International Hotel & Group Experience</p>
+    <div class="recognition-list">
+      <span class="recognition-item">Galle Face Group</span>
+      <span class="recognition-item">Uga Escapes</span>
+      <span class="recognition-item">Softlogic Group</span>
+      <span class="recognition-item">Hilton International</span>
+      <span class="recognition-item">InterContinental Hotels</span>
+      <span class="recognition-item">COi Culinary Concepts</span>
+      <span class="recognition-item">Sheikh Jassim Al-Thani · Qatar</span>
+      <span class="recognition-item">Asian Beach Games · Oman</span>
+    </div>
+  </div>
+</div>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="section-inner">
+    <div class="gallery-header fade-in">
+      <div class="section-tag">
+        <div class="section-tag-line"></div>
+        <span>Gallery</span>
+      </div>
+      <h2 class="section-heading">Craft in Every Detail</h2>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item">
+        <div class="gallery-placeholder">
+          <div class="gallery-emoji">🍽</div>
+          <div class="gallery-caption">Fine Dining</div>
+        </div>
+        <div class="gallery-overlay"><span class="gallery-overlay-text">Signature Plates</span></div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-placeholder">
+          <div class="gallery-emoji">🌿</div>
+          <div class="gallery-caption">Farm to Table</div>
+        </div>
+        <div class="gallery-overlay"><span class="gallery-overlay-text">Fresh Sourcing</span></div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-placeholder">
+          <div class="gallery-emoji">👨‍🍳</div>
+          <div class="gallery-caption">Kitchen Operations</div>
+        </div>
+        <div class="gallery-overlay"><span class="gallery-overlay-text">Team Excellence</span></div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-placeholder">
+          <div class="gallery-emoji">🎪</div>
+          <div class="gallery-caption">Events & Banquets</div>
+        </div>
+        <div class="gallery-overlay"><span class="gallery-overlay-text">Precision Events</span></div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-placeholder">
+          <div class="gallery-emoji">🏝</div>
+          <div class="gallery-caption">Resort Dining</div>
+        </div>
+        <div class="gallery-overlay"><span class="gallery-overlay-text">Luxury Resorts</span></div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-placeholder">
+          <div class="gallery-emoji">🌏</div>
+          <div class="gallery-caption">International Cuisine</div>
+        </div>
+        <div class="gallery-overlay"><span class="gallery-overlay-text">Global Flavours</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NOTABLES -->
+<div class="notables">
+  <div class="notables-inner fade-in">
+    <p class="notables-label">Distinguished Guests Served</p>
+    <h3 class="notables-heading">A Portfolio of Exceptional Service</h3>
+    <div class="notables-grid">
+      <div class="notable-col">
+        <div class="notable-col-title">Heads of State</div>
+        <div class="notable-names">
+          <div class="notable-name">President of Sri Lanka</div>
+          <div class="notable-name">Prime Minister of England</div>
+          <div class="notable-name">Prime Minister of Japan</div>
+          <div class="notable-name">Prime Minister of China</div>
+          <div class="notable-name">President of France</div>
+          <div class="notable-name">Chancellor of Germany</div>
+          <div class="notable-name">Prime Minister of Australia</div>
+          <div class="notable-name">Secretary of Defense, USA</div>
+        </div>
+      </div>
+      <div class="notable-col">
+        <div class="notable-col-title">Royal Households</div>
+        <div class="notable-names">
+          <div class="notable-name">Ruler of Saudi Arabia</div>
+          <div class="notable-name">Ruler of UAE</div>
+          <div class="notable-name">Ruler of Oman</div>
+          <div class="notable-name">Ruler of Bahrain</div>
+          <div class="notable-name">Ruler of Kuwait</div>
+          <div class="notable-name">Princess of Japan</div>
+          <div class="notable-name">Princess of Thailand</div>
+          <div class="notable-name">President of Jordan</div>
+        </div>
+      </div>
+      <div class="notable-col">
+        <div class="notable-col-title">Culinary Luminaries</div>
+        <div class="notable-names">
+          <div class="notable-name">Ferran Adrià — Michelin ★★★, Spain</div>
+          <div class="notable-name">Alain Ducasse — Michelin ★★★, France</div>
+          <div class="notable-name">Jamie Oliver — England</div>
+          <div class="notable-name">Jan Hurtigkarl — Michelin ★, Copenhagen</div>
+          <div class="notable-name">Stéphane Gaborieau — Michelin ★</div>
+          <div class="notable-name">Chef Alessandro de Rossi</div>
+          <div class="notable-name">Chef Georges Khalil</div>
+          <div class="notable-name">Chef Rohan Fernandopulle</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="contact-grid">
+      <div class="contact-left fade-in">
+        <div class="section-tag">
+          <div class="section-tag-line"></div>
+          <span>Contact</span>
+        </div>
+        <h2 class="section-heading light">Let's Build Something Exceptional</h2>
+        <p class="contact-body">
+          Whether you are opening a new F&B concept, restructuring existing operations, or seeking strategic advisory — we are available for confidential consultations. Based in Colombo. Operating regionally and internationally.
+        </p>
+        <div class="contact-details">
+          <div class="contact-detail">
+            <div class="contact-detail-icon">📍</div>
+            <div class="contact-detail-text">
+              <div class="contact-detail-label">Location</div>
+              <div class="contact-detail-value">Colombo, Sri Lanka</div>
+            </div>
+          </div>
+          <div class="contact-detail">
+            <div class="contact-detail-icon">📧</div>
+            <div class="contact-detail-text">
+              <div class="contact-detail-label">Email</div>
+              <div class="contact-detail-value">hello@miseenplace.lk</div>
+            </div>
+          </div>
+          <div class="contact-detail">
+            <div class="contact-detail-icon">📱</div>
+            <div class="contact-detail-text">
+              <div class="contact-detail-label">Phone / WhatsApp</div>
+              <div class="contact-detail-value">+94 XX XXX XXXX</div>
+            </div>
+          </div>
+          <div class="contact-detail">
+            <div class="contact-detail-icon">🌐</div>
+            <div class="contact-detail-text">
+              <div class="contact-detail-label">Operations</div>
+              <div class="contact-detail-value">Sri Lanka · Middle East · APAC</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="contact-right fade-in">
+        <div class="contact-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Full Name</label>
+              <input type="text" class="form-input" placeholder="Your name">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Organisation</label>
+              <input type="text" class="form-input" placeholder="Company / Hotel">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Email</label>
+              <input type="email" class="form-input" placeholder="your@email.com">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Phone</label>
+              <input type="tel" class="form-input" placeholder="+94 XX XXX XXXX">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Service Interest</label>
+            <select class="form-select">
+              <option value="" disabled selected>Select a service area</option>
+              <option>Culinary Strategy & Concept Development</option>
+              <option>Hotel & Resort F&B Operations</option>
+              <option>SOPs, Training & Quality Systems</option>
+              <option>Events & VVIP Culinary Production</option>
+              <option>F&B Investment & Business Advisory</option>
+              <option>New Product Development</option>
+              <option>Other / General Enquiry</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Brief</label>
+            <textarea class="form-textarea" placeholder="Tell us about your project or requirement..."></textarea>
+          </div>
+          <button class="form-submit">Send Enquiry →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Mise en <span>Place</span></div>
+  <div class="footer-copy">© 2025 Mise en Place F&B Consultancy. Colombo, Sri Lanka.</div>
+  <div class="footer-links">
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#services">Services</a>
+    <a href="#contact">Contact</a>
+  </div>
+</footer>
+
+<script>
+  // Intersection Observer for fade-in
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Mobile menu toggle
+  let menuOpen = false;
+  function toggleMenu() {
+    const links = document.querySelector('.nav-links');
+    menuOpen = !menuOpen;
+    if (menuOpen) {
+      links.style.display = 'flex';
+      links.style.flexDirection = 'column';
+      links.style.position = 'absolute';
+      links.style.top = '70px';
+      links.style.left = '0';
+      links.style.right = '0';
+      links.style.background = 'rgba(26,58,42,0.98)';
+      links.style.padding = '20px 24px 30px';
+      links.style.gap = '20px';
+    } else {
+      links.style.display = '';
+    }
+  }
+
+  // Stagger fade-in delays
+  document.querySelectorAll('.service-card').forEach((card, i) => {
+    card.style.transitionDelay = `${i * 0.1}s`;
+  });
+
+  document.querySelectorAll('.credential-card').forEach((card, i) => {
+    card.style.transitionDelay = `${i * 0.08}s`;
+  });
+</script>
+</body>
+</html>
