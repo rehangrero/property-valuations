@@ -16,7 +16,7 @@ Interactive property valuation analysis dashboards for Sri Lanka properties.
   **TinncoBB**[View](https://rehangrero.github.io/property-valuations/BlueBeachIsland_Investor.html)
   **Miseenplace**[View](https://rehangrero.github.io/property-valuations/mise-en-place.html)
   **Vauxhall**[View](https://rehangrero.github.io/property-valuations/Vauxhall_Exit_Simulator.html)
-  **Vauxhallone** [View](https://rehangrero.github.io/property-valuations/Vauxhall1Unit_Selection.html)
+  **Vauxhallone** [View](https://rehangrero.github.io/property-valuations/Vauxhall_5Unit_275M_Selection.html)
   
   
   
