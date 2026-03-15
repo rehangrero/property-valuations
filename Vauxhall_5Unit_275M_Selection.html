@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>5-Unit Selection — LKR 275–300M | Vauxhall District | RJ Grero</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --navy:#0B0E14;--navy2:#0F1520;--navy3:#131C2C;--navy4:#1A2640;
+  --gold:#B4903C;--gold2:#CBA84E;--gold-bg:rgba(180,144,60,0.08);
+  --cream:#F0EDE8;--cream2:#C8C4BE;--grey:#8A9298;
+  --border:rgba(180,144,60,0.2);--border2:rgba(255,255,255,0.06);
+  --blue:#4A9EFF;--green:#3DD68C;--amber:#FFB347;--purple:#B47EFF;
+}
+body{font-family:'Montserrat',sans-serif;background:var(--navy);color:var(--cream);min-height:100vh;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;opacity:0.3;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E")}
+
+/* ── HEADER ── */
+header{position:relative;z-index:10;padding:28px 48px 24px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px}
+.brand{font-size:10px;font-weight:700;letter-spacing:3px;color:var(--gold)}
+.header-title{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:600;color:var(--cream);margin-top:5px}
+.header-sub{font-size:10px;color:var(--grey);margin-top:3px;letter-spacing:0.5px}
+.budget-badge{display:inline-block;background:var(--gold-bg);border:1px solid var(--border);padding:7px 16px;border-radius:3px;font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--gold)}
+
+/* ── SUMMARY BAR ── */
+.summary-bar{position:relative;z-index:10;background:var(--navy3);border-bottom:1px solid var(--border2);padding:0 48px;display:flex;gap:0;overflow-x:auto}
+.sum-item{padding:18px 24px;border-right:1px solid var(--border2);min-width:120px;flex-shrink:0}
+.sum-item:first-child{padding-left:0}
+.sum-label{font-size:9px;font-weight:600;letter-spacing:2px;color:var(--grey);text-transform:uppercase;margin-bottom:4px}
+.sum-val{font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:700;color:var(--cream)}
+.sum-val.gold{color:var(--gold)}.sum-val.green{color:var(--green)}
+.sum-sub{font-size:9px;color:var(--grey);margin-top:2px}
+
+/* ── CONTEXT BANNER ── */
+.context-banner{position:relative;z-index:10;background:rgba(180,144,60,0.05);border-bottom:1px solid rgba(180,144,60,0.15);padding:12px 48px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.cb-icon{font-size:16px}
+.cb-text{font-size:11px;color:var(--cream2);line-height:1.5}
+.cb-text strong{color:var(--gold)}
+
+/* ── MAIN ── */
+main{position:relative;z-index:10;padding:40px 48px 60px;max-width:1360px;margin:0 auto}
+.sec-label{font-size:10px;font-weight:700;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:20px;display:flex;align-items:center;gap:12px}
+.sec-label::after{content:'';flex:1;height:1px;background:var(--border)}
+
+/* ── ORIENTATION MAP ── */
+.ori-map-card{background:var(--navy2);border:1px solid var(--border2);border-radius:4px;padding:28px;margin-bottom:44px}
+.ori-map-inner{display:flex;gap:32px;flex-wrap:wrap;align-items:flex-start}
+.legend-title{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:14px}
+.legend-row{display:flex;align-items:flex-start;gap:12px;margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid var(--border2)}
+.legend-row:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.legend-dot{width:12px;height:12px;border-radius:2px;flex-shrink:0;margin-top:2px}
+.legend-unit{font-size:12px;font-weight:700;color:var(--cream);margin-bottom:2px}
+.legend-dir{font-size:11px;font-weight:600;margin-bottom:2px}
+.legend-desc{font-size:10px;color:var(--grey);line-height:1.5}
+
+/* ── CARDS ── */
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(390px,1fr));gap:16px;margin-bottom:44px}
+.apt-card{background:var(--navy2);border:1px solid var(--border2);border-radius:4px;overflow:hidden;transition:border-color 0.3s,transform 0.3s;animation:fadeUp 0.5s ease both}
+.apt-card:nth-child(1){animation-delay:0.05s}.apt-card:nth-child(2){animation-delay:0.11s}
+.apt-card:nth-child(3){animation-delay:0.17s}.apt-card:nth-child(4){animation-delay:0.23s}
+.apt-card:nth-child(5){animation-delay:0.29s}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.apt-card:hover{border-color:var(--border);transform:translateY(-2px)}
+
+/* Card header */
+.card-top{padding:16px 20px 14px;border-bottom:1px solid var(--border2);display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.apt-number{font-size:9px;font-weight:700;letter-spacing:2px;color:var(--grey)}
+.apt-label{font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:700;color:var(--cream);margin-top:2px}
+.apt-sublabel{font-size:10px;color:var(--grey);margin-top:3px}
+.card-top-right{display:flex;flex-direction:column;align-items:flex-end;gap:6px}
+.floor-num{font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:700;line-height:1;color:var(--gold);text-align:right}
+.floor-txt{font-size:9px;letter-spacing:2px;color:var(--grey);text-transform:uppercase;text-align:right}
+
+/* Compass */
+.compass-wrap{display:flex;flex-direction:column;align-items:center;gap:2px}
+.compass-ring{width:46px;height:46px;border-radius:50%;border:1px solid rgba(180,144,60,0.3);background:rgba(11,14,20,0.9);position:relative;display:flex;align-items:center;justify-content:center}
+.compass-ring::before{content:'N';position:absolute;top:1px;left:50%;transform:translateX(-50%);font-size:7px;font-weight:700;color:var(--gold);letter-spacing:1px}
+.compass-ring::after{content:'S';position:absolute;bottom:1px;left:50%;transform:translateX(-50%);font-size:7px;font-weight:700;color:var(--grey);letter-spacing:1px}
+.c-e{position:absolute;right:1px;top:50%;transform:translateY(-50%);font-size:7px;color:var(--grey);font-weight:700}
+.c-w{position:absolute;left:1px;top:50%;transform:translateY(-50%);font-size:7px;color:var(--grey);font-weight:700}
+.compass-needle{width:2px;height:16px;position:absolute;bottom:50%;left:50%;border-radius:1px 1px 0 0;transform-origin:bottom center}
+.compass-dot{width:4px;height:4px;border-radius:50%;background:var(--gold);position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:2}
+.compass-label{font-size:9px;font-weight:700;text-align:center;margin-top:1px}
+.compass-bearing{font-size:8px;color:var(--grey);text-align:center}
+
+/* View bar */
+.view-ori-bar{display:flex;align-items:center;justify-content:space-between;padding:9px 20px;border-bottom:1px solid var(--border2)}
+.view-pill{font-size:10px;font-weight:600;letter-spacing:0.5px;padding:4px 10px;border-radius:2px}
+.sse{background:rgba(74,158,255,0.1);color:var(--blue);border:1px solid rgba(74,158,255,0.2)}
+.nnw{background:rgba(61,214,140,0.1);color:var(--green);border:1px solid rgba(61,214,140,0.2)}
+.ene{background:rgba(180,144,60,0.1);color:var(--gold2);border:1px solid rgba(180,144,60,0.2)}
+.wsw{background:rgba(180,126,255,0.1);color:var(--purple);border:1px solid rgba(180,126,255,0.2)}
+.ori-text-block{text-align:right}
+.ori-dir{font-size:12px;font-weight:700;letter-spacing:0.3px}
+.ori-what{font-size:9px;color:var(--grey);margin-top:1px}
+
+/* Card body */
+.card-body{padding:16px 20px}
+.price-row{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;gap:10px}
+.price-label{font-size:9px;font-weight:600;letter-spacing:1.5px;color:var(--grey);text-transform:uppercase;margin-bottom:3px}
+.price-main{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:700;color:var(--cream)}
+.price-list{font-size:10px;color:var(--grey);text-decoration:line-through;margin-top:1px}
+.price-save{font-size:10px;color:var(--green);margin-top:1px;font-weight:600}
+.psf-val{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;color:var(--gold2);text-align:right}
+
+/* Specs */
+.specs-row{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:12px}
+.spec-pill{font-size:9px;font-weight:500;padding:3px 8px;border-radius:2px;background:rgba(255,255,255,0.04);border:1px solid var(--border2);color:var(--cream2)}
+.spec-ori{background:rgba(180,144,60,0.07);border-color:rgba(180,144,60,0.2);color:var(--gold2)}
+
+/* Returns */
+.returns-title{font-size:9px;font-weight:700;letter-spacing:1.5px;color:var(--grey);text-transform:uppercase;margin-bottom:7px}
+.returns-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px}
+.ret-cell{background:rgba(255,255,255,0.02);border:1px solid var(--border2);border-radius:3px;padding:8px 6px;text-align:center}
+.ret-cell.best{background:rgba(180,144,60,0.07);border-color:rgba(180,144,60,0.25)}
+.ret-scenario{font-size:8px;font-weight:600;letter-spacing:1px;color:var(--grey);text-transform:uppercase;margin-bottom:3px}
+.ret-val{font-family:'Cormorant Garamond',serif;font-size:14px;font-weight:700;color:var(--green)}
+.ret-pct{font-size:8px;color:var(--grey);margin-top:1px}
+
+/* Strategy tag */
+.strategy-tag{margin-top:12px;padding:9px 12px;background:var(--gold-bg);border-left:2px solid var(--gold);font-size:11px;color:var(--cream2);line-height:1.55}
+.strategy-tag strong{color:var(--gold)}
+
+/* ── TABLE ── */
+.portfolio-table{background:var(--navy2);border:1px solid var(--border2);border-radius:4px;overflow:hidden;margin-bottom:44px;overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:860px}
+thead tr{background:var(--navy4)}
+th{padding:11px 13px;text-align:left;font-size:9px;font-weight:700;letter-spacing:2px;color:var(--gold);text-transform:uppercase;border-bottom:1px solid var(--border);white-space:nowrap}
+td{padding:11px 13px;font-size:11px;color:var(--cream2);border-bottom:1px solid var(--border2);white-space:nowrap}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:rgba(255,255,255,0.02)}
+.total-row td{background:var(--navy4);color:var(--cream);font-weight:600;border-top:1px solid var(--border)}
+td.gold{color:var(--gold);font-weight:600}
+td.green{color:var(--green);font-weight:600}
+td.sse-c{color:var(--blue);font-size:9px;font-weight:700}
+td.nnw-c{color:var(--green);font-size:9px;font-weight:700}
+td.ene-c{color:var(--gold2);font-size:9px;font-weight:700}
+td.wsw-c{color:var(--purple);font-size:9px;font-weight:700}
+
+/* ── PAYMENT ── */
+.pay-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-bottom:44px}
+.pay-card{background:var(--navy2);border:1px solid var(--border2);border-radius:4px;padding:15px 11px;text-align:center}
+.pay-year{font-size:15px;font-weight:700;color:var(--gold);font-family:'Cormorant Garamond',serif}
+.pay-pct{font-size:20px;font-weight:700;color:var(--cream);font-family:'Cormorant Garamond',serif;margin:3px 0}
+.pay-total{font-size:10px;color:var(--green);margin-top:4px;font-weight:600}
+.pay-trigger{font-size:9px;color:var(--grey);margin-top:4px;line-height:1.4}
+
+/* ── NOTES ── */
+.notes-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-bottom:44px}
+.note-card{background:var(--navy2);border:1px solid var(--border2);border-radius:4px;padding:18px}
+.note-icon{font-size:18px;margin-bottom:8px}
+.note-title{font-size:10px;font-weight:700;color:var(--gold);letter-spacing:1px;margin-bottom:7px;text-transform:uppercase}
+.note-text{font-size:11px;color:var(--cream2);line-height:1.7}
+
+footer{position:relative;z-index:10;border-top:1px solid var(--border2);padding:20px 48px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.footer-brand{font-size:10px;color:var(--gold);font-weight:700;letter-spacing:2px}
+.footer-disc{font-size:9px;color:var(--grey);max-width:600px;line-height:1.5}
+@media(max-width:768px){header,main,footer{padding-left:20px;padding-right:20px}.summary-bar,.context-banner{padding-left:20px}.cards-grid{grid-template-columns:1fr}.pay-grid{grid-template-columns:repeat(3,1fr)}}
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <div class="brand">RJ GRERO PROPERTY ADVISORY</div>
+    <div class="header-title">5-Unit Floor Selection — Budget Scenario</div>
+    <div class="header-sub">Development at Vauxhall Street &nbsp;|&nbsp; John Keells Properties &nbsp;|&nbsp; Colombo 02 &nbsp;|&nbsp; March 2026</div>
+  </div>
+  <div style="text-align:right">
+    <div class="budget-badge">BUDGET: LKR 275–300M</div>
+    <div style="font-size:9px;color:var(--grey);margin-top:7px">Floors 9–20 &nbsp;|&nbsp; Alternative unit types &nbsp;|&nbsp; 4 orientations</div>
+  </div>
+</header>
+
+<div class="summary-bar">
+  <div class="sum-item"><div class="sum-label">Total Committed</div><div class="sum-val gold">LKR 296.14M</div><div class="sum-sub">LKR 3.86M under ceiling</div></div>
+  <div class="sum-item"><div class="sum-label">Saving vs List</div><div class="sum-val green">LKR 38.48M</div><div class="sum-sub">11.5% off list across all 5</div></div>
+  <div class="sum-item"><div class="sum-label">Floor Range</div><div class="sum-val">9 — 17</div><div class="sum-sub">8-floor spread</div></div>
+  <div class="sum-item"><div class="sum-label">Base Case Gain</div><div class="sum-val green">LKR 219.4M</div><div class="sum-sub">All 5 units, 2031 exit</div></div>
+  <div class="sum-item"><div class="sum-label">Orientations</div><div class="sum-val">4 ways</div><div class="sum-sub">SSE · NNW · ENE · WSW</div></div>
+  <div class="sum-item"><div class="sum-label">Unit Types</div><div class="sum-val">4 types</div><div class="sum-sub">A1 · A2 · B1 · B6</div></div>
+</div>
+
+<div class="context-banner">
+  <div class="cb-icon">🔄</div>
+  <div class="cb-text"><strong>Alternative selection to the LKR 350M portfolio.</strong> This selection uses different unit types (A1, A2, B1, B6 — not B7 or B3) across four distinct orientations. Lower entry prices, broader buyer profiles at exit, and maximum orientation diversity. The B6 Beira Lake unit anchors the portfolio's premium segment.</div>
+</div>
+
+<main>
+
+<!-- ORIENTATION MAP -->
+<div class="sec-label">BUILDING ORIENTATION & UNIT POSITIONS</div>
+<div class="ori-map-card">
+  <div class="ori-map-inner">
+
+    <div>
+      <svg width="320" height="320" viewBox="0 0 320 320">
+        <defs>
+          <marker id="arh" markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" orient="auto">
+            <path d="M0,0 L7,3.5 L0,7 Z" fill="rgba(180,144,60,0.5)"/>
+          </marker>
+        </defs>
+        <!-- Compass circles -->
+        <circle cx="160" cy="160" r="148" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+        <circle cx="160" cy="160" r="96" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+        <!-- Cardinal labels -->
+        <text x="160" y="11" text-anchor="middle" font-size="11" font-weight="700" fill="#B4903C" font-family="Montserrat">N</text>
+        <text x="160" y="316" text-anchor="middle" font-size="11" fill="rgba(255,255,255,0.3)" font-family="Montserrat">S</text>
+        <text x="314" y="164" text-anchor="middle" font-size="11" fill="rgba(255,255,255,0.3)" font-family="Montserrat">E</text>
+        <text x="6" y="164" text-anchor="middle" font-size="11" fill="rgba(255,255,255,0.3)" font-family="Montserrat">W</text>
+        <text x="278" y="46" font-size="8" fill="rgba(255,255,255,0.18)" font-family="Montserrat">NE</text>
+        <text x="42" y="46" font-size="8" fill="rgba(255,255,255,0.18)" font-family="Montserrat">NW</text>
+        <text x="278" y="286" font-size="8" fill="rgba(255,255,255,0.18)" font-family="Montserrat">SE</text>
+        <text x="42" y="286" font-size="8" fill="rgba(255,255,255,0.18)" font-family="Montserrat">SW</text>
+        <!-- N tick -->
+        <line x1="160" y1="18" x2="160" y2="28" stroke="rgba(180,144,60,0.5)" stroke-width="1.5"/>
+
+        <!-- Building rotated -15° -->
+        <g transform="translate(160,160) rotate(-15)">
+          <!-- Core -->
+          <rect x="-26" y="-36" width="52" height="72" rx="2" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+          <text x="0" y="4" text-anchor="middle" font-size="7" fill="rgba(255,255,255,0.25)" font-family="Montserrat">CORE</text>
+
+          <!-- B6 — NNW ★ SELECTED -->
+          <rect x="-68" y="-78" width="56" height="42" rx="2" fill="rgba(61,214,140,0.18)" stroke="rgba(61,214,140,0.6)" stroke-width="2"/>
+          <text x="-40" y="-55" text-anchor="middle" font-size="9" font-weight="700" fill="#3DD68C" font-family="Montserrat">B6 ★</text>
+          <text x="-40" y="-44" text-anchor="middle" font-size="7" fill="rgba(61,214,140,0.7)" font-family="Montserrat">NNW 345°</text>
+
+          <!-- B3/B4/B5 — NNW (not selected) -->
+          <rect x="10" y="-78" width="56" height="42" rx="2" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+          <text x="38" y="-55" text-anchor="middle" font-size="8" fill="rgba(255,255,255,0.3)" font-family="Montserrat">B3·B4·B5</text>
+          <text x="38" y="-44" text-anchor="middle" font-size="7" fill="rgba(255,255,255,0.2)" font-family="Montserrat">NNW</text>
+
+          <!-- B1 — SSE ★ SELECTED -->
+          <rect x="10" y="36" width="56" height="42" rx="2" fill="rgba(74,158,255,0.18)" stroke="rgba(74,158,255,0.6)" stroke-width="2"/>
+          <text x="38" y="59" text-anchor="middle" font-size="9" font-weight="700" fill="#4A9EFF" font-family="Montserrat">B1 ★</text>
+          <text x="38" y="70" text-anchor="middle" font-size="7" fill="rgba(74,158,255,0.7)" font-family="Montserrat">SSE 165°</text>
+
+          <!-- B2/B7/B8 — SSE (not selected) -->
+          <rect x="-68" y="36" width="56" height="42" rx="2" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+          <text x="-40" y="59" text-anchor="middle" font-size="8" fill="rgba(255,255,255,0.3)" font-family="Montserrat">B2·B7·B8</text>
+          <text x="-40" y="70" text-anchor="middle" font-size="7" fill="rgba(255,255,255,0.2)" font-family="Montserrat">SSE</text>
+
+          <!-- A1 — WSW ★ SELECTED -->
+          <rect x="-110" y="-26" width="40" height="52" rx="2" fill="rgba(180,126,255,0.18)" stroke="rgba(180,126,255,0.6)" stroke-width="2"/>
+          <text x="-90" y="-2" text-anchor="middle" font-size="9" font-weight="700" fill="#B47EFF" font-family="Montserrat">A1★</text>
+          <text x="-90" y="9" text-anchor="middle" font-size="7" fill="rgba(180,126,255,0.7)" font-family="Montserrat">WSW</text>
+
+          <!-- A2 — ENE ★ SELECTED -->
+          <rect x="70" y="-26" width="40" height="52" rx="2" fill="rgba(180,144,60,0.2)" stroke="rgba(180,144,60,0.65)" stroke-width="2"/>
+          <text x="90" y="-2" text-anchor="middle" font-size="9" font-weight="700" fill="#CBA84E" font-family="Montserrat">A2★</text>
+          <text x="90" y="9" text-anchor="middle" font-size="7" fill="rgba(180,144,60,0.7)" font-family="Montserrat">ENE</text>
+        </g>
+
+        <!-- Direction arrows -->
+        <line x1="160" y1="160" x2="147" y2="24" stroke="rgba(61,214,140,0.35)" stroke-width="1" stroke-dasharray="4,3" marker-end="url(#arh)"/>
+        <text x="140" y="18" text-anchor="middle" font-size="8" fill="rgba(61,214,140,0.65)" font-family="Montserrat">Beira Lake</text>
+        <line x1="160" y1="160" x2="173" y2="296" stroke="rgba(74,158,255,0.35)" stroke-width="1" stroke-dasharray="4,3" marker-end="url(#arh)"/>
+        <text x="180" y="308" text-anchor="middle" font-size="8" fill="rgba(74,158,255,0.65)" font-family="Montserrat">City/CBD</text>
+        <line x1="160" y1="160" x2="296" y2="147" stroke="rgba(180,144,60,0.3)" stroke-width="1" stroke-dasharray="4,3" marker-end="url(#arh)"/>
+        <text x="302" y="140" text-anchor="start" font-size="8" fill="rgba(180,144,60,0.6)" font-family="Montserrat">Vauxhall St</text>
+        <line x1="160" y1="160" x2="24" y2="173" stroke="rgba(180,126,255,0.3)" stroke-width="1" stroke-dasharray="4,3" marker-end="url(#arh)"/>
+        <text x="2" y="178" text-anchor="start" font-size="8" fill="rgba(180,126,255,0.6)" font-family="Montserrat">CBD</text>
+
+        <text x="20" y="312" font-size="8" fill="rgba(255,255,255,0.3)" font-family="Montserrat">★ = Selected</text>
+      </svg>
+    </div>
+
+    <div style="flex:1;min-width:260px">
+      <div class="legend-title">4 ORIENTATIONS IN THIS PORTFOLIO</div>
+      <div class="legend-row">
+        <div class="legend-dot" style="background:rgba(61,214,140,0.5);border:1px solid #3DD68C"></div>
+        <div>
+          <div class="legend-unit">B6 &nbsp;<span style="color:var(--green);font-size:10px">★ Selected — Apt 5</span></div>
+          <div class="legend-dir" style="color:var(--green)">North-Northwest (NNW) · 345°</div>
+          <div class="legend-desc">Beira Lake, Lotus Tower, Port City Colombo. Permanent, unblockable view. Morning light, cool afternoons. 843 sqft — largest unit in this portfolio. Premium buyer segment.</div>
+        </div>
+      </div>
+      <div class="legend-row">
+        <div class="legend-dot" style="background:rgba(74,158,255,0.5);border:1px solid #4A9EFF"></div>
+        <div>
+          <div class="legend-unit">B1 &nbsp;<span style="color:var(--blue);font-size:10px">★ Selected — Apt 4</span></div>
+          <div class="legend-dir" style="color:var(--blue)">South-Southeast (SSE) · 165°</div>
+          <div class="legend-desc">Colombo CBD and city skyline. Afternoon sun exposure. City lights at night. 683 sqft compact 2-bedroom — strong rental appeal and first-home buyer market at exit.</div>
+        </div>
+      </div>
+      <div class="legend-row">
+        <div class="legend-dot" style="background:rgba(180,144,60,0.5);border:1px solid #CBA84E"></div>
+        <div>
+          <div class="legend-unit">A2 &nbsp;<span style="color:var(--gold2);font-size:10px">★ Selected — Apts 1 & 2</span></div>
+          <div class="legend-dir" style="color:var(--gold2)">East-Northeast (ENE) · 075°</div>
+          <div class="legend-desc">Faces Vauxhall Street and the Colombo 02 urban corridor. Morning sun. Catches the ENE breeze. 500 sqft — lowest entry price in the building. Widest exit buyer pool: young professionals, investors, first-time buyers.</div>
+        </div>
+      </div>
+      <div class="legend-row">
+        <div class="legend-dot" style="background:rgba(180,126,255,0.4);border:1px solid #B47EFF"></div>
+        <div>
+          <div class="legend-unit">A1 &nbsp;<span style="color:var(--purple);font-size:10px">★ Selected — Apt 3</span></div>
+          <div class="legend-dir" style="color:var(--purple)">West-Southwest (WSW) · 255°</div>
+          <div class="legend-desc">Faces the Colombo Business District. Afternoon shade from the building mass — cooler than SSE units. Different buyer to A2 despite same size. CBD-adjacent professionals and business users.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- APARTMENT CARDS -->
+<div class="sec-label">YOUR 5 RECOMMENDED APARTMENTS</div>
+<div class="cards-grid">
+
+  <!-- APT 1: A2, Floor 9, ENE -->
+  <div class="apt-card">
+    <div class="card-top">
+      <div>
+        <div class="apt-number">APARTMENT 01 OF 05</div>
+        <div class="apt-label">Unit A2 — Vauxhall St View</div>
+        <div class="apt-sublabel">1 Bed · 1 Bath · 500 sqft</div>
+      </div>
+      <div class="card-top-right">
+        <div><div class="floor-num">9</div><div class="floor-txt">Floor</div></div>
+        <div class="compass-wrap">
+          <div class="compass-ring">
+            <div class="c-e">E</div><div class="c-w">W</div>
+            <!-- ENE = 075° -->
+            <div class="compass-needle" style="background:linear-gradient(to top,transparent,#CBA84E);transform:translate(-50%,-100%) rotate(75deg);transform-origin:bottom center;position:absolute;bottom:50%;left:50%"></div>
+            <div class="compass-dot"></div>
+          </div>
+          <div class="compass-label" style="color:var(--gold2)">ENE</div>
+          <div class="compass-bearing">075°</div>
+        </div>
+      </div>
+    </div>
+    <div class="view-ori-bar">
+      <span class="view-pill ene">⬤ &nbsp;Vauxhall Street Corridor</span>
+      <div class="ori-text-block">
+        <div class="ori-dir" style="color:var(--gold2)">East-Northeast</div>
+        <div class="ori-what">075° · Morning sun · Urban outlook</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="price-row">
+        <div>
+          <div class="price-label">Negotiated Price</div>
+          <div class="price-main">LKR 53.54M</div>
+          <div class="price-list">List: LKR 60.50M</div>
+          <div class="price-save">↓ Saving LKR 6.96M (11.5%)</div>
+        </div>
+        <div style="text-align:right">
+          <div class="price-label">Per Sqft</div>
+          <div class="psf-val">LKR 107,085</div>
+          <div class="price-label" style="margin-top:5px">Sqft</div>
+          <div style="font-size:13px;color:var(--cream2)">500</div>
+        </div>
+      </div>
+      <div class="specs-row">
+        <div class="spec-pill spec-ori">ENE · 075°</div>
+        <div class="spec-pill">Floor 9 — lowest entry</div>
+        <div class="spec-pill">500 sqft compact</div>
+        <div class="spec-pill">Morning sun</div>
+      </div>
+      <div class="returns-title">Projected Net Gain at 2031 Exit</div>
+      <div class="returns-grid">
+        <div class="ret-cell"><div class="ret-scenario">Conservative</div><div class="ret-val">LKR 25.5M</div><div class="ret-pct">9% / yr</div></div>
+        <div class="ret-cell best"><div class="ret-scenario">Base Case</div><div class="ret-val">LKR 38.1M</div><div class="ret-pct">12.3% / yr</div></div>
+        <div class="ret-cell"><div class="ret-scenario">Bull</div><div class="ret-val">LKR 59.2M</div><div class="ret-pct">17% / yr</div></div>
+      </div>
+      <div class="strategy-tag"><strong>Floor 9 · ENE · A2:</strong> The lowest entry price available in the entire building. 500 sqft is the most affordable and most liquid size at exit — largest buyer pool. ENE orientation catches morning sun and the ENE sea breeze. Faces Vauxhall Street directly — urban, connected, lively. Target young professional and first-home buyer at exit.</div>
+    </div>
+  </div>
+
+  <!-- APT 2: A2, Floor 17, ENE -->
+  <div class="apt-card">
+    <div class="card-top">
+      <div>
+        <div class="apt-number">APARTMENT 02 OF 05</div>
+        <div class="apt-label">Unit A2 — Vauxhall St View</div>
+        <div class="apt-sublabel">1 Bed · 1 Bath · 500 sqft</div>
+      </div>
+      <div class="card-top-right">
+        <div><div class="floor-num">17</div><div class="floor-txt">Floor</div></div>
+        <div class="compass-wrap">
+          <div class="compass-ring">
+            <div class="c-e">E</div><div class="c-w">W</div>
+            <div class="compass-needle" style="background:linear-gradient(to top,transparent,#CBA84E);transform:translate(-50%,-100%) rotate(75deg);transform-origin:bottom center;position:absolute;bottom:50%;left:50%"></div>
+            <div class="compass-dot"></div>
+          </div>
+          <div class="compass-label" style="color:var(--gold2)">ENE</div>
+          <div class="compass-bearing">075°</div>
+        </div>
+      </div>
+    </div>
+    <div class="view-ori-bar">
+      <span class="view-pill ene">⬤ &nbsp;Vauxhall Street Corridor</span>
+      <div class="ori-text-block">
+        <div class="ori-dir" style="color:var(--gold2)">East-Northeast</div>
+        <div class="ori-what">075° · Open vista · Floor premium</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="price-row">
+        <div>
+          <div class="price-label">Negotiated Price</div>
+          <div class="price-main">LKR 54.41M</div>
+          <div class="price-list">List: LKR 61.48M</div>
+          <div class="price-save">↓ Saving LKR 7.07M (11.5%)</div>
+        </div>
+        <div style="text-align:right">
+          <div class="price-label">Per Sqft</div>
+          <div class="psf-val">LKR 108,820</div>
+          <div class="price-label" style="margin-top:5px">Sqft</div>
+          <div style="font-size:13px;color:var(--cream2)">500</div>
+        </div>
+      </div>
+      <div class="specs-row">
+        <div class="spec-pill spec-ori">ENE · 075°</div>
+        <div class="spec-pill">Floor 17 — elevated ENE</div>
+        <div class="spec-pill">Same unit, higher return</div>
+        <div class="spec-pill">Wider buyer pool at exit</div>
+      </div>
+      <div class="returns-title">Projected Net Gain at 2031 Exit</div>
+      <div class="returns-grid">
+        <div class="ret-cell"><div class="ret-scenario">Conservative</div><div class="ret-val">LKR 26.0M</div><div class="ret-pct">9% / yr</div></div>
+        <div class="ret-cell best"><div class="ret-scenario">Base Case</div><div class="ret-val">LKR 40.8M</div><div class="ret-pct">12.8% / yr</div></div>
+        <div class="ret-cell"><div class="ret-scenario">Bull</div><div class="ret-val">LKR 60.1M</div><div class="ret-pct">17% / yr</div></div>
+      </div>
+      <div class="strategy-tag"><strong>Floor 17 · ENE · A2:</strong> Same unit type as Apt 1, 8 floors higher. The LKR 870K extra entry cost buys you better views, a higher exit price, and a slightly different buyer profile — those willing to pay a floor premium. Holding two A2 units on different floors means you can stagger the exit and test the market price with the lower floor first.</div>
+    </div>
+  </div>
+
+  <!-- APT 3: A1, Floor 13, WSW -->
+  <div class="apt-card">
+    <div class="card-top">
+      <div>
+        <div class="apt-number">APARTMENT 03 OF 05</div>
+        <div class="apt-label">Unit A1 — CBD View</div>
+        <div class="apt-sublabel">1 Bed · 1 Bath · 500 sqft</div>
+      </div>
+      <div class="card-top-right">
+        <div><div class="floor-num">13</div><div class="floor-txt">Floor</div></div>
+        <div class="compass-wrap">
+          <div class="compass-ring">
+            <div class="c-e">E</div><div class="c-w">W</div>
+            <!-- WSW = 255° -->
+            <div class="compass-needle" style="background:linear-gradient(to top,transparent,#B47EFF);transform:translate(-50%,-100%) rotate(255deg);transform-origin:bottom center;position:absolute;bottom:50%;left:50%"></div>
+            <div class="compass-dot"></div>
+          </div>
+          <div class="compass-label" style="color:var(--purple)">WSW</div>
+          <div class="compass-bearing">255°</div>
+        </div>
+      </div>
+    </div>
+    <div class="view-ori-bar">
+      <span class="view-pill wsw">⬤ &nbsp;Colombo Business District</span>
+      <div class="ori-text-block">
+        <div class="ori-dir" style="color:var(--purple)">West-Southwest</div>
+        <div class="ori-what">255° · Afternoon shade · CBD outlook</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="price-row">
+        <div>
+          <div class="price-label">Negotiated Price</div>
+          <div class="price-main">LKR 53.98M</div>
+          <div class="price-list">List: LKR 60.99M</div>
+          <div class="price-save">↓ Saving LKR 7.01M (11.5%)</div>
+        </div>
+        <div style="text-align:right">
+          <div class="price-label">Per Sqft</div>
+          <div class="psf-val">LKR 107,953</div>
+          <div class="price-label" style="margin-top:5px">Sqft</div>
+          <div style="font-size:13px;color:var(--cream2)">500</div>
+        </div>
+      </div>
+      <div class="specs-row">
+        <div class="spec-pill spec-ori">WSW · 255°</div>
+        <div class="spec-pill">Floor 13 — CBD facing</div>
+        <div class="spec-pill">Afternoon shade</div>
+        <div class="spec-pill">Different buyer to A2</div>
+      </div>
+      <div class="returns-title">Projected Net Gain at 2031 Exit</div>
+      <div class="returns-grid">
+        <div class="ret-cell"><div class="ret-scenario">Conservative</div><div class="ret-val">LKR 25.8M</div><div class="ret-pct">9% / yr</div></div>
+        <div class="ret-cell best"><div class="ret-scenario">Base Case</div><div class="ret-val">LKR 39.8M</div><div class="ret-pct">12.6% / yr</div></div>
+        <div class="ret-cell"><div class="ret-scenario">Bull</div><div class="ret-val">LKR 59.6M</div><div class="ret-pct">17% / yr</div></div>
+      </div>
+      <div class="strategy-tag"><strong>Floor 13 · WSW · A1:</strong> Directly opposite A2 in orientation — faces the CBD rather than Vauxhall Street. WSW means the building mass blocks afternoon sun, keeping the unit cooler. This unit appeals to CBD professionals, business users, and corporate tenants. Nearly identical price to A2 Floor 9 but different buyer pool entirely — critical for exit diversification.</div>
+    </div>
+  </div>
+
+  <!-- APT 4: B1, Floor 14, SSE -->
+  <div class="apt-card">
+    <div class="card-top">
+      <div>
+        <div class="apt-number">APARTMENT 04 OF 05</div>
+        <div class="apt-label">Unit B1 — City View</div>
+        <div class="apt-sublabel">2 Bed · 1 Bath · 683 sqft</div>
+      </div>
+      <div class="card-top-right">
+        <div><div class="floor-num">14</div><div class="floor-txt">Floor</div></div>
+        <div class="compass-wrap">
+          <div class="compass-ring">
+            <div class="c-e">E</div><div class="c-w">W</div>
+            <!-- SSE = 165° -->
+            <div class="compass-needle" style="background:linear-gradient(to top,transparent,#4A9EFF);transform:translate(-50%,-100%) rotate(165deg);transform-origin:bottom center;position:absolute;bottom:50%;left:50%"></div>
+            <div class="compass-dot"></div>
+          </div>
+          <div class="compass-label" style="color:var(--blue)">SSE</div>
+          <div class="compass-bearing">165°</div>
+        </div>
+      </div>
+    </div>
+    <div class="view-ori-bar">
+      <span class="view-pill sse">⬤ &nbsp;Colombo City Skyline</span>
+      <div class="ori-text-block">
+        <div class="ori-dir" style="color:var(--blue)">South-Southeast</div>
+        <div class="ori-what">165° · City panorama · Afternoon sun</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="price-row">
+        <div>
+          <div class="price-label">Negotiated Price</div>
+          <div class="price-main">LKR 62.53M</div>
+          <div class="price-list">List: LKR 70.65M</div>
+          <div class="price-save">↓ Saving LKR 8.12M (11.5%)</div>
+        </div>
+        <div style="text-align:right">
+          <div class="price-label">Per Sqft</div>
+          <div class="psf-val">LKR 91,548</div>
+          <div class="price-label" style="margin-top:5px">Sqft</div>
+          <div style="font-size:13px;color:var(--cream2)">683</div>
+        </div>
+      </div>
+      <div class="specs-row">
+        <div class="spec-pill spec-ori">SSE · 165°</div>
+        <div class="spec-pill">Floor 14 — city view open</div>
+        <div class="spec-pill">683 sqft compact 2BR</div>
+        <div class="spec-pill">Rental-friendly size</div>
+      </div>
+      <div class="returns-title">Projected Net Gain at 2031 Exit</div>
+      <div class="returns-grid">
+        <div class="ret-cell"><div class="ret-scenario">Conservative</div><div class="ret-val">LKR 29.8M</div><div class="ret-pct">9% / yr</div></div>
+        <div class="ret-cell best"><div class="ret-scenario">Base Case</div><div class="ret-val">LKR 47.1M</div><div class="ret-pct">12.8% / yr</div></div>
+        <div class="ret-cell"><div class="ret-scenario">Bull</div><div class="ret-val">LKR 69.1M</div><div class="ret-pct">17% / yr</div></div>
+      </div>
+      <div class="strategy-tag"><strong>Floor 14 · SSE · B1:</strong> The portfolio's step-up unit. 2-bedroom, 1 bathroom at 683 sqft — the smallest 2BR in the building, making it the most affordable 2BR entry point. SSE city view fully open at floor 14. Attracts a completely different buyer from the A-type units: families, couples, professionals needing a second room. Strongest rental yield potential in this portfolio.</div>
+    </div>
+  </div>
+
+  <!-- APT 5: B6, Floor 9, NNW -->
+  <div class="apt-card">
+    <div class="card-top">
+      <div>
+        <div class="apt-number">APARTMENT 05 OF 05</div>
+        <div class="apt-label">Unit B6 — Beira Lake View</div>
+        <div class="apt-sublabel">2 Bed · 2 Bath · 843 sqft</div>
+      </div>
+      <div class="card-top-right">
+        <div><div class="floor-num">9</div><div class="floor-txt">Floor</div></div>
+        <div class="compass-wrap">
+          <div class="compass-ring">
+            <div class="c-e">E</div><div class="c-w">W</div>
+            <!-- NNW = 345° -->
+            <div class="compass-needle" style="background:linear-gradient(to top,transparent,#3DD68C);transform:translate(-50%,-100%) rotate(345deg);transform-origin:bottom center;position:absolute;bottom:50%;left:50%"></div>
+            <div class="compass-dot"></div>
+          </div>
+          <div class="compass-label" style="color:var(--green)">NNW</div>
+          <div class="compass-bearing">345°</div>
+        </div>
+      </div>
+    </div>
+    <div class="view-ori-bar">
+      <span class="view-pill nnw">⬤ &nbsp;Beira Lake · Lotus Tower · Port City</span>
+      <div class="ori-text-block">
+        <div class="ori-dir" style="color:var(--green)">North-Northwest</div>
+        <div class="ori-what">345° · Lake panorama · Cool afternoons</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="price-row">
+        <div>
+          <div class="price-label">Negotiated Price</div>
+          <div class="price-main">LKR 71.69M</div>
+          <div class="price-list">List: LKR 81.00M</div>
+          <div class="price-save">↓ Saving LKR 9.31M (11.5%)</div>
+        </div>
+        <div style="text-align:right">
+          <div class="price-label">Per Sqft</div>
+          <div class="psf-val">LKR 85,036</div>
+          <div class="price-label" style="margin-top:5px">Sqft</div>
+          <div style="font-size:13px;color:var(--cream2)">843</div>
+        </div>
+      </div>
+      <div class="specs-row">
+        <div class="spec-pill spec-ori">NNW · 345°</div>
+        <div class="spec-pill">Floor 9 — Beira Lake open</div>
+        <div class="spec-pill">843 sqft — largest here</div>
+        <div class="spec-pill">Sell this one last · highest price</div>
+      </div>
+      <div class="returns-title">Projected Net Gain at 2031 Exit</div>
+      <div class="returns-grid">
+        <div class="ret-cell"><div class="ret-scenario">Conservative</div><div class="ret-val">LKR 34.2M</div><div class="ret-pct">9% / yr</div></div>
+        <div class="ret-cell best"><div class="ret-scenario">Base Case</div><div class="ret-val">LKR 53.7M</div><div class="ret-pct">12.8% / yr</div></div>
+        <div class="ret-cell"><div class="ret-scenario">Bull</div><div class="ret-val">LKR 79.2M</div><div class="ret-pct">17% / yr</div></div>
+      </div>
+      <div class="strategy-tag"><strong>Floor 9 · NNW · B6:</strong> The portfolio anchor. Largest unit (843 sqft), 2 bathrooms, Beira Lake view — NNW at 345°. At floor 9 the lake is already fully visible to the north. Morning light, cool afternoons, permanent unblockable view. This is the highest-value unit in this portfolio — hold it, price it last, and let the A-type exits set your market credibility first.</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- PORTFOLIO TABLE -->
+<div class="sec-label">PORTFOLIO OVERVIEW</div>
+<div class="portfolio-table">
+  <table>
+    <thead>
+      <tr><th>Apt</th><th>Unit</th><th>Floor</th><th>Facing</th><th>Bearing</th><th>View</th><th>Sqft</th><th>Beds/Bath</th><th>List Price</th><th>Your Price</th><th>Saving</th><th>Conservative</th><th>Base Case</th><th>Bull</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>01</td><td class="gold">A2</td><td>9</td><td class="ene-c">ENE</td><td style="color:var(--grey);font-size:9px">075°</td><td style="color:var(--gold2);font-size:9px;font-weight:600">VAUXHALL ST</td><td>500</td><td>1B/1Ba</td><td>LKR 60.50M</td><td class="gold">LKR 53.54M</td><td class="green">LKR 6.96M</td><td>+LKR 25.5M</td><td class="green">+LKR 38.1M</td><td>+LKR 59.2M</td></tr>
+      <tr><td>02</td><td class="gold">A2</td><td>17</td><td class="ene-c">ENE</td><td style="color:var(--grey);font-size:9px">075°</td><td style="color:var(--gold2);font-size:9px;font-weight:600">VAUXHALL ST</td><td>500</td><td>1B/1Ba</td><td>LKR 61.48M</td><td class="gold">LKR 54.41M</td><td class="green">LKR 7.07M</td><td>+LKR 26.0M</td><td class="green">+LKR 40.8M</td><td>+LKR 60.1M</td></tr>
+      <tr><td>03</td><td class="gold">A1</td><td>13</td><td class="wsw-c">WSW</td><td style="color:var(--grey);font-size:9px">255°</td><td style="color:var(--purple);font-size:9px;font-weight:600">CBD VIEW</td><td>500</td><td>1B/1Ba</td><td>LKR 60.99M</td><td class="gold">LKR 53.98M</td><td class="green">LKR 7.01M</td><td>+LKR 25.8M</td><td class="green">+LKR 39.8M</td><td>+LKR 59.6M</td></tr>
+      <tr><td>04</td><td class="gold">B1</td><td>14</td><td class="sse-c">SSE</td><td style="color:var(--grey);font-size:9px">165°</td><td class="sse-c">CITY VIEW</td><td>683</td><td>2B/1Ba</td><td>LKR 70.65M</td><td class="gold">LKR 62.53M</td><td class="green">LKR 8.12M</td><td>+LKR 29.8M</td><td class="green">+LKR 47.1M</td><td>+LKR 69.1M</td></tr>
+      <tr><td>05</td><td class="gold">B6</td><td>9</td><td class="nnw-c">NNW</td><td style="color:var(--grey);font-size:9px">345°</td><td class="nnw-c">BEIRA LAKE</td><td>843</td><td>2B/2Ba</td><td>LKR 81.00M</td><td class="gold">LKR 71.69M</td><td class="green">LKR 9.31M</td><td>+LKR 34.2M</td><td class="green">+LKR 53.7M</td><td>+LKR 79.2M</td></tr>
+      <tr class="total-row"><td colspan="8"><strong>TOTAL — 5 APARTMENTS</strong></td><td><strong>LKR 334.62M</strong></td><td class="gold"><strong>LKR 296.14M</strong></td><td class="green"><strong>LKR 38.48M</strong></td><td><strong>LKR 141.3M</strong></td><td class="green"><strong>LKR 219.5M</strong></td><td><strong>LKR 327.2M</strong></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- PAYMENT SCHEDULE -->
+<div class="sec-label">COMBINED PAYMENT SCHEDULE — ALL 5 APARTMENTS</div>
+<div class="pay-grid">
+  <div class="pay-card" style="border-color:rgba(180,144,60,0.4)">
+    <div class="pay-year">2026</div><div class="pay-pct">20%</div>
+    <div class="pay-total">LKR 59.23M total</div>
+    <div class="pay-trigger">Reservation + SPA + construction start</div>
+  </div>
+  <div class="pay-card">
+    <div class="pay-year">2027</div><div class="pay-pct">17.5%</div>
+    <div class="pay-total">LKR 51.82M total</div>
+    <div class="pay-trigger">20% complete — structure rising</div>
+  </div>
+  <div class="pay-card">
+    <div class="pay-year">2028</div><div class="pay-pct">17.5%</div>
+    <div class="pay-total">LKR 51.82M total</div>
+    <div class="pay-trigger">40% complete — mid construction</div>
+  </div>
+  <div class="pay-card">
+    <div class="pay-year">2029</div><div class="pay-pct">17.5%</div>
+    <div class="pay-total">LKR 51.82M total</div>
+    <div class="pay-trigger">60% complete — begin exit prep</div>
+  </div>
+  <div class="pay-card">
+    <div class="pay-year">2030</div><div class="pay-pct">17.5%</div>
+    <div class="pay-total">LKR 51.82M total</div>
+    <div class="pay-trigger">80% complete — pre-market units</div>
+  </div>
+  <div class="pay-card" style="border-color:rgba(61,214,140,0.3)">
+    <div class="pay-year">2031</div><div class="pay-pct">10%</div>
+    <div class="pay-total">LKR 29.61M total</div>
+    <div class="pay-trigger">Title deed — SELL</div>
+  </div>
+</div>
+
+<!-- NOTES -->
+<div class="sec-label">ADVISORY NOTES</div>
+<div class="notes-grid">
+  <div class="note-card">
+    <div class="note-icon">🎯</div>
+    <div class="note-title">Exit Sequence Strategy</div>
+    <div class="note-text">Sell in this order: Apt 1 (A2 Floor 9) first — set your price benchmark with the most liquid unit. Then Apt 2 (A2 Floor 17) — use Apt 1's sale price as proof. Then Apt 3 (A1 Floor 13) — different buyer, no cannibalism. Then Apt 4 (B1 Floor 14). Lastly Apt 5 (B6 Floor 9) — the premium exit, priced highest, sold last.</div>
+  </div>
+  <div class="note-card">
+    <div class="note-icon">👥</div>
+    <div class="note-title">Four Buyer Profiles at Exit</div>
+    <div class="note-text">A2 (ENE): Young professionals, first-home buyers, Colombo 02 lifestyle seekers. A1 (WSW): CBD workers, business professionals, corporate tenants. B1 (SSE): Couples and small families needing a second room, rental investors. B6 (NNW): Premium diaspora buyers, lifestyle investors, Beira Lake enthusiasts. You are not competing with yourself at any exit.</div>
+  </div>
+  <div class="note-card">
+    <div class="note-icon">🧭</div>
+    <div class="note-title">Why 4 Orientations Matters</div>
+    <div class="note-text">Each orientation catches different light, different views, and different breeze. ENE and NNW units are cooler — lower electricity bills, more comfortable living. SSE and WSW units get more sun — warmer but with more city exposure. Offering buyers a choice of orientation at exit is a differentiator when competing against single-orientation sellers.</div>
+  </div>
+  <div class="note-card">
+    <div class="note-icon">💡</div>
+    <div class="note-title">A-Type Units: Often Overlooked</div>
+    <div class="note-text">The A1 and A2 units are frequently passed over by investors chasing larger sizes. This is a mistake. At LKR 53–54M negotiated, they offer the best capital efficiency in the building — and the largest buyer pool at exit. 500 sqft is the right size for the Colombo 02 rental market, where single professionals and couples dominate demand.</div>
+  </div>
+  <div class="note-card">
+    <div class="note-icon">⚖️</div>
+    <div class="note-title">This vs the LKR 350M Portfolio</div>
+    <div class="note-text">The LKR 350M selection (B7 + B3) has a higher absolute return: LKR 293M base case vs LKR 219M here. But this portfolio deploys LKR 54M less capital. The return on incremental capital deployed in the 350M portfolio is approximately 37% over 5 years — positive, but lower than this portfolio's return on its own deployed capital.</div>
+  </div>
+  <div class="note-card">
+    <div class="note-icon">📋</div>
+    <div class="note-title">Before You Sign</div>
+    <div class="note-text">Floor allocations must be in the written offer letter — not verbal. Confirm exact unit positions on the floor plate for A1 and A2 — they sit on opposite sides of the core. Independent title search before SPA. Independent attorney review of all five SPAs. Do not pay reservation without written confirmation of floor, unit, and price per unit.</div>
+  </div>
+</div>
+
+</main>
+
+<footer>
+  <div class="footer-brand">RJ GRERO PROPERTY ADVISORY &nbsp;|&nbsp; rjgrero.com</div>
+  <div class="footer-disc">Confidential. Prices estimated from JKP published pricing (March 2026) with 11.5% negotiated discount. Compass bearings from floor plan north arrow — confirm with developer. Return projections are scenarios only, not guarantees.</div>
+</footer>
+
+</body>
+</html>
