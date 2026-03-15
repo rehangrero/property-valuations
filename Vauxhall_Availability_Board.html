@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Availability Board | Vauxhall District | RJ Grero</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --navy:#0B0E14;--navy2:#0F1520;--navy3:#131C2C;--navy4:#1A2640;
+  --gold:#B4903C;--gold2:#CBA84E;--gold-bg:rgba(180,144,60,0.08);
+  --cream:#F0EDE8;--cream2:#C8C4BE;--grey:#8A9298;
+  --border:rgba(180,144,60,0.2);--border2:rgba(255,255,255,0.06);
+  --blue:#4A9EFF;--green:#3DD68C;--amber:#FFB347;--purple:#B47EFF;
+  --band1:#1A2E1A;--band1b:rgba(61,214,140,0.15);
+  --band2:#1A2040;--band2b:rgba(74,158,255,0.15);
+}
+body{font-family:'Montserrat',sans-serif;background:var(--navy);color:var(--cream);min-height:100vh;overflow-x:hidden}
+
+/* ── HEADER ── */
+header{padding:24px 40px 20px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:14px}
+.brand{font-size:10px;font-weight:700;letter-spacing:3px;color:var(--gold)}
+.header-title{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;color:var(--cream);margin-top:4px}
+.header-sub{font-size:10px;color:var(--grey);margin-top:3px}
+.disc-badge{background:var(--gold-bg);border:1px solid var(--border);padding:7px 14px;border-radius:3px;font-size:10px;font-weight:700;letter-spacing:1px;color:var(--gold)}
+
+/* ── STATS BAR ── */
+.stats-bar{background:var(--navy3);border-bottom:1px solid var(--border2);padding:0 40px;display:flex;gap:0;overflow-x:auto}
+.stat{padding:16px 22px;border-right:1px solid var(--border2);min-width:110px;flex-shrink:0}
+.stat:first-child{padding-left:0}
+.stat-label{font-size:9px;font-weight:600;letter-spacing:2px;color:var(--grey);text-transform:uppercase;margin-bottom:3px}
+.stat-val{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700}
+.stat-val.green{color:var(--green)}.stat-val.gold{color:var(--gold)}.stat-val.blue{color:var(--blue)}
+.stat-sub{font-size:9px;color:var(--grey);margin-top:1px}
+
+/* ── FILTERS ── */
+.filter-bar{padding:16px 40px;background:var(--navy2);border-bottom:1px solid var(--border2);display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.filter-label{font-size:9px;font-weight:700;letter-spacing:2px;color:var(--gold);text-transform:uppercase}
+.filter-btn{padding:6px 14px;border-radius:3px;border:1px solid var(--border2);background:transparent;color:var(--cream2);font-size:10px;font-weight:600;cursor:pointer;font-family:'Montserrat',sans-serif;transition:all 0.2s;letter-spacing:0.5px}
+.filter-btn:hover{border-color:var(--border);color:var(--cream)}
+.filter-btn.active{background:var(--gold-bg);border-color:var(--gold);color:var(--gold)}
+.filter-btn.band1-btn.active{background:rgba(61,214,140,0.1);border-color:rgba(61,214,140,0.5);color:var(--green)}
+.filter-btn.band2-btn.active{background:rgba(74,158,255,0.1);border-color:rgba(74,158,255,0.5);color:var(--blue)}
+.sep{width:1px;height:24px;background:var(--border2);flex-shrink:0}
+.count-badge{font-size:10px;color:var(--grey);margin-left:4px}
+
+/* ── MAIN ── */
+main{padding:28px 40px 60px;max-width:1400px;margin:0 auto}
+.sec-label{font-size:10px;font-weight:700;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:12px}
+.sec-label::after{content:'';flex:1;height:1px;background:var(--border)}
+.band-note{font-size:11px;color:var(--cream2);margin-bottom:20px;padding:10px 14px;border-radius:3px;border-left:3px solid}
+.band-note.b1{border-color:var(--green);background:rgba(61,214,140,0.05)}
+.band-note.b2{border-color:var(--blue);background:rgba(74,158,255,0.05)}
+.band-note strong{font-weight:700}
+
+/* ── TABLE ── */
+.table-wrap{background:var(--navy2);border:1px solid var(--border2);border-radius:4px;overflow:hidden;margin-bottom:36px;overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:700px}
+thead tr{background:var(--navy4)}
+th{padding:10px 14px;text-align:left;font-size:9px;font-weight:700;letter-spacing:2px;color:var(--gold);text-transform:uppercase;border-bottom:1px solid var(--border);white-space:nowrap;cursor:pointer;user-select:none}
+th:hover{color:var(--gold2)}
+th .sort-arrow{margin-left:4px;opacity:0.4;font-size:8px}
+th.sorted .sort-arrow{opacity:1;color:var(--gold)}
+td{padding:10px 14px;font-size:11px;color:var(--cream2);border-bottom:1px solid var(--border2);white-space:nowrap}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:rgba(255,255,255,0.02);cursor:pointer}
+tr.selected-row td{background:rgba(180,144,60,0.08);border-bottom-color:rgba(180,144,60,0.2)}
+tr.selected-row td:first-child{border-left:2px solid var(--gold)}
+
+/* Cell colours */
+td.unit{font-weight:700;color:var(--cream)}
+td.price-disc{font-weight:700;color:var(--cream);font-family:'Cormorant Garamond',serif;font-size:14px}
+td.price-list{color:var(--grey);font-size:10px;text-decoration:line-through}
+td.saving{color:var(--green);font-weight:600}
+td.psf{color:var(--gold2)}
+td.sse{color:var(--blue);font-size:9px;font-weight:700}
+td.nnw{color:var(--green);font-size:9px;font-weight:700}
+td.ene{color:var(--gold2);font-size:9px;font-weight:700}
+td.wsw{color:var(--purple);font-size:9px;font-weight:700}
+td.view-c{color:var(--blue);font-size:9px;font-weight:600}
+td.view-b{color:var(--green);font-size:9px;font-weight:600}
+td.view-v{color:var(--gold2);font-size:9px;font-weight:600}
+td.band-tag{font-size:9px;font-weight:700;padding:3px 8px;border-radius:2px;display:inline-block}
+.b1tag{background:rgba(61,214,140,0.12);color:var(--green);border:1px solid rgba(61,214,140,0.25)}
+.b2tag{background:rgba(74,158,255,0.12);color:var(--blue);border:1px solid rgba(74,158,255,0.25)}
+
+/* ── SELECTED SUMMARY ── */
+.selection-panel{background:var(--navy2);border:1px solid var(--border);border-radius:4px;padding:20px;margin-bottom:36px;display:none}
+.selection-panel.visible{display:block}
+.sp-title{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:14px}
+.sp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin-bottom:14px}
+.sp-item{background:var(--navy3);border:1px solid var(--border2);border-radius:3px;padding:12px;position:relative}
+.sp-remove{position:absolute;top:6px;right:8px;background:none;border:none;color:var(--grey);cursor:pointer;font-size:14px;font-family:inherit;line-height:1}
+.sp-remove:hover{color:var(--cream)}
+.sp-unit{font-size:12px;font-weight:700;color:var(--cream)}
+.sp-floor{font-size:10px;color:var(--grey);margin-top:2px}
+.sp-price{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;color:var(--gold);margin-top:4px}
+.sp-totals{display:flex;gap:20px;flex-wrap:wrap;padding-top:14px;border-top:1px solid var(--border2)}
+.sp-total-item{font-size:11px;color:var(--cream2)}
+.sp-total-item strong{color:var(--green);font-size:13px}
+.clear-btn{background:none;border:1px solid var(--border2);color:var(--grey);padding:6px 14px;border-radius:3px;font-size:10px;cursor:pointer;font-family:'Montserrat',sans-serif;margin-top:10px}
+.clear-btn:hover{border-color:var(--border);color:var(--cream)}
+
+/* ── EMPTY STATE ── */
+.empty-state{text-align:center;padding:48px;color:var(--grey);font-size:12px}
+
+footer{border-top:1px solid var(--border2);padding:18px 40px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+.footer-brand{font-size:10px;color:var(--gold);font-weight:700;letter-spacing:2px}
+.footer-disc{font-size:9px;color:var(--grey);max-width:580px;line-height:1.5}
+@media(max-width:640px){header,main,footer,.stats-bar,.filter-bar{padding-left:16px;padding-right:16px}}
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <div class="brand">RJ GRERO PROPERTY ADVISORY</div>
+    <div class="header-title">Availability Board — Price Band Selector</div>
+    <div class="header-sub">Development at Vauxhall Street &nbsp;|&nbsp; John Keells Properties &nbsp;|&nbsp; Colombo 02 &nbsp;|&nbsp; March 2026</div>
+  </div>
+  <div style="text-align:right">
+    <div class="disc-badge">7% DISCOUNT APPLIED TO ALL PRICES</div>
+    <div style="font-size:9px;color:var(--grey);margin-top:6px">5-unit block negotiation basis &nbsp;|&nbsp; All floors 9–60</div>
+  </div>
+</header>
+
+<div class="stats-bar">
+  <div class="stat"><div class="stat-label">Band 1 Units</div><div class="stat-val green" id="count1">50</div><div class="stat-sub">LKR 65M – 70M</div></div>
+  <div class="stat"><div class="stat-label">Band 2 Units</div><div class="stat-val blue" id="count2">82</div><div class="stat-sub">LKR 70M – 73M</div></div>
+  <div class="stat"><div class="stat-label">Total Options</div><div class="stat-val gold" id="totalCount">132</div><div class="stat-sub">Across both bands</div></div>
+  <div class="stat"><div class="stat-label">Discount Applied</div><div class="stat-val gold">7%</div><div class="stat-sub">Off published list</div></div>
+  <div class="stat"><div class="stat-label">Selected</div><div class="stat-val green" id="selectedCount">0</div><div class="stat-sub">Click rows to select</div></div>
+  <div class="stat"><div class="stat-label">Selected Total</div><div class="stat-val gold" id="selectedTotal">—</div><div class="stat-sub">Combined price</div></div>
+</div>
+
+<div class="filter-bar">
+  <span class="filter-label">Filter</span>
+  <button class="filter-btn band1-btn active" onclick="toggleBand('band1',this)">Band 1: 65–70M <span class="count-badge" id="b1c">50</span></button>
+  <button class="filter-btn band2-btn active" onclick="toggleBand('band2',this)">Band 2: 70–73M <span class="count-badge" id="b2c">82</span></button>
+  <div class="sep"></div>
+  <span class="filter-label">Unit Type</span>
+  <button class="filter-btn active" onclick="toggleType('all',this)">All Types</button>
+  <button class="filter-btn" onclick="toggleType('B1',this)">B1</button>
+  <button class="filter-btn" onclick="toggleType('B2',this)">B2</button>
+  <button class="filter-btn" onclick="toggleType('B4',this)">B4</button>
+  <button class="filter-btn" onclick="toggleType('B5',this)">B5</button>
+  <button class="filter-btn" onclick="toggleType('B7',this)">B7</button>
+  <button class="filter-btn" onclick="toggleType('B8',this)">B8</button>
+  <div class="sep"></div>
+  <span class="filter-label">View</span>
+  <button class="filter-btn active" onclick="toggleView('all',this)">All Views</button>
+  <button class="filter-btn" onclick="toggleView('City View',this)">City / SSE</button>
+  <button class="filter-btn" onclick="toggleView('Beira Lake',this)">Beira Lake / NNW</button>
+  <div class="sep"></div>
+  <span class="filter-label">Floor</span>
+  <button class="filter-btn active" onclick="toggleFloor('all',this)">All Floors</button>
+  <button class="filter-btn" onclick="toggleFloor('low',this)">Low (9–20)</button>
+  <button class="filter-btn" onclick="toggleFloor('mid',this)">Mid (21–40)</button>
+  <button class="filter-btn" onclick="toggleFloor('high',this)">High (41+)</button>
+</div>
+
+<main>
+
+<!-- SELECTION PANEL -->
+<div class="selection-panel" id="selectionPanel">
+  <div class="sp-title">YOUR SELECTION &nbsp;<span style="font-size:9px;color:var(--grey);font-weight:400;letter-spacing:0">— click a row below to add/remove</span></div>
+  <div class="sp-grid" id="selectionGrid"></div>
+  <div class="sp-totals" id="selectionTotals"></div>
+  <button class="clear-btn" onclick="clearSelection()">Clear All</button>
+</div>
+
+<!-- BAND 1 -->
+<div id="band1Section">
+  <div class="sec-label">BAND 1 — LKR 65M TO 70M AFTER 7% DISCOUNT</div>
+  <div class="band-note b1"><strong style="color:var(--green)">What you get:</strong> Compact 2-bedroom, 1-bathroom (683 sqft) city-facing units on the south-southeast side. B1 and B8 are mirror units of each other on opposite sides of the core. B4/B5 are the Beira Lake 2-bed 1-bath at 705 sqft — only available at floors 9.</div>
+  <div class="table-wrap">
+    <table id="table1">
+      <thead>
+        <tr>
+          <th onclick="sortTable('table1',0)">Unit <span class="sort-arrow">↕</span></th>
+          <th onclick="sortTable('table1',1)">Floor <span class="sort-arrow">↕</span></th>
+          <th onclick="sortTable('table1',2)">Orientation <span class="sort-arrow">↕</span></th>
+          <th onclick="sortTable('table1',3)">View <span class="sort-arrow">↕</span></th>
+          <th>Beds/Bath</th>
+          <th>Sqft</th>
+          <th onclick="sortTable('table1',6)">List Price <span class="sort-arrow">↕</span></th>
+          <th onclick="sortTable('table1',7)">After 7% Disc <span class="sort-arrow">↕</span></th>
+          <th onclick="sortTable('table1',8)">Saving <span class="sort-arrow">↕</span></th>
+          <th onclick="sortTable('table1',9)">PSF <span class="sort-arrow">↕</span></th>
+          <th>Band</th>
+        </tr>
+      </thead>
+      <tbody id="tbody1"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- BAND 2 -->
+<div id="band2Section">
+  <div class="sec-label">BAND 2 — LKR 70M TO 73M AFTER 7% DISCOUNT</div>
+  <div class="band-note b2"><strong style="color:var(--blue)">What you get:</strong> Three unit types enter Band 2 — B1/B8 continue at higher floors (up to F48), B2/B7 enter at floor 9 (820 sqft, 2 bed 2 bath, city view — the largest city-facing 2BR), and B4/B5 continue with Beira Lake view (705 sqft, 1 bath) through to floor 23. B2/B7 at floors 9–21 represent the best value per sqft in this band.</div>
+  <div class="table-wrap">
+    <table id="table2">
+      <thead>
+        <tr>
+          <th onclick="sortTable('table2',0)">Unit <span class="sort-arrow">↕</span></th>
+          <th onclick="sortTable('table2',1)">Floor <span class="sort-arrow">↕</span></th>
+          <th onclick="sortTable('table2',2)">Orientation <span class="sort-arrow">↕</span></th>
+          <th onclick="sortTable('table2',3)">View <span class="sort-arrow">↕</span></th>
+          <th>Beds/Bath</th>
+          <th>Sqft</th>
+          <th onclick="sortTable('table2',6)">List Price <span class="sort-arrow">↕</span></th>
+          <th onclick="sortTable('table2',7)">After 7% Disc <span class="sort-arrow">↕</span></th>
+          <th onclick="sortTable('table2',8)">Saving <span class="sort-arrow">↕</span></th>
+          <th onclick="sortTable('table2',9)">PSF <span class="sort-arrow">↕</span></th>
+          <th>Band</th>
+        </tr>
+      </thead>
+      <tbody id="tbody2"></tbody>
+    </table>
+  </div>
+</div>
+
+</main>
+
+<footer>
+  <div class="footer-brand">RJ GRERO PROPERTY ADVISORY &nbsp;|&nbsp; rjgrero.com</div>
+  <div class="footer-disc">Confidential. Prices derived from JKP published list pricing (March 2026) with 7% discount applied. Floor pricing uses linear interpolation across the published range. Actual prices subject to JKP confirmation and negotiation. Click rows to build your selection.</div>
+</footer>
+
+<script>
+// ─── DATA ────────────────────────────────────────────────────────────────────
+const UNIT_INFO = {
+  B1:{sqft:683,view:'City View',   ori:'SSE',bearing:'165°',face:'South-Southeast',beds:'2B / 1 Bath',base:69500000,top:81250000},
+  B2:{sqft:820,view:'City View',   ori:'SSE',bearing:'165°',face:'South-Southeast',beds:'2B / 2 Bath',base:75500000,top:87250000},
+  B3:{sqft:843,view:'Beira Lake',  ori:'NNW',bearing:'345°',face:'North-Northwest', beds:'2B / 2 Bath',base:81000000,top:92800000},
+  B4:{sqft:705,view:'Beira Lake',  ori:'NNW',bearing:'345°',face:'North-Northwest', beds:'2B / 1 Bath',base:75050000,top:86800000},
+  B5:{sqft:705,view:'Beira Lake',  ori:'NNW',bearing:'345°',face:'North-Northwest', beds:'2B / 1 Bath',base:75050000,top:86800000},
+  B6:{sqft:843,view:'Beira Lake',  ori:'NNW',bearing:'345°',face:'North-Northwest', beds:'2B / 2 Bath',base:81000000,top:92800000},
+  B7:{sqft:820,view:'City View',   ori:'SSE',bearing:'165°',face:'South-Southeast',beds:'2B / 2 Bath',base:75500000,top:87250000},
+  B8:{sqft:683,view:'City View',   ori:'SSE',bearing:'165°',face:'South-Southeast',beds:'2B / 1 Bath',base:69500000,top:81250000},
+  A1:{sqft:500,view:'CBD View',    ori:'WSW',bearing:'255°',face:'West-Southwest',  beds:'1B / 1 Bath',base:60500000,top:66750000},
+  A2:{sqft:500,view:'Vauxhall St', ori:'ENE',bearing:'075°',face:'East-Northeast',  beds:'1B / 1 Bath',base:60500000,top:66750000},
+};
+const DISC = 0.07;
+const MIN_F = 9, MAX_F = 60;
+
+function listP(t, f) {
+  const u = UNIT_INFO[t];
+  return Math.round(u.base + ((f - MIN_F)/(MAX_F - MIN_F)) * (u.top - u.base));
+}
+function discP(t, f) { return Math.round(listP(t, f) * (1 - DISC)); }
+
+// Generate all data
+const allRows = [];
+for (const [t, info] of Object.entries(UNIT_INFO)) {
+  for (let f = MIN_F; f <= MAX_F; f++) {
+    const list = listP(t, f);
+    const disc = discP(t, f);
+    const save = list - disc;
+    const psf  = Math.round(disc / info.sqft);
+    let band = null;
+    if (disc >= 65000000 && disc < 70000000) band = 'band1';
+    if (disc >= 70000000 && disc < 73000000) band = 'band2';
+    if (band) allRows.push({ t, f, list, disc, save, psf, band, ...info });
+  }
+}
+allRows.sort((a,b) => a.disc - b.disc);
+
+// ─── STATE ───────────────────────────────────────────────────────────────────
+const state = {
+  showBand1: true,
+  showBand2: true,
+  typeFilter: 'all',
+  viewFilter: 'all',
+  floorFilter: 'all',
+  selected: [], // array of {t, f, disc}
+};
+
+// ─── HELPERS ─────────────────────────────────────────────────────────────────
+const fmt = (n) => 'LKR ' + (n/1000000).toFixed(2) + 'M';
+const oriClass = (o) => ({SSE:'sse',NNW:'nnw',ENE:'ene',WSW:'wsw'}[o]||'');
+const viewClass = (v) => v==='City View'||v==='CBD View'?'view-c':v==='Beira Lake'?'view-b':'view-v';
+
+function matchesFilters(row) {
+  if (state.typeFilter !== 'all' && row.t !== state.typeFilter) return false;
+  if (state.viewFilter !== 'all' && row.view !== state.viewFilter) return false;
+  if (state.floorFilter === 'low' && (row.f < 9 || row.f > 20)) return false;
+  if (state.floorFilter === 'mid' && (row.f < 21 || row.f > 40)) return false;
+  if (state.floorFilter === 'high' && row.f < 41) return false;
+  return true;
+}
+
+function isSelected(t, f) {
+  return state.selected.some(s => s.t === t && s.f === f);
+}
+
+// ─── RENDER ──────────────────────────────────────────────────────────────────
+function renderTables() {
+  ['tbody1','tbody2'].forEach(id => document.getElementById(id).innerHTML = '');
+  let b1count = 0, b2count = 0;
+
+  allRows.forEach(row => {
+    if (!matchesFilters(row)) return;
+    const band = row.band;
+    if (band === 'band1' && !state.showBand1) return;
+    if (band === 'band2' && !state.showBand2) return;
+
+    const tbodyId = band === 'band1' ? 'tbody1' : 'tbody2';
+    if (band === 'band1') b1count++;
+    else b2count++;
+
+    const sel = isSelected(row.t, row.f);
+    const tr = document.createElement('tr');
+    if (sel) tr.className = 'selected-row';
+    tr.dataset.t = row.t; tr.dataset.f = row.f;
+    tr.innerHTML = `
+      <td class="unit">${row.t} ${sel ? '✓' : ''}</td>
+      <td><strong style="color:var(--cream)">${row.f}</strong></td>
+      <td class="${oriClass(row.ori)}">${row.face}<br><span style="font-size:9px;color:var(--grey)">${row.bearing}</span></td>
+      <td class="${viewClass(row.view)}">${row.view}</td>
+      <td style="color:var(--cream2)">${row.beds}</td>
+      <td style="color:var(--cream2)">${row.sqft}</td>
+      <td class="price-list">${fmt(row.list)}</td>
+      <td class="price-disc">${fmt(row.disc)}</td>
+      <td class="saving">↓ ${fmt(row.save)}</td>
+      <td class="psf">${row.psf.toLocaleString()}</td>
+      <td><span class="band-tag ${band==='band1'?'b1tag':'b2tag'}">${band==='band1'?'65–70M':'70–73M'}</span></td>`;
+    tr.onclick = () => toggleSelect(row.t, row.f, row.disc, tr);
+    document.getElementById(tbodyId).appendChild(tr);
+  });
+
+  // Update counts
+  document.getElementById('b1c').textContent = b1count;
+  document.getElementById('b2c').textContent = b2count;
+  document.getElementById('count1').textContent = b1count;
+  document.getElementById('count2').textContent = b2count;
+  document.getElementById('totalCount').textContent = b1count + b2count;
+
+  // Show/hide band sections
+  document.getElementById('band1Section').style.display = state.showBand1 ? '' : 'none';
+  document.getElementById('band2Section').style.display = state.showBand2 ? '' : 'none';
+}
+
+function toggleSelect(t, f, disc, tr) {
+  const idx = state.selected.findIndex(s => s.t === t && s.f === f);
+  if (idx >= 0) {
+    state.selected.splice(idx, 1);
+  } else {
+    if (state.selected.length >= 10) { alert('Maximum 10 units can be selected at once.'); return; }
+    const info = UNIT_INFO[t];
+    state.selected.push({ t, f, disc, view: info.view, ori: info.ori, beds: info.beds, sqft: info.sqft });
+  }
+  renderTables();
+  renderSelection();
+  updateStats();
+}
+
+function renderSelection() {
+  const panel = document.getElementById('selectionPanel');
+  const grid  = document.getElementById('selectionGrid');
+  const tots  = document.getElementById('selectionTotals');
+
+  if (state.selected.length === 0) {
+    panel.classList.remove('visible');
+    return;
+  }
+  panel.classList.add('visible');
+
+  grid.innerHTML = state.selected.map((s,i) => `
+    <div class="sp-item">
+      <button class="sp-remove" onclick="removeSelected(${i})">✕</button>
+      <div class="sp-unit">Unit ${s.t} — ${s.view}</div>
+      <div class="sp-floor">Floor ${s.f} &nbsp;·&nbsp; ${s.ori} ${UNIT_INFO[s.t].bearing} &nbsp;·&nbsp; ${s.sqft} sqft</div>
+      <div class="sp-price">${fmt(s.disc)}</div>
+      <div style="font-size:9px;color:var(--grey);margin-top:2px">${s.beds}</div>
+    </div>`).join('');
+
+  const total = state.selected.reduce((s,x) => s + x.disc, 0);
+  const saving = state.selected.reduce((s,x) => s + Math.round(listP(x.t,x.f) * DISC), 0);
+  const avgPsf = Math.round(state.selected.reduce((s,x) => s + x.disc/x.sqft, 0) / state.selected.length);
+
+  tots.innerHTML = `
+    <div class="sp-total-item">Total: <strong>${fmt(total)}</strong></div>
+    <div class="sp-total-item">Units: <strong style="color:var(--blue)">${state.selected.length}</strong></div>
+    <div class="sp-total-item">Saving vs List: <strong>${fmt(saving)}</strong></div>
+    <div class="sp-total-item">Avg PSF: <strong style="color:var(--gold)">${avgPsf.toLocaleString()}</strong></div>`;
+}
+
+function removeSelected(i) {
+  state.selected.splice(i, 1);
+  renderTables();
+  renderSelection();
+  updateStats();
+}
+
+function clearSelection() {
+  state.selected = [];
+  renderTables();
+  renderSelection();
+  updateStats();
+}
+
+function updateStats() {
+  const count = state.selected.length;
+  const total = state.selected.reduce((s,x) => s + x.disc, 0);
+  document.getElementById('selectedCount').textContent = count;
+  document.getElementById('selectedTotal').textContent = count > 0 ? fmt(total) : '—';
+}
+
+// ─── FILTERS ─────────────────────────────────────────────────────────────────
+function toggleBand(band, btn) {
+  if (band === 'band1') state.showBand1 = !state.showBand1;
+  else state.showBand2 = !state.showBand2;
+  btn.classList.toggle('active');
+  renderTables();
+}
+
+function toggleType(type, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => {
+    if (['B1','B2','B4','B5','B7','B8','all'].some(t => b.textContent.trim() === t)) b.classList.remove('active');
+  });
+  state.typeFilter = type; btn.classList.add('active'); renderTables();
+}
+
+function toggleView(view, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => {
+    if (['All Views','City / SSE','Beira Lake / NNW'].includes(b.textContent.trim())) b.classList.remove('active');
+  });
+  state.viewFilter = view === 'All Views' ? 'all' : view === 'City / SSE' ? 'City View' : 'Beira Lake';
+  btn.classList.add('active'); renderTables();
+}
+
+function toggleFloor(floor, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => {
+    if (['All Floors','Low (9–20)','Mid (21–40)','High (41+)'].includes(b.textContent.trim())) b.classList.remove('active');
+  });
+  state.floorFilter = floor; btn.classList.add('active'); renderTables();
+}
+
+// ─── SORT ─────────────────────────────────────────────────────────────────────
+const sortState = {};
+function sortTable(tableId, colIdx) {
+  const key = tableId + colIdx;
+  sortState[key] = !sortState[key];
+  const asc = sortState[key];
+  const tbody = document.getElementById(tableId).querySelector('tbody');
+  const rows = Array.from(tbody.querySelectorAll('tr'));
+  rows.sort((a,b) => {
+    const av = a.cells[colIdx]?.textContent.trim() || '';
+    const bv = b.cells[colIdx]?.textContent.trim() || '';
+    const an = parseFloat(av.replace(/[^0-9.]/g,''));
+    const bn = parseFloat(bv.replace(/[^0-9.]/g,''));
+    if (!isNaN(an) && !isNaN(bn)) return asc ? an-bn : bn-an;
+    return asc ? av.localeCompare(bv) : bv.localeCompare(av);
+  });
+  rows.forEach(r => tbody.appendChild(r));
+  document.querySelectorAll(`#${tableId} th`).forEach((th,i) => {
+    th.classList.toggle('sorted', i === colIdx);
+    const arr = th.querySelector('.sort-arrow');
+    if (arr && i === colIdx) arr.textContent = asc ? '↑' : '↓';
+  });
+}
+
+// ─── INIT ─────────────────────────────────────────────────────────────────────
+renderTables();
+</script>
+</body>
+</html>
