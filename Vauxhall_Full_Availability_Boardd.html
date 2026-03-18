@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Full Availability Board | Vauxhall District | RJ Grero</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --navy:#0B0E14;--navy2:#0F1520;--navy3:#131C2C;--navy4:#1A2640;
+  --gold:#B4903C;--gold2:#CBA84E;--gold-bg:rgba(180,144,60,0.08);
+  --cream:#F0EDE8;--cream2:#C8C4BE;--grey:#8A9298;
+  --border:rgba(180,144,60,0.2);--border2:rgba(255,255,255,0.06);
+  --blue:#4A9EFF;--green:#3DD68C;--amber:#FFB347;--purple:#B47EFF;--red:#FF6B6B;
+}
+body{font-family:'Montserrat',sans-serif;background:var(--navy);color:var(--cream);min-height:100vh}
+header{padding:20px 36px 16px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:10px;background:var(--navy2)}
+.brand{font-size:10px;font-weight:700;letter-spacing:3px;color:var(--gold)}
+.header-title{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:600;color:var(--cream);margin-top:4px}
+.header-sub{font-size:10px;color:var(--grey);margin-top:2px}
+.off-badge{background:rgba(61,214,140,0.08);border:1px solid rgba(61,214,140,0.3);padding:6px 12px;border-radius:3px;font-size:10px;font-weight:700;letter-spacing:1px;color:var(--green)}
+.price-toggle{background:var(--navy3);border-bottom:1px solid var(--border2);padding:10px 36px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.pt-lbl{font-size:9px;font-weight:700;letter-spacing:2px;color:var(--gold);text-transform:uppercase}
+.tg{display:flex;background:var(--navy4);border:1px solid var(--border2);border-radius:4px;overflow:hidden}
+.tb{padding:6px 14px;font-size:10px;font-weight:700;cursor:pointer;border:none;background:transparent;color:var(--grey);font-family:'Montserrat',sans-serif;transition:all 0.15s}
+.tb.on{background:var(--gold);color:var(--navy)}
+.pt-note{font-size:10px;color:var(--grey)}
+.stats{background:var(--navy3);border-bottom:1px solid var(--border2);padding:0 36px;display:flex;overflow-x:auto}
+.st{padding:13px 18px;border-right:1px solid var(--border2);min-width:90px;flex-shrink:0}
+.st:first-child{padding-left:0}
+.sl{font-size:9px;font-weight:600;letter-spacing:2px;color:var(--grey);text-transform:uppercase;margin-bottom:2px}
+.sv{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:700}
+.sv.go{color:var(--gold)}.sv.gr{color:var(--green)}.sv.bl{color:var(--blue)}.sv.am{color:var(--amber)}.sv.pu{color:var(--purple)}
+.ss{font-size:9px;color:var(--grey);margin-top:1px}
+.filters{padding:12px 36px;background:var(--navy2);border-bottom:1px solid var(--border2);display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.fg{display:flex;gap:5px;align-items:center;flex-wrap:wrap}
+.fsep{width:1px;height:20px;background:var(--border2);margin:0 4px;flex-shrink:0}
+.fl{font-size:9px;font-weight:700;letter-spacing:1.5px;color:var(--gold);text-transform:uppercase;white-space:nowrap}
+.fb{padding:4px 10px;border-radius:3px;border:1px solid var(--border2);background:transparent;color:var(--cream2);font-size:10px;font-weight:600;cursor:pointer;font-family:'Montserrat',sans-serif;transition:all 0.15s;white-space:nowrap}
+.fb:hover{border-color:var(--gold);color:var(--gold)}
+.fb.on{background:var(--gold-bg);border-color:var(--gold);color:var(--gold)}
+.fb.on.sc{background:rgba(74,158,255,0.1);border-color:rgba(74,158,255,0.35);color:var(--blue)}
+.fb.on.nc{background:rgba(61,214,140,0.1);border-color:rgba(61,214,140,0.35);color:var(--green)}
+.sw{margin-left:auto}
+.si{background:var(--navy4);border:1px solid var(--border2);color:var(--cream);padding:5px 11px;border-radius:3px;font-size:10px;font-family:'Montserrat',sans-serif;outline:none;width:170px}
+.si:focus{border-color:var(--gold)}
+.si::placeholder{color:var(--grey)}
+main{padding:20px 36px 50px}
+.sp{background:var(--navy2);border:1px solid var(--border);border-radius:4px;padding:16px 18px;margin-bottom:18px;display:none}
+.sp.on{display:block}
+.sph{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.spt{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--gold);text-transform:uppercase}
+.sbb{padding:4px 11px;border-radius:3px;border:1px solid var(--border2);background:transparent;color:var(--grey);font-size:10px;cursor:pointer;font-family:'Montserrat',sans-serif}
+.sbb:hover{color:var(--cream)}
+.scps{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:12px}
+.scp{display:flex;align-items:center;gap:6px;background:var(--navy3);border:1px solid var(--border2);border-radius:3px;padding:7px 9px}
+.sci{font-size:11px}.scu{font-weight:700;color:var(--cream)}.scd{color:var(--grey);font-size:9px;margin-top:1px}
+.scp2{color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:14px;margin-top:2px}
+.scrm{background:none;border:none;color:var(--grey);cursor:pointer;font-size:13px;padding:0 2px}
+.scrm:hover{color:var(--red)}
+.sptt{display:flex;gap:20px;flex-wrap:wrap;padding-top:10px;border-top:1px solid var(--border2)}
+.spti{font-size:11px;color:var(--cream2)}
+.spti strong{font-size:13px}
+.tw{background:var(--navy2);border:1px solid var(--border2);border-radius:4px;overflow:hidden;overflow-x:auto}
+.ti{padding:9px 14px;background:var(--navy3);border-bottom:1px solid var(--border2);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px}
+.tic{font-size:10px;color:var(--grey)}.tic strong{color:var(--cream)}
+.tih{font-size:9px;color:var(--grey);font-style:italic}
+table{width:100%;border-collapse:collapse;min-width:860px}
+thead tr{background:var(--navy4)}
+th{padding:9px 12px;text-align:left;font-size:9px;font-weight:700;letter-spacing:1.5px;color:var(--gold);text-transform:uppercase;border-bottom:1px solid var(--border);white-space:nowrap;cursor:pointer;user-select:none}
+th:hover{color:var(--gold2)}
+th.srt{color:var(--cream)}
+td{padding:8px 12px;font-size:11px;color:var(--cream2);border-bottom:1px solid var(--border2);white-space:nowrap;vertical-align:middle}
+tr:last-child td{border-bottom:none}
+tr.dr:hover td{background:rgba(255,255,255,0.02);cursor:pointer}
+tr.sel td{background:rgba(180,144,60,0.08)}
+tr.sel td:first-child{border-left:2px solid var(--gold)}
+.uc{font-weight:700;color:var(--cream);font-size:12px}
+.fc{font-weight:700;color:var(--cream);font-size:14px;font-family:'Cormorant Garamond',serif}
+.pc{font-family:'Cormorant Garamond',serif;font-size:14px;font-weight:700;color:var(--cream)}
+.lc{color:var(--grey);font-size:10px;text-decoration:line-through}
+.sc2{color:var(--green);font-weight:600;font-size:10px}
+.pfc{color:var(--gold2)}
+.sse{color:var(--blue);font-size:9px;font-weight:700}
+.nnw{color:var(--green);font-size:9px;font-weight:700}
+.ene{color:var(--gold2);font-size:9px;font-weight:700}
+.wsw{color:var(--purple);font-size:9px;font-weight:700}
+.allc{color:var(--amber);font-size:9px;font-weight:700}
+.vb{font-size:9px;font-weight:600;padding:2px 6px;border-radius:2px;display:inline-block}
+.vc{background:rgba(74,158,255,0.1);color:var(--blue);border:1px solid rgba(74,158,255,0.2)}
+.vb2{background:rgba(61,214,140,0.1);color:var(--green);border:1px solid rgba(61,214,140,0.2)}
+.vv{background:rgba(180,144,60,0.1);color:var(--gold2);border:1px solid rgba(180,144,60,0.2)}
+.vcb{background:rgba(180,126,255,0.1);color:var(--purple);border:1px solid rgba(180,126,255,0.2)}
+.vp{background:rgba(255,179,71,0.1);color:var(--amber);border:1px solid rgba(255,179,71,0.2)}
+.typ{font-size:9px;font-weight:700;padding:2px 7px;border-radius:2px;display:inline-block;letter-spacing:0.5px}
+.t1{background:rgba(180,126,255,0.12);color:var(--purple);border:1px solid rgba(180,126,255,0.25)}
+.t2{background:rgba(74,158,255,0.12);color:var(--blue);border:1px solid rgba(74,158,255,0.25)}
+.t3{background:rgba(180,144,60,0.12);color:var(--gold2);border:1px solid rgba(180,144,60,0.25)}
+.t4{background:rgba(255,179,71,0.12);color:var(--amber);border:1px solid rgba(255,179,71,0.25)}
+.chk{width:16px;height:16px;border:1px solid var(--border2);border-radius:2px;display:flex;align-items:center;justify-content:center;font-size:10px;color:transparent}
+tr.sel .chk{background:var(--gold);color:var(--navy);border-color:var(--gold)}
+.em{text-align:center;padding:40px;color:var(--grey);font-size:12px}
+footer{border-top:1px solid var(--border2);padding:14px 36px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-top:20px}
+.fb2{font-size:10px;color:var(--gold);font-weight:700;letter-spacing:2px}
+.fd{font-size:9px;color:var(--grey);max-width:580px;line-height:1.5}
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <div class="brand">RJ GRERO PROPERTY ADVISORY</div>
+    <div class="header-title">Full Availability Board — Vauxhall District</div>
+    <div class="header-sub">John Keells Properties · Colombo 02 · All Units · All Floors · March 2026</div>
+  </div>
+  <div style="text-align:right">
+    <div class="off-badge">✓ OFFICIAL JKP PRICING · ALL UNITS</div>
+    <div style="font-size:9px;color:var(--grey);margin-top:5px">749 residencies · 60 floors · 16 unit types · Studio TBL excluded</div>
+  </div>
+</header>
+
+<div class="price-toggle">
+  <span class="pt-lbl">Price View</span>
+  <div class="tg">
+    <button class="tb on" onclick="setMode('list',this)">List Price</button>
+    <button class="tb" onclick="setMode('eb',this)">Early Bird −7.5%</button>
+    <button class="tb" onclick="setMode('d7',this)">Block Disc −7%</button>
+  </div>
+  <span class="pt-note" id="mNote">Showing published JKP list prices</span>
+</div>
+
+<div class="stats">
+  <div class="st"><div class="sl">Showing</div><div class="sv go" id="sc">740</div><div class="ss">of 740 units</div></div>
+  <div class="st"><div class="sl">1BR</div><div class="sv pu">92</div><div class="ss">A1 · A2 · 500sqft</div></div>
+  <div class="st"><div class="sl">2BR</div><div class="sv bl">356</div><div class="ss">B1–B8 · 683–843sqft</div></div>
+  <div class="st"><div class="sl">3BR</div><div class="sv go">184</div><div class="ss">C1–C4 · 1079–1110sqft</div></div>
+  <div class="st"><div class="sl">4BR Premium</div><div class="sv am">26</div><div class="ss">D1·D2 · floors 55–60</div></div>
+  <div class="st"><div class="sl">Selected</div><div class="sv gr" id="selCnt">0</div><div class="ss">click rows</div></div>
+  <div class="st"><div class="sl">Selection Total</div><div class="sv go" id="selTot">—</div><div class="ss" id="selSb">—</div></div>
+</div>
+
+<div class="filters">
+  <div class="fg">
+    <span class="fl">Type</span>
+    <button class="fb on" onclick="fT('all',this)">All</button>
+    <button class="fb" onclick="fT('1BR',this)">1BR</button>
+    <button class="fb" onclick="fT('2BR',this)">2BR</button>
+    <button class="fb" onclick="fT('3BR',this)">3BR</button>
+    <button class="fb" onclick="fT('4BR',this)">4BR</button>
+  </div>
+  <div class="fsep"></div>
+  <div class="fg">
+    <span class="fl">Unit</span>
+    <button class="fb on" onclick="fU('all',this)">All</button>
+    <button class="fb" onclick="fU('A1',this)">A1</button>
+    <button class="fb" onclick="fU('A2',this)">A2</button>
+    <button class="fb" onclick="fU('B1',this)">B1</button>
+    <button class="fb" onclick="fU('B2',this)">B2</button>
+    <button class="fb" onclick="fU('B3',this)">B3</button>
+    <button class="fb" onclick="fU('B4',this)">B4</button>
+    <button class="fb" onclick="fU('B5',this)">B5</button>
+    <button class="fb" onclick="fU('B6',this)">B6</button>
+    <button class="fb" onclick="fU('B7',this)">B7</button>
+    <button class="fb" onclick="fU('B8',this)">B8</button>
+    <button class="fb" onclick="fU('C1',this)">C1</button>
+    <button class="fb" onclick="fU('C2',this)">C2</button>
+    <button class="fb" onclick="fU('C3',this)">C3</button>
+    <button class="fb" onclick="fU('C4',this)">C4</button>
+  </div>
+  <div class="fsep"></div>
+  <div class="fg">
+    <span class="fl">View</span>
+    <button class="fb on" onclick="fV('all',this)">All</button>
+    <button class="fb sc" onclick="fV('city',this)">City SSE</button>
+    <button class="fb nc" onclick="fV('beira',this)">Beira Lake NNW</button>
+    <button class="fb" onclick="fV('vauxhall',this)">Vauxhall ENE</button>
+    <button class="fb" onclick="fV('cbd',this)">CBD WSW</button>
+  </div>
+  <div class="fsep"></div>
+  <div class="fg">
+    <span class="fl">Floor</span>
+    <button class="fb on" onclick="fF('all',this)">All</button>
+    <button class="fb" onclick="fF('low',this)">Low 9–20</button>
+    <button class="fb" onclick="fF('mid',this)">Mid 21–40</button>
+    <button class="fb" onclick="fF('high',this)">High 41–54</button>
+    <button class="fb" onclick="fF('prem',this)">Premium 55+</button>
+  </div>
+  <div class="fsep"></div>
+  <div class="fg">
+    <span class="fl">Bath</span>
+    <button class="fb on" onclick="fB('all',this)">All</button>
+    <button class="fb" onclick="fB('1',this)">1 Bath</button>
+    <button class="fb" onclick="fB('2',this)">2 Bath</button>
+    <button class="fb" onclick="fB('3',this)">3 Bath</button>
+  </div>
+  <div class="sw"><input class="si" type="text" placeholder="Search unit, floor, view..." oninput="doSearch(this.value)"></div>
+</div>
+
+<main>
+<div class="sp" id="sp">
+  <div class="sph">
+    <div class="spt">YOUR SELECTION &nbsp;<span style="font-size:9px;color:var(--grey);font-weight:400;letter-spacing:0">— click rows to add / remove</span></div>
+    <button class="sbb" onclick="clearSel()">Clear All</button>
+  </div>
+  <div class="scps" id="scps"></div>
+  <div class="sptt" id="sptt"></div>
+</div>
+
+<div class="tw">
+  <div class="ti">
+    <div class="tic">Showing <strong id="rc">740</strong> units &nbsp;·&nbsp; <span id="pl">List prices</span></div>
+    <div class="tih">Click column header to sort &nbsp;·&nbsp; Click row to select &nbsp;·&nbsp; Switch price view above</div>
+  </div>
+  <table>
+    <thead><tr>
+      <th style="width:28px"></th>
+      <th onclick="srt('code')">Unit</th>
+      <th onclick="srt('type')">Type</th>
+      <th onclick="srt('floor')">Floor</th>
+      <th onclick="srt('face')">Facing</th>
+      <th onclick="srt('ori')">Orientation</th>
+      <th onclick="srt('view')">View</th>
+      <th onclick="srt('sqft')">Sqft</th>
+      <th>Beds / Bath</th>
+      <th onclick="srt('list')">List Price</th>
+      <th onclick="srt('sp')" id="spHead">Discounted Price</th>
+      <th onclick="srt('sv')">Saving</th>
+      <th onclick="srt('psf')">PSF</th>
+    </tr></thead>
+    <tbody id="tb"></tbody>
+  </table>
+</div>
+</main>
+
+<footer>
+  <div class="fb2">RJ GRERO PROPERTY ADVISORY &nbsp;|&nbsp; rjgrero.com</div>
+  <div class="fd">All prices derived from official JKP published price ranges (March 2026) using linear floor interpolation. Prices in LKR. Studio units (91 total, to be launched) excluded. 4BR Premium pricing estimated. Actual prices subject to JKP confirmation. Select units to build and compare your portfolio.</div>
+</footer>
+
+<script>
+const UD=[
+  {code:'A1',sqft:500, type:'1BR',bath:1,view:'CBD View',    ori:'WSW',bearing:'255°',face:'West-Southwest', beds:'1 Bed',base:60500000,top:66750000},
+  {code:'A2',sqft:500, type:'1BR',bath:1,view:'Vauxhall St', ori:'ENE',bearing:'075°',face:'East-Northeast', beds:'1 Bed',base:60500000,top:63750000},
+  {code:'B1',sqft:683, type:'2BR',bath:1,view:'City View',   ori:'SSE',bearing:'165°',face:'South-Southeast',beds:'2 Bed',base:69500000,top:81250000},
+  {code:'B8',sqft:683, type:'2BR',bath:1,view:'City View',   ori:'SSE',bearing:'165°',face:'South-Southeast',beds:'2 Bed',base:69500000,top:81250000},
+  {code:'B4',sqft:705, type:'2BR',bath:1,view:'Beira Lake',  ori:'NNW',bearing:'345°',face:'North-Northwest',beds:'2 Bed',base:75050000,top:86800000},
+  {code:'B5',sqft:705, type:'2BR',bath:1,view:'Beira Lake',  ori:'NNW',bearing:'345°',face:'North-Northwest',beds:'2 Bed',base:75050000,top:86800000},
+  {code:'B2',sqft:820, type:'2BR',bath:2,view:'City View',   ori:'SSE',bearing:'165°',face:'South-Southeast',beds:'2 Bed',base:75500000,top:87250000},
+  {code:'B7',sqft:820, type:'2BR',bath:2,view:'City View',   ori:'SSE',bearing:'165°',face:'South-Southeast',beds:'2 Bed',base:75500000,top:87250000},
+  {code:'B3',sqft:843, type:'2BR',bath:2,view:'Beira Lake',  ori:'NNW',bearing:'345°',face:'North-Northwest',beds:'2 Bed',base:81000000,top:92800000},
+  {code:'B6',sqft:843, type:'2BR',bath:2,view:'Beira Lake',  ori:'NNW',bearing:'345°',face:'North-Northwest',beds:'2 Bed',base:81000000,top:92800000},
+  {code:'C1',sqft:1079,type:'3BR',bath:2,view:'City View',   ori:'SSE',bearing:'165°',face:'South-Southeast',beds:'3 Bed',base:94000000, top:115900000},
+  {code:'C4',sqft:1079,type:'3BR',bath:2,view:'City View',   ori:'SSE',bearing:'165°',face:'South-Southeast',beds:'3 Bed',base:94000000, top:115900000},
+  {code:'C2',sqft:1110,type:'3BR',bath:2,view:'Beira Lake',  ori:'NNW',bearing:'345°',face:'North-Northwest',beds:'3 Bed',base:103800000,top:125700000},
+  {code:'C3',sqft:1110,type:'3BR',bath:2,view:'Beira Lake',  ori:'NNW',bearing:'345°',face:'North-Northwest',beds:'3 Bed',base:103800000,top:125700000},
+  {code:'D1',sqft:1400,type:'4BR',bath:3,view:'Panoramic',   ori:'ALL',bearing:'360°',face:'All Directions', beds:'4 Bed',base:180000000,top:220000000},
+  {code:'D2',sqft:1400,type:'4BR',bath:3,view:'Panoramic',   ori:'ALL',bearing:'360°',face:'All Directions', beds:'4 Bed',base:180000000,top:220000000},
+];
+const MF=9,XF=60;
+function lp(u,f){const p=(f-MF)/(XF-MF);return Math.round(u.base+p*(u.top-u.base));}
+const ALL=[];
+UD.forEach(u=>{
+  const fl=u.type==='4BR'?[55,56,57,58,59,60]:Array.from({length:XF-MF+1},(_,i)=>MF+i);
+  fl.forEach(f=>{
+    const list=lp(u,f),eb=Math.round(list*.925),d7=Math.round(list*.93);
+    ALL.push({...u,floor:f,list,eb,d7,psf:Math.round(list/u.sqft),psfEb:Math.round(eb/u.sqft),psfD7:Math.round(d7/u.sqft)});
+  });
+});
+const S={mode:'list',tF:'all',uF:'all',vF:'all',fF:'all',bF:'all',srch:'',col:'floor',asc:true,sel:new Map()};
+const M=n=>'LKR '+(n/1e6).toFixed(2)+'M';
+const oc=o=>({SSE:'sse',NNW:'nnw',ENE:'ene',WSW:'wsw',ALL:'allc'}[o]||'');
+const vc=v=>v==='City View'?'vc':v==='Beira Lake'?'vb2':v==='Vauxhall St'?'vv':v==='CBD View'?'vcb':'vp';
+const tc=t=>({'1BR':'t1','2BR':'t2','3BR':'t3','4BR':'t4'}[t]||'');
+const rk=r=>r.code+'-'+r.floor;
+function sp(r){if(S.mode==='eb')return r.eb;if(S.mode==='d7')return r.d7;return r.list;}
+function spf(r){if(S.mode==='eb')return r.psfEb;if(S.mode==='d7')return r.psfD7;return r.psf;}
+function sv(r){return S.mode==='list'?0:r.list-sp(r);}
+function filt(){return ALL.filter(r=>{
+  if(S.tF!=='all'&&r.type!==S.tF)return false;
+  if(S.uF!=='all'&&r.code!==S.uF)return false;
+  if(S.vF==='city'&&r.view!=='City View')return false;
+  if(S.vF==='beira'&&r.view!=='Beira Lake')return false;
+  if(S.vF==='vauxhall'&&r.view!=='Vauxhall St')return false;
+  if(S.vF==='cbd'&&r.view!=='CBD View')return false;
+  if(S.fF==='low'&&(r.floor<9||r.floor>20))return false;
+  if(S.fF==='mid'&&(r.floor<21||r.floor>40))return false;
+  if(S.fF==='high'&&(r.floor<41||r.floor>54))return false;
+  if(S.fF==='prem'&&r.floor<55)return false;
+  if(S.bF!=='all'&&String(r.bath)!==S.bF)return false;
+  if(S.srch){const q=S.srch.toLowerCase();if(![r.code,String(r.floor),r.view,r.type,r.ori,r.face,r.beds].some(v=>v.toLowerCase().includes(q)))return false;}
+  return true;
+})}
+function sortd(rows){return[...rows].sort((a,b)=>{
+  let av,bv;
+  if(S.col==='sp'){av=sp(a);bv=sp(b);}
+  else if(S.col==='sv'){av=sv(a);bv=sv(b);}
+  else{av=a[S.col];bv=b[S.col];}
+  if(typeof av==='string')return S.asc?av.localeCompare(bv):bv.localeCompare(av);
+  return S.asc?av-bv:bv-av;
+})}
+function render(){
+  const rows=sortd(filt());
+  const tb=document.getElementById('tb');
+  tb.innerHTML='';
+  if(!rows.length){tb.innerHTML='<tr><td colspan="13" class="em">No units match your filters.</td></tr>';}
+  else rows.forEach(r=>{
+    const k=rk(r),sel=S.sel.has(k),p=sp(r),s=sv(r);
+    const tr=document.createElement('tr');
+    tr.className='dr'+(sel?' sel':'');
+    tr.dataset.k=k;
+    tr.innerHTML=`
+      <td><div class="chk">${sel?'✓':''}</div></td>
+      <td class="uc">${r.code}</td>
+      <td><span class="typ ${tc(r.type)}">${r.type}</span></td>
+      <td class="fc">${r.floor}</td>
+      <td class="${oc(r.ori)}">${r.face}</td>
+      <td style="color:var(--grey);font-size:9px">${r.ori} · ${r.bearing}</td>
+      <td><span class="vb ${vc(r.view)}">${r.view}</span></td>
+      <td style="color:var(--cream2)">${r.sqft.toLocaleString()}</td>
+      <td style="color:var(--cream2);font-size:10px">${r.beds} / ${r.bath}Ba</td>
+      <td class="lc">${M(r.list)}</td>
+      <td class="pc">${M(p)}</td>
+      <td class="sc2">${s>0?'↓ '+M(s):'—'}</td>
+      <td class="pfc">${spf(r).toLocaleString()}</td>`;
+    tr.onclick=()=>tog(r,tr);
+    tb.appendChild(tr);
+  });
+  document.getElementById('rc').textContent=rows.length;
+  document.getElementById('sc').textContent=rows.length;
+  updH();
+}
+function tog(r,tr){
+  const k=rk(r);
+  if(S.sel.has(k)){S.sel.delete(k);}
+  else{if(S.sel.size>=15){alert('Max 15 units.');return;}S.sel.set(k,r);}
+  render();renSel();updSt();
+}
+function renSel(){
+  const panel=document.getElementById('sp');
+  if(!S.sel.size){panel.classList.remove('on');return;}
+  panel.classList.add('on');
+  document.getElementById('scps').innerHTML=[...S.sel.values()].map(r=>`
+    <div class="scp">
+      <div class="sci">
+        <div class="scu">${r.code} · F${r.floor}</div>
+        <div class="scd">${r.ori} ${r.bearing} · ${r.sqft}sqft · ${r.view}</div>
+        <div class="scp2">${M(sp(r))}</div>
+      </div>
+      <button class="scrm" onclick="remK('${rk(r)}')">✕</button>
+    </div>`).join('');
+  const tot=[...S.sel.values()].reduce((s,r)=>s+sp(r),0);
+  const sav=[...S.sel.values()].reduce((s,r)=>s+sv(r),0);
+  const apf=Math.round([...S.sel.values()].reduce((s,r)=>s+spf(r),0)/S.sel.size);
+  document.getElementById('sptt').innerHTML=`
+    <div class="spti">Units: <strong style="color:var(--blue)">${S.sel.size}</strong></div>
+    <div class="spti">Total: <strong style="color:var(--gold)">${M(tot)}</strong></div>
+    ${sav>0?`<div class="spti">Saving: <strong style="color:var(--green)">${M(sav)}</strong></div>`:''}
+    <div class="spti">Avg PSF: <strong style="color:var(--amber)">${apf.toLocaleString()}</strong></div>`;
+}
+function remK(k){S.sel.delete(k);render();renSel();updSt();}
+function clearSel(){S.sel.clear();render();renSel();updSt();}
+function updSt(){
+  const c=S.sel.size,tot=[...S.sel.values()].reduce((s,r)=>s+sp(r),0);
+  document.getElementById('selCnt').textContent=c;
+  document.getElementById('selTot').textContent=c?M(tot):'—';
+  document.getElementById('selSb').textContent=c?`${c} unit${c>1?'s':''} selected`:'—';
+}
+function srt(col){if(S.col===col){S.asc=!S.asc;}else{S.col=col;S.asc=true;}render();}
+function updH(){
+  document.querySelectorAll('th[onclick]').forEach(th=>{
+    const c=th.getAttribute('onclick').replace("srt('","").replace("')","");
+    th.classList.toggle('srt',c===S.col);
+  });
+}
+function act(btn,sel){document.querySelectorAll(sel).forEach(b=>b.classList.remove('on'));btn.classList.add('on');}
+function fT(v,b){S.tF=v;act(b,'[onclick^="fT"]');render();}
+function fU(v,b){S.uF=v;act(b,'[onclick^="fU"]');render();}
+function fV(v,b){S.vF=v;act(b,'[onclick^="fV"]');render();}
+function fF(v,b){S.fF=v;act(b,'[onclick^="fF"]');render();}
+function fB(v,b){S.bF=v;act(b,'[onclick^="fB"]');render();}
+function doSearch(v){S.srch=v;render();}
+function setMode(m,b){
+  S.mode=m;
+  document.querySelectorAll('.tb').forEach(x=>x.classList.remove('on'));b.classList.add('on');
+  const n={list:'Showing published JKP list prices',eb:'Showing prices after 7.5% early bird discount',d7:'Showing prices after 7% block negotiation discount'};
+  const l={list:'List prices',eb:'After 7.5% early bird',d7:'After 7% block discount'};
+  document.getElementById('mNote').textContent=n[m];
+  document.getElementById('pl').textContent=l[m];
+  document.getElementById('spHead').textContent=l[m];
+  renSel();updSt();render();
+}
+render();
+</script>
+</body>
+</html>
